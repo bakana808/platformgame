@@ -1,3 +1,11 @@
 .vscode/
+**.dll
+**.o
+**.d
+.deps/
 bin/
+obj/
+game
 *.exe
+
+!game/
