@@ -4,7 +4,7 @@ CC = g++
 # name of executable
 OUTPUT = game
 
-ENTRIES = $(SRCDIR)/main.cpp $(SRCDIR)/test/test-statetimer.cpp
+ENTRIES = $(SRCDIR)/main.cpp
 
 # .o / .cpp / .h / .d directories
 # -------------------------------
@@ -84,8 +84,12 @@ ifeq ($(OS), Windows_NT)
 		mkdir $(subst /,\,$(@D))
 
 	MKDIR_DEPS.c = \
-		@if not exist "$(subst /,\,$(subst $(OBJDIR)/,$(DEPDIR)/,$(@D)))" \
-		mkdir $(subst /,\,$(subst $(OBJDIR)/,$(DEPDIR)/,$(@D)))
+		@if not exist "$(subst /,\,$(subst $(OBJDIR),$(DEPDIR),$(@D)))" \
+		mkdir $(subst /,\,$(subst $(OBJDIR),$(DEPDIR),$(@D)))
+
+	MKDIR_BINS.c = \
+		@if not exist "$(subst /,\,$(subst $(OBJDIR),$(BINDIR),$(@D)))" \
+		mkdir $(subst /,\,$(subst $(OBJDIR),$(BINDIR),$(@D)))
 
 	# clean command
 	CLEAN.c = del /Q /S *.exe *.o *.d
@@ -99,7 +103,8 @@ else
 	RUN.c = ./$(OUTPUT)
 
 	MKDIR_OBJS.c = mkdir -p $(@D)
-	MKDIR_DEPS.c = mkdir $(subst $(OBJDIR),$(DEPDIR),$(@D))
+	MKDIR_DEPS.c = mkdir -p $(subst $(OBJDIR),$(DEPDIR),$(@D))
+	MKDIR_BINS.c = mkdir -p $(subst $(OBJDIR),$(BINDIR),$(@D))
 
 	CLEAN.c = rm -f *.o; rm -f $(OUTFILE); rm -f *.d
 endif
@@ -123,6 +128,7 @@ all : $(EXES)
 $(OBJDIR)/%.o $(DEPDIR)/%d: $(SRCDIR)/%.cpp
 	$(MKDIR_OBJS.c)
 	$(MKDIR_DEPS.c)
+	$(MKDIR_BINS.c)
 	$(CC) $(CFLAGS) $(DEPFLAGS) $< -o $(@:$(DEPDIR)%.d=$(OBJDIR)%.o) -c
 
 # executable dependancy
