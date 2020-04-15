@@ -44,8 +44,10 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 # -DSFML_STATIC : when set (combined with linking with "-s" libraries),
 #     links the SFML libraries statically (copies the SFML code into the program),
 #     instead of dynamically (uses SFML .dll's to run the program)
+# -U__STRICT_ANSI__ : allows access to M_PI macro
 
-CFLAGS = -DSFML_STATIC -Wall -std=c++1z -D_DEBUG -I"./$(INCDIR)"
+CFLAGS = -static -static-libgcc -static-libstdc++
+CFLAGS += -DSFML_STATIC -U__STRICT_ANSI__ -Wall -std=c++1z -D_DEBUG -I"./$(INCDIR)"
 
 #==============================================================================
 #==============================================================================
