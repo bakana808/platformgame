@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "health.hpp"
+#include "health.h"
 using namespace std;
 
 			//Health.cpp//
@@ -24,7 +24,7 @@ using namespace std;
 		livesdisplay1.setScale(3,3);
 		livesdisplay1.setPostion(510,900); //Far right screen//
 
-		
+
 		//Live 3//
 		//Last Life//
 
@@ -46,10 +46,10 @@ using namespace std;
 		void respawn(){
 
 		//Draw player to the screen at the statring position//
-		
-		
+
+
 		text.loadFromFile("playerimage.png");
 		playerimage.setTexture(text);
 		playerimage.setColor(sf::Color(0,0,0,0));
 		playerimage.setScale(3,3);
-		playerimage.setPostion(520,900);//Start Position for level//		
+		playerimage.setPostion(520,900);//Start Position for level//
