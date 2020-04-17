@@ -110,11 +110,11 @@ else
 
 	RUN.c = ./$(OUTPUT)
 
-	MKDIR_OBJS.c = mkdir -p $(@D)
-	MKDIR_DEPS.c = mkdir -p $(subst $(OBJDIR),$(DEPDIR),$(@D))
-	MKDIR_BINS.c = mkdir -p $(subst $(OBJDIR),$(BINDIR),$(@D))
+	MKDIR_OBJS.c = @mkdir -p $(@D)
+	MKDIR_DEPS.c = @mkdir -p $(subst $(OBJDIR),$(DEPDIR),$(@D))
+	MKDIR_BINS.c = @mkdir -p $(subst $(OBJDIR),$(BINDIR),$(@D))
 
-	CLEAN.c = rm -rf $(OBJDIR)/*; rm -f $(OUTFILE); rm -rf $(DEPDIR)/*
+	CLEAN.c = rm -rf $(OBJDIR)/*; rm -rf $(BINDIR)/*; rm -f $(OUTFILE); rm -rf $(DEPDIR)/*
 endif
 
 #==============================================================================
@@ -130,7 +130,6 @@ $(BINDIR)/% : $(OBJDIR)/%.o $(OBJS)
 
 # link step
 # $(CC) $^ -o $(OUTPUT) $(CFLAGS) $(LIBS)
-all : $(EXES)
 
 # compile step
 $(OBJDIR)/%.o $(DEPDIR)/%d: $(SRCDIR)/%.cpp
@@ -150,6 +149,8 @@ include $(DEPS)
 #==============================================================================
 
 .PHONY: all run run-test clean
+
+all : $(EXES)
 
 run: bin/main
 	$(RUN.c)
