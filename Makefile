@@ -26,7 +26,7 @@ SFML = D:/libs/sfml_2.5.1
 # C libraries
 # -----------
 
-LIBS = -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lfreetype
+LIBS =
 
 # dependency generator flags
 # --------------------------
@@ -46,8 +46,7 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 #     instead of dynamically (uses SFML .dll's to run the program)
 # -U__STRICT_ANSI__ : allows access to M_PI macro
 
-CFLAGS = -static -static-libgcc -static-libstdc++
-CFLAGS += -DSFML_STATIC -U__STRICT_ANSI__ -Wall -std=c++1z -D_DEBUG -I"./$(INCDIR)"
+CFLAGS += -U__STRICT_ANSI__ -Wall -std=c++1z -D_DEBUG -I"./$(INCDIR)"
 
 #==============================================================================
 #==============================================================================
@@ -73,6 +72,11 @@ ifeq ($(OS), Windows_NT)
 	# -isystem adds this folder as system headers
 	# (won't be included when generating dependencies)
 	CFLAGS += -isystem'${SFML}/include'
+	CFLAGS += -static -static-libgcc -static-libstdc++
+	CFLAGS += -DSFML_STATIC
+
+	# use static libraries for Windows
+	LIBS += -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lfreetype
 	OUTFILE := $(OUTPUT).exe
 
 	# exec command
@@ -100,6 +104,8 @@ ifeq ($(OS), Windows_NT)
 # ---------
 
 else
+	# CFLAGS += -L /usr/lib/x86_64-linux-gnu/lib/ -L/usr/local/lib/
+	LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 	OUTFILE := $(OUTPUT)
 
 	RUN.c = ./$(OUTPUT)
@@ -108,7 +114,7 @@ else
 	MKDIR_DEPS.c = mkdir -p $(subst $(OBJDIR),$(DEPDIR),$(@D))
 	MKDIR_BINS.c = mkdir -p $(subst $(OBJDIR),$(BINDIR),$(@D))
 
-	CLEAN.c = rm -f *.o; rm -f $(OUTFILE); rm -f *.d
+	CLEAN.c = rm -rf $(OBJDIR)/*; rm -f $(OUTFILE); rm -rf $(DEPDIR)/*
 endif
 
 #==============================================================================
@@ -123,8 +129,8 @@ $(BINDIR)/% : $(OBJDIR)/%.o $(OBJS)
 	$(CC) $^ -o $(BINDIR)/$(notdir $@) $(CFLAGS) $(LIBS)
 
 # link step
+# $(CC) $^ -o $(OUTPUT) $(CFLAGS) $(LIBS)
 all : $(EXES)
-	# $(CC) $^ -o $(OUTPUT) $(CFLAGS) $(LIBS)
 
 # compile step
 $(OBJDIR)/%.o $(DEPDIR)/%d: $(SRCDIR)/%.cpp
