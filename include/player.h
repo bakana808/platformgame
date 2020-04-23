@@ -6,11 +6,12 @@
 
 #include "common.h"
 #include "platform.h"
+#include "entity.h"
 
 using std::vector;
 
 
-class Player: public sf::Drawable {
+class Player: public CompositeEntity {
 public:
 
     /**
@@ -27,6 +28,8 @@ public:
         // contains the type of surface the body hitbox is intersecting
         CollisionType type;
 
+        PlatformType plat_type;
+
         // if intersecting a platform, is the unit normal vector of it
         vec2 normal;
         // if intersecting a platform, is the angle of the normal
@@ -37,7 +40,6 @@ public:
 
 private:
 
-    vec2 pos;
     vec2 vel;
 
     sf::RectangleShape box;
@@ -46,6 +48,11 @@ private:
 
     sf::CircleShape body_hb;
     sf::RectangleShape foot_hb;
+
+    sf::Font font;
+    sf::Text l_pos;
+    sf::Text l_vel;
+    sf::Text l_plat;
 
     bool r_pressed = 0;
     bool l_pressed = 0;
@@ -89,11 +96,32 @@ private:
 
 public:
 
-    Player(sf::View& view) : view(view)
-                           , box({64, 64})
-                           , box_g({64, 64})
-                           , body_hb(32)
-                           , foot_hb({16, 16}) {
+    Player(sf::View& view)
+    : view(view)
+    , box({64, 64})
+    , box_g({64, 64})
+    , body_hb(32)
+    , foot_hb({16, 16}) {
+
+        if(!font.loadFromFile("FiraCode-VF.ttf")) {
+            PRINT("unable to load font");
+        }
+
+        l_pos.setFont(font);
+        l_pos.setCharacterSize(14);
+        l_pos.setColor(sf::Color::White);
+        l_pos.setOrigin({600, +320});
+
+        l_vel.setFont(font);
+        l_vel.setCharacterSize(14);
+        l_vel.setColor(sf::Color::Green);
+        l_vel.setOrigin({600, +320 - 16});
+
+        l_plat.setFont(font);
+        l_plat.setCharacterSize(14);
+        l_plat.setColor(sf::Color::White);
+        l_plat.setOrigin({600, +320 - 64});
+
         tri.setPointCount(3);
         tri.setPoint(0, {0, 0});
         tri.setPoint(1, {64, 0});
@@ -113,25 +141,21 @@ public:
         foot_hb.setFillColor(sf::Color::Transparent);
         foot_hb.setOutlineColor(sf::Color::Red);
         foot_hb.setOutlineThickness(2.0f);
-        foot_hb.setOrigin({8, 8});
+        foot_hb.setOrigin({8, 8 - 40});
 
-        this->update_position();
+        add_child(box);
+        add_child(tri);
+        add_child(body_hb);
+        add_child(foot_hb);
+        add_child_free(box_g);
+        add_child(l_pos);
+        add_child(l_vel);
+        add_child(l_plat);
     }
 
     void update_lines(vector<Platform>* lines) {
 
         this->lines = lines;
-    }
-
-    void update_position(void);
-
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-
-        target.draw(box, states);
-        target.draw(box_g, states);
-        target.draw(tri, states);
-        target.draw(foot_hb, states);
-        target.draw(body_hb, states);
     }
 
     void update(float delta);
@@ -141,14 +165,6 @@ public:
     void key_hold(sf::Keyboard::Key key);
 
     void key_release(sf::Keyboard::Key key);
-
-    /**
-     * @brief Add the given vector to the current position.
-     *
-     * @param translation the translation vector
-     */
-    void move(const vec2& translation);
-
 
     /**
      * @brief Set the player's position to (0, 0).

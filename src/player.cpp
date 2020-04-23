@@ -16,7 +16,7 @@ void Player::key_press(sf::Keyboard::Key key) {
 
     if(key == sf::Keyboard::I and (stasis or can_jump) and not is_spinning) {
         vel.y = -1200;
-        pos.y -= 1;
+        move({0, -1}); // shift player slightly up to avoid ground collisions
         jump_timer = 0.2f;
         stasis = false;
         PRINT("jump");
@@ -113,7 +113,7 @@ void Player::test_collision(vector<CollisionInfo>& collisions) {
                 angle = normal.heading(-180, 180);
 
 
-                if(angle >= -45 and angle <= 45) {
+                if(angle >= -50 and angle <= 50) {
 
                     col_type = FLOOR;
                 }
@@ -137,7 +137,7 @@ void Player::test_collision(vector<CollisionInfo>& collisions) {
             }
 
             if(col_type != NONE) {
-                collisions.push_back({can_jump, col_type, normal, angle, magnitude});
+                collisions.push_back({can_jump, col_type, line.get_type(), normal, angle, magnitude});
             }
         }
     }
@@ -148,7 +148,7 @@ void Player::update(float delta) {
     update_afterimage(delta);
 
     view.setSize({1280.f / view_zoom, 720.f / view_zoom});
-    view.setCenter(this->pos);
+    view.setCenter(get_pos());
 
     if(stasis) {
 
@@ -192,14 +192,17 @@ void Player::update(float delta) {
     }
 
     // out-of-bounds auto reset
-    if(fabs(pos.x) > 10000 or fabs(pos.y) > 10000) {
+    if(fabs(get_pos().x) > 10000 or fabs(get_pos().y) > 10000) {
 
         this->move(vec2::ZERO);
+        return;
     }
 
     // ==================================================
     //  collision checks
     // ==================================================
+
+    vec2 pos = get_pos();
 
     vector<CollisionInfo> collisions;
     test_collision(collisions);
@@ -207,12 +210,19 @@ void Player::update(float delta) {
     bool can_jump = false;
     bool on_ground = false;
 
+    string plat_info = "NONE";
+
     for(auto col: collisions) {
 
         float normal_cos = 1.f, normal_sin = 1.f;
 
-        PRINT("coltype=" << col.type);
+        if(col.plat_type == PlatformType::HAZARD) {
+            PRINT("==== PLAYER HIT HAZARD ====");
+            this->respawn();
+            return;
+        }
 
+        // PRINT("coltype=" << col.type);
         // calculate bounce angle
 
         if(is_spinning and col.type != NONE) {
@@ -228,21 +238,26 @@ void Player::update(float delta) {
         case FLOOR:
 
             normal_cos = col.normal.normalize().dot(vec2::RIGHT);
-            PRINT("cos=" << normal_cos);
+            // PRINT("cos=" << normal_cos);
             // only rectify collision in y-axis to avoid sliding on ramps
-            this->pos.y -= col.magnitude / col.normal.normalize().dot(vec2::UP);
+            pos.y -= col.magnitude / col.normal.normalize().dot(vec2::UP);
+
+            plat_info = "FLOOR cos=" + STR(normal_cos);
             break;
 
         case WALL:
 
             normal_sin = col.normal.normalize().dot(vec2::UP);
             PRINT("norm=" << (string)col.normal);
-            this->pos -= col.normal * col.magnitude;
+            pos -= col.normal * col.magnitude;
+
+            plat_info = "WALL sin=" + STR(normal_sin);
             break;
 
         case CEILING:
 
             this->vel.y = 100;
+            plat_info = "CEIL";
 
         default:
             break;
@@ -253,17 +268,17 @@ void Player::update(float delta) {
         if(!on_ground and col.type == FLOOR and !is_spinning) on_ground = true;
 
         if(!is_spinning) {
-            this->pos.x += this->vel.x * fmax(normal_sin, 0.1) * delta;
-            this->pos.y += this->vel.y * normal_cos * delta;
+            pos.x += this->vel.x * fmax(normal_sin, 0.1) * delta;
+            pos.y += this->vel.y * normal_cos * delta;
         } else {
-            this->pos += this->vel * delta;
+            pos += this->vel * delta;
         }
     }
 
     // position calculation in air (no collisions)
     if(collisions.size() == 0) {
 
-        this->pos += this->vel * delta;
+        pos += this->vel * delta;
     }
 
     if(jump_timer > 0)
@@ -287,6 +302,7 @@ void Player::update(float delta) {
             num_dashes = 1;
         } else {
             PRINT("left ground");
+            if(jump_timer <= 0) vel.y = 0;
         }
     }
 
@@ -303,25 +319,21 @@ void Player::update(float delta) {
         this->tri.setRotation(this->vel.x * 50 / 1000);
     }
 
+    // 64 px above center of player
+    l_pos.setString((string)pos);
 
-    this->update_position();
-}
+    // 32 px above l_pos
+    l_vel.setString((string)vel);
 
-void Player::move(const vec2& translation) {
+    // 64 px above l_vel
+    l_plat.setString(plat_info + "\nspinning = " + STR(is_spinning) + "\ncan jump = " + STR(can_jump)
+                     + "\ndashes = " + STR(num_dashes));
 
-    this->pos += translation;
-    this->update_position();
-}
-
-void Player::update_position(void) {
-
-    this->box.setPosition(pos);
-    this->tri.setPosition(pos);
-    this->foot_hb.setPosition(pos + vec2(0, 40));
-    this->body_hb.setPosition(pos);
+    // PRINT((string)pos);
+    set_pos(pos);
 }
 
 void Player::respawn(void) {
 
-    move(vec2::ZERO);
+    set_pos({0, 0});
 }
