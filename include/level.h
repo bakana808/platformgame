@@ -1,5 +1,6 @@
 
 #include "common.h"
+#include "vector/vec2.h"
 #include "platform.h"
 #include <fstream>
 
@@ -16,16 +17,22 @@ public:
 
         std::fstream file(filename);
 
-        int x1, y1, x2, y2, width, type;
+        if(file.good()) {
 
-        // read the next 6 numbers in the file
-        while(file >> x1 and file >> y1 and file >> x2 and file >> y2 and
-              file >> width and file >> type)
-        {
-            platforms.push_back({{x1, y1}, {x2, y2}, width, static_cast<PlatformType>(type)});
+            int x1, y1, x2, y2, width, type;
+
+            // read the next 6 numbers in the file
+            while(file >> x1 and file >> y1 and file >> x2 and file >> y2 and
+                file >> width and file >> type)
+            {
+                platforms.push_back({{x1, y1}, {x2, y2}, width, static_cast<PlatformType>(type)});
+            }
+
+            PRINT("finished loading (" + STR(platforms.size()) + " platforms)");
         }
-
-        PRINT("finished loading (" + STR(platforms.size()) + " platforms)");
+        else {
+            PRINT("could not read \"" + filename + "\" !");
+        }
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
