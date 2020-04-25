@@ -1,6 +1,7 @@
 
 
 #include "player.h"
+#include "vector/vec2.h"
 #include "collision.h"
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -15,14 +16,14 @@ void Player::key_press(sf::Keyboard::Key key) {
         l_pressed = 1;
 
     if(key == sf::Keyboard::I and (stasis or can_jump) and not is_spinning) {
-        vel.y = -1200;
+        vel.y = -1000;
         move({0, -1}); // shift player slightly up to avoid ground collisions
         jump_timer = 0.2f;
         stasis = false;
         PRINT("jump");
     }
 
-    if(key == sf::Keyboard::U and !can_jump) {
+    if(key == sf::Keyboard::U) {
 
         is_spinning = true;
 
@@ -45,6 +46,8 @@ void Player::key_press(sf::Keyboard::Key key) {
         }
 
         if(num_dashes > 0 and (x != 0 or y != 0)) {
+
+            if(can_jump) move({0, -1});
 
             num_dashes--;
 
@@ -72,16 +75,21 @@ void Player::key_release(sf::Keyboard::Key key) {
     }
 }
 
-void Player::test_collision(vector<CollisionInfo>& collisions) {
+Player::CollisionSet* Player::test_collisions() {
 
-    if(!lines) return;
+    // auto* cmap = new CollisionMap();
+    auto* cset = new CollisionSet();
+
+    if(!lines) return cset;
+
+    // PRINT("# cols => " + STR(cset->size()));
 
     Collision body_collision, foot_collision;
 
-    for(Platform line: *lines) {
+    for(Platform& line: *lines) {
 
         bool can_jump = false;
-        CollisionType col_type = NONE;
+        SurfaceType col_type = NONE;
         vec2 normal;
         float angle = 0.f;
         float magnitude = 0.f;
@@ -101,6 +109,15 @@ void Player::test_collision(vector<CollisionInfo>& collisions) {
             body_collision = get_collision(line.get_shape(), body_hb);
 
             // PRINT("testing collision");
+
+            // COLLISION WITH FEET HITBOX
+            // --------------------------
+
+            if(not can_jump) {
+
+                foot_collision = get_collision(line.get_shape(), foot_hb);
+                can_jump = foot_collision.has_collided();
+            }
 
             if(body_collision.has_collided()) { // player is colliding
 
@@ -125,22 +142,23 @@ void Player::test_collision(vector<CollisionInfo>& collisions) {
 
                     col_type = WALL;
                 }
-            }
 
-            // COLLISION WITH FEET HITBOX
-            // --------------------------
-
-            if(not can_jump) {
-
-                foot_collision = get_collision(line.get_shape(), foot_hb);
-                can_jump = foot_collision.has_collided();
-            }
-
-            if(col_type != NONE) {
-                collisions.push_back({can_jump, col_type, line.get_type(), normal, angle, magnitude});
+                // add collision info to the corresponding collision type
+                // (*cmap)[col_type].push_back({can_jump, col_type, line, normal, angle, magnitude});
+                // PRINT(
+                //     "adding collision (" + STR(cset->size()) + ")\n"
+                //     "  surface: " + STR(col_type) + "\n"
+                //     "  normal: " + (string)normal + "\n"
+                //     "  angle: " + STR(angle) + "\n"
+                //     "  mag: " + STR(magnitude) + "\n"
+                // );
+                // PRINT("plat_type => " + STR(line.get_type()));
+                cset->insert({can_jump, col_type, &line, normal, angle, magnitude});
             }
         }
     }
+
+    return cset;
 }
 
 void Player::update(float delta) {
@@ -148,7 +166,11 @@ void Player::update(float delta) {
     update_afterimage(delta);
 
     view.setSize({1280.f / view_zoom, 720.f / view_zoom});
-    view.setCenter(get_pos());
+
+    // the nearest 1280x720 region the player is in
+    vec2 region(roundf(get_pos().x / 1280.f), roundf(get_pos().y / 720.f));
+
+    view.setCenter(vec2((region.x) * 1280, (region.y) * 720));
 
     if(stasis) {
 
@@ -204,82 +226,118 @@ void Player::update(float delta) {
 
     vec2 pos = get_pos();
 
-    vector<CollisionInfo> collisions;
-    test_collision(collisions);
+    // std::unique_ptr<CollisionMap> cmap(test_collisions());
+    std::unique_ptr<CollisionSet> cset(test_collisions());
+
+    // concat floor - wall - ceiling collisions, in that order
 
     bool can_jump = false;
     bool on_ground = false;
 
-    string plat_info = "NONE";
+    string plat_info = "";
 
-    for(auto col: collisions) {
 
-        float normal_cos = 1.f, normal_sin = 1.f;
+    float normal_cos = 1.f, normal_sin = 1.f;
 
-        if(col.plat_type == PlatformType::HAZARD) {
+    //-------------------------------------------------------------------------
+    // check floor collisions
+
+    // PRINT("# cols => " + STR(cset->size()));
+
+    int i = 0;
+    // for(CollisionInfo col: (*cmap)[FLOOR]) {
+    for(CollisionInfo col: *cset) {
+
+        // PRINT("processing collision (" + STR(i) + ")");
+        if(col.normal == vec2::ZERO) {
+            PRINT(
+                "WARNING: collided with a zero normal"
+                // "  surface: " + STR(col.surface) + "\n"
+                // "  normal: " + (string)col.normal + "\n"
+                // "  angle: " + STR(col.angle) + "\n"
+                // "  mag: " + STR(col.magnitude)
+            );
+            continue;
+        }
+
+        PlatformType plat_type = col.platform->get_type();
+
+        // PRINT("plat_type => " + STR(plat_type));
+        if(plat_type == PlatformType::HAZARD) {
             PRINT("==== PLAYER HIT HAZARD ====");
             this->respawn();
             return;
         }
 
-        // PRINT("coltype=" << col.type);
-        // calculate bounce angle
+        if(is_spinning) { // then bounce off the surface
 
-        if(is_spinning and col.type != NONE) {
-
-            // PRINT("angle => " << col.angle);
             // calculates the angle of reflection
             this->vel = (vel - (col.normal * 2 * vel.dot(col.normal)));
+            break;
         }
 
-        // fix collision (on floor)
-
-        switch(col.type) {
+        switch(col.surface) {
         case FLOOR:
+            normal_cos = col.normal.dot(vec2::RIGHT);
 
-            normal_cos = col.normal.normalize().dot(vec2::RIGHT);
-            // PRINT("cos=" << normal_cos);
-            // only rectify collision in y-axis to avoid sliding on ramps
-            pos.y -= col.magnitude / col.normal.normalize().dot(vec2::UP);
+            // only resolve collision in y-axis to avoid sliding on ramps
+            // PRINT("surface = " + (string)col.normal);
+            // PRINT("surface * UP = " + STR(col.normal.dot(vec2::UP)));
+            pos.y -= col.magnitude / col.normal.dot(vec2::UP);
 
-            plat_info = "FLOOR cos=" + STR(normal_cos);
+            plat_info += "FLOOR cos=" + STR(normal_cos) + "\n";
+
+            if(!can_jump and col.can_jump) can_jump = true;
+            if(!on_ground) on_ground = true;
+
             break;
+
+    // }
+
+    //-------------------------------------------------------------------------
+    // check wall collisions
+
+    // for(CollisionInfo col: (*cmap)[WALL]) {
 
         case WALL:
+            // const PlatformType& plat_type = col.platform.get_type();
+            // if(check_hazard_cols(col) or check_spinbounce(col)) break;
 
-            normal_sin = col.normal.normalize().dot(vec2::UP);
-            PRINT("norm=" << (string)col.normal);
-            pos -= col.normal * col.magnitude;
+            normal_sin = col.normal.dot(vec2::UP);
 
-            plat_info = "WALL sin=" + STR(normal_sin);
+            pos -= col.normal * col.magnitude; // resolve collision
+
+            plat_info += "WALL sin=" + STR(normal_sin) + "\n";
+
+            // wall: next position calculations
+
             break;
+
+
+    //-------------------------------------------------------------------------
+    // check ceiling collisions
+
+    // for(CollisionInfo col: (*cmap)[CEILING]) {
 
         case CEILING:
+        // const PlatformType& plat_type = col.platform.get_type();
+        // if(check_hazard_cols(col) or check_spinbounce(col)) break;
 
-            this->vel.y = 100;
-            plat_info = "CEIL";
+        // resolve collisions
 
-        default:
+        // this->vel.y = 100;
+            plat_info += "CEIL";
+
             break;
         }
-
-        if(!can_jump and col.can_jump) can_jump = true;
-
-        if(!on_ground and col.type == FLOOR and !is_spinning) on_ground = true;
-
-        if(!is_spinning) {
-            pos.x += this->vel.x * fmax(normal_sin, 0.1) * delta;
-            pos.y += this->vel.y * normal_cos * delta;
-        } else {
-            pos += this->vel * delta;
-        }
+        i++;
     }
 
+    //-------------------------------------------------------------------------
     // position calculation in air (no collisions)
-    if(collisions.size() == 0) {
 
-        pos += this->vel * delta;
-    }
+    pos.x += this->vel.x * fmax(normal_sin, 0.1) * delta;
+    pos.y += this->vel.y * normal_cos * delta;
 
     if(jump_timer > 0)
         jump_timer -= delta;
@@ -302,7 +360,7 @@ void Player::update(float delta) {
             num_dashes = 1;
         } else {
             PRINT("left ground");
-            if(jump_timer <= 0) vel.y = 0;
+            if(!is_spinning and jump_timer <= 0) vel.y = 0;
         }
     }
 

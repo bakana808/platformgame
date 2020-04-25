@@ -3,6 +3,8 @@
 
 #include <cmath>
 #include <vector>
+#include <map>
+#include <set>
 
 #include "common.h"
 #include "platform.h"
@@ -17,7 +19,7 @@ public:
     /**
      * @brief Represents what type of surface the player is contacting.
      */
-    enum CollisionType { NONE, FLOOR, WALL, CEILING };
+    enum SurfaceType { NONE, FLOOR, WALL, CEILING };
 
     /**
      * @brief Represents a packet of info retrieved from collision tests.
@@ -25,10 +27,10 @@ public:
     struct CollisionInfo {
         // true if the foot hitbox is intersecting a platform
         bool can_jump;
-        // contains the type of surface the body hitbox is intersecting
-        CollisionType type;
 
-        PlatformType plat_type;
+        SurfaceType surface;
+
+        Platform* platform; // the platform that was touched
 
         // if intersecting a platform, is the unit normal vector of it
         vec2 normal;
@@ -36,6 +38,11 @@ public:
         float angle;
         // if intersecting a platform, is the length of overlap
         float magnitude;
+
+        bool operator< (const CollisionInfo& other) const {
+
+            return surface < other.surface;
+        }
     };
 
 private:
@@ -68,6 +75,7 @@ private:
     int num_dashes = 1; // amount of dashes that can be used in the air
 
     sf::View& view;
+    sf::View& hud;
 
     float view_zoom = 1.f;
 
@@ -92,12 +100,23 @@ private:
 
     vector<Platform>* lines = nullptr;
 
-    void test_collision(vector<CollisionInfo>&);
+    typedef std::map<SurfaceType, vector<CollisionInfo>> CollisionMap;
+
+    typedef std::set<CollisionInfo> CollisionSet;
+
+    /**
+     * @brief Tests collisions of the body and feet hitbox against all
+     * platforms (via the Player::lines pointer), and stores the results in
+     * a vector of CollisionInfos.
+     *
+     */
+    CollisionSet* test_collisions(void);
 
 public:
 
-    Player(sf::View& view)
+    Player(sf::View& view, sf::View& hud)
     : view(view)
+    , hud(hud)
     , box({64, 64})
     , box_g({64, 64})
     , body_hb(32)
@@ -148,22 +167,46 @@ public:
         add_child(body_hb);
         add_child(foot_hb);
         add_child_free(box_g);
-        add_child(l_pos);
-        add_child(l_vel);
-        add_child(l_plat);
     }
 
-    void update_lines(vector<Platform>* lines) {
+    void set_lines(vector<Platform>* lines) {
 
         this->lines = lines;
     }
 
+    void draw_hud(sf::RenderWindow& window) {
+
+        window.draw(l_pos);
+        window.draw(l_vel);
+        window.draw(l_plat);
+    }
+
+    /**
+     * @brief Called every frame. Updates logic for this Player.
+     *
+     * @param delta
+     */
     void update(float delta);
 
+    /**
+     * @brief Called when the user presses a key.
+     *
+     * @param key
+     */
     void key_press(sf::Keyboard::Key key);
 
+    /**
+     * @brief Called every frame that the user holds down a key.
+     *
+     * @param key
+     */
     void key_hold(sf::Keyboard::Key key);
 
+    /**
+     * @brief Called when the user releases a key.
+     *
+     * @param key
+     */
     void key_release(sf::Keyboard::Key key);
 
     /**
