@@ -5,6 +5,7 @@
 #include <math.h>
 
 #include "common.h"
+#include "vector/vec2.h"
 
 
 enum PlatformType { NORMAL = 0, HAZARD };
@@ -44,7 +45,7 @@ public:
         sf::Color color;
         switch(type) {
         case NORMAL: default:
-            color = {100, 255, 100}; break;
+            color = {200, 200, 200}; break;
         case HAZARD:
             color = {255, 100, 100}; break;
         }
@@ -76,7 +77,7 @@ public:
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
 
-        // target.draw(f_pt, states);
+        target.draw(f_pt, states);
         target.draw(b_pt, states);
         target.draw(line, states);
     }
