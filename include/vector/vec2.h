@@ -3,6 +3,7 @@
 
 #define _USE_MATH_DEFINES
 
+#include "common.h"
 #include <SFML/Graphics.hpp>
 #include <math.h>
 #include <iostream>
@@ -59,7 +60,7 @@ public:
      * @param other
      * @return float
      */
-    float dot(const vec2& other) {
+    float dot(const vec2& other) const {
 
         return (x * other.x) + (y * other.y);
     }
@@ -85,7 +86,12 @@ public:
         }
     }
 
-    operator std::string() { return "[" + std::to_string(x) + ", " + std::to_string(y) + "]"; }
+    /**
+     * @brief Convert this vector into a string.
+     *
+     * @return std::string
+     */
+    operator std::string() const;
 
     /**
      * @brief Returns this vector scaled by a scalar.
@@ -93,12 +99,12 @@ public:
      * @param c
      * @return vec2
      */
-    vec2 operator*(const float& c) {
+    vec2 operator*(const float& c) const {
 
         return vec2(x * c, y * c);
     }
 
-    float operator*(const vec2& other) {
+    float operator*(const vec2& other) const {
 
         return this->dot(other);
     }

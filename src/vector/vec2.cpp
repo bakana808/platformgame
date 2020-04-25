@@ -1,5 +1,4 @@
 
-#include "common.h"
 #include "vector/vec2.h"
 #include <iostream>
 
@@ -26,4 +25,9 @@ float vec2::distance(const vec2& a, const vec2& b) {
     // catch( const std::exception& e) {
         // std::cerr << e.what() << std::endl;
     // }
+}
+
+vec2::operator std::string() const {
+
+    return "[" + game::round_str(x, 2) + ", " + game::round_str(y, 2) + "]";
 }
