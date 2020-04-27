@@ -1,31 +1,35 @@
+
 #include <SFML/Graphics.hpp>
-//Enemy.hpp//
-///Enemy classes///
-//Possible Obstacles///
+#include <Time.h>
+#include <stdlib.h>
 
+class Enemy
+{
+private:
+    int speed = 4;
 
-	class Enemy: public player{
-	
-		private:
-			int speed = 5;
+public:
+    float posx;
+    float posy;
 
-		public:
-			sf::Texture text;
-			sf::Sprite enemyimagecharacter; //Character enemy//
-			sf::Sprite enemyimageobstacle; //Obstacleenemy//
-		
-		//Enemy Constructor//
-		Enemy();
+    //This is the current enemy's image
+    sf::Texture tex;
+    sf::Sprite enemyimage;
+    sf::Sprite fireballimage;
+    sf::Sprite teleporterimage;
 
-		//ENemy Destructor//
-		~Enemy();
+    //Enemy Cosnstructor
+    Enemy();
 
-		//Gets player position//
-		//Then move towards that position//
-		//Function to move towards the player psoition//
-		
-     void enemy_move(int posx, int posy);
-	
-     	void enemy_attack(int posx, int posy){
+    //Handle enemy movement
+    void move();
 
-	};
+    //Enemy Fireball??//
+    //A fireball shooting from the enemy mouth//
+
+    void fireball();
+
+    void teleport();
+
+    int PICK(int start, int stop);
+};

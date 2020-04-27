@@ -1,13 +1,14 @@
 
 #include <SFML/Graphics.hpp>
-#include <Time.hpp>
+#include <time.h>
 
-class Obstacle : public Enemy
-{
+#include "enemy.h"
+
+class Obstacle : public Enemy {
 private:
 public:
-    posx = x;
-    posy = y;
+    float posx;
+    float posy;
 
     //This is the current enemy's image
     sf::Texture tex;

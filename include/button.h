@@ -13,7 +13,7 @@ public:
     sf::Sprite buttonImage;
 
     //Constructor for the button class, taking x and y coordinate//
-    Button(int posx, int posy;
+    Button(int posx, int posy);
 
 	//Checking if the button was clicked//
 
