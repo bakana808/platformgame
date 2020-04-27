@@ -1,9 +1,12 @@
 
+#pragma once
+
 #include "common.h"
 #include "vector/vec2.h"
 #include "platform.h"
 #include <fstream>
 #include <sstream>
+#include <map>
 
 #define FONT_FILE "FiraCode-VF.ttf"
 
@@ -13,10 +16,12 @@ private:
 
     sf::Font font;
 
+public:
+
     std::vector<Platform> platforms;
     std::vector<sf::Text> messages;
-
-public:
+    std::map<std::pair<int, int>, string> titles;
+    std::map<std::pair<int, int>, vec2> checkpoints;
 
     Level(string filename) {
 
@@ -42,7 +47,8 @@ public:
                     switch(type) {
                     case 'p': {// platform
 
-                        int x1, y1, x2, y2, width, type;
+                        float x1, y1, x2, y2, width;
+                        int type;
                         // try to read the next 6 numbers in the file
                         if(
                             ss >> x1 and ss >> y1 and
@@ -60,9 +66,9 @@ public:
                         float x, y;
                         string message;
 
-                        // std::noskipws allows for spaces in message
                         if(ss >> x and ss >> y) {
 
+                            // collect the rest of the line in a loop
                             string tmp;
                             while(ss >> tmp) {
                                 message += tmp + " ";
@@ -79,6 +85,35 @@ public:
                         }
                     }
                         break;
+                    case 't': { // region title
+
+                        float x, y;
+                        string title;
+
+                        if(ss >> x and ss >> y) {
+
+                            string tmp;
+                            while(ss >> tmp) {
+                                title += tmp + " ";
+                            }
+
+                            vec2 region(x, y);
+                            PRINT("    setting title at " + (string)region);
+                            titles[{x, y}] = title;
+                        }
+                    }
+
+                    case 'c': { // checkpoiont
+
+                        // region xy and spawnpoint xy
+                        float rx, ry, x, y;
+
+                        if(ss >> rx and ss >> ry and ss >> x and ss >> y) {
+
+                            PRINT("    adding checkpoint");
+                            checkpoints[{rx, ry}] = vec2(x, y);
+                        }
+                    }
 
                     default:
                         break;
@@ -100,6 +135,30 @@ public:
 
         for(sf::Text msg: messages)
             target.draw(msg, states);
+    }
+
+    string get_region_title(const vec2& region) {
+
+        std::pair<int, int> key = {(int)region.x, (int)region.y};
+
+        if(titles.find(key) == titles.end()) {
+            return (string)region + " ???";
+        }
+        else {
+            return titles[key];
+        }
+    }
+
+    const vec2& get_checkpoint(const vec2& region) {
+
+        std::pair<int, int> key = {(int)region.x, (int)region.y};
+
+        if(checkpoints.find(key) == checkpoints.end()) {
+            return vec2::ZERO;
+        }
+        else {
+            return checkpoints[key];
+        }
     }
 
     std::vector<Platform>& get_platforms() { return platforms; }
