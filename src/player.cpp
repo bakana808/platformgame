@@ -7,6 +7,16 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+
+void Player::set_color(sf::Color color) {
+
+    sf::Color darker(color.r * 0.8, color.g * 0.8, color.b * 0.8);
+
+    this->box.setFillColor(color);
+    this->tri.setFillColor(darker);
+}
+
+
 void Player::key_press(sf::Keyboard::Key key) {
 
     if(key == sf::Keyboard::D)
@@ -26,6 +36,8 @@ void Player::key_press(sf::Keyboard::Key key) {
     if(key == sf::Keyboard::U) {
 
         is_spinning = true;
+
+        // set_color({255, 255, 150});
 
         using key = sf::Keyboard;
 
@@ -55,6 +67,10 @@ void Player::key_press(sf::Keyboard::Key key) {
             this->vel = dir * 1500;
             show_afterimage();
 
+            if(num_dashes <= 0) {
+                set_color({150, 150, 150});
+            }
+
             // if(can_jump)
                 // this->pos.y -= 1;
         }
@@ -80,13 +96,13 @@ Player::CollisionSet* Player::test_collisions() {
     // auto* cmap = new CollisionMap();
     auto* cset = new CollisionSet();
 
-    if(!lines) return cset;
+    if(!level) return cset;
 
     // PRINT("# cols => " + STR(cset->size()));
 
     Collision body_collision, foot_collision;
 
-    for(Platform& line: *lines) {
+    for(Platform& line: level->platforms) {
 
         bool can_jump = false;
         SurfaceType col_type = NONE;
@@ -165,6 +181,10 @@ void Player::update(float delta) {
 
     update_afterimage(delta);
 
+    // ------------------------------------------------------------------------
+    // camera calculations
+    // ------------------------------------------------------------------------
+
     view.setSize({1280.f / view_zoom, 720.f / view_zoom});
 
     // the nearest 1280x720 region the player is in
@@ -172,22 +192,34 @@ void Player::update(float delta) {
 
     view.setCenter(vec2((region.x) * 1280, (region.y) * 720));
 
+    l_region.setString(level->get_region_title(region));
+
+    // ------------------------------------------------------------------------
+    // stasis behavior (initial behavior)
+    // ------------------------------------------------------------------------
+
     if(stasis) {
 
         this->box.rotate(delta * 500);
         this->tri.rotate(delta * 500);
 
+        // slowly zoom in
         if(view_zoom < 4.f)
             view_zoom = fmin(4.f, view_zoom + delta);
 
         return;
     }
 
+    // zoom out
     if(view_zoom > 1.f)
         view_zoom = fmax(1.f, view_zoom - delta * 20);
 
     // PRINT("vel=" + (string)vel);
     // PRINT("cos=" << normal_cos);
+
+    // ------------------------------------------------------------------------
+    // gravity impl
+    // ------------------------------------------------------------------------
 
     // y-axis acceleration due to gravity
 
@@ -216,7 +248,7 @@ void Player::update(float delta) {
     // out-of-bounds auto reset
     if(fabs(get_pos().x) > 10000 or fabs(get_pos().y) > 10000) {
 
-        this->move(vec2::ZERO);
+        this->respawn(region);
         return;
     }
 
@@ -265,7 +297,7 @@ void Player::update(float delta) {
         // PRINT("plat_type => " + STR(plat_type));
         if(plat_type == PlatformType::HAZARD) {
             PRINT("==== PLAYER HIT HAZARD ====");
-            this->respawn();
+            this->respawn(region);
             return;
         }
 
@@ -325,6 +357,7 @@ void Player::update(float delta) {
 
         // resolve collisions
 
+            pos -= col.normal * col.magnitude; // resolve collision
         // this->vel.y = 100;
             plat_info += "CEIL";
 
@@ -357,6 +390,7 @@ void Player::update(float delta) {
 
         if(this->is_grounded = on_ground) {
             PRINT("touched ground");
+            set_color({255, 255, 255});
             num_dashes = 1;
         } else {
             PRINT("left ground");
@@ -391,7 +425,7 @@ void Player::update(float delta) {
     set_pos(pos);
 }
 
-void Player::respawn(void) {
+void Player::respawn(const vec2& region) {
 
-    set_pos({0, 0});
+    set_pos(level->get_checkpoint(region));
 }

@@ -7,6 +7,7 @@
 #include <set>
 
 #include "common.h"
+#include "level.h"
 #include "platform.h"
 #include "entity.h"
 
@@ -60,6 +61,7 @@ private:
     sf::Text l_pos;
     sf::Text l_vel;
     sf::Text l_plat;
+    sf::Text l_region;
 
     bool r_pressed = 0;
     bool l_pressed = 0;
@@ -98,7 +100,7 @@ private:
         }
     }
 
-    vector<Platform>* lines = nullptr;
+    Level* level = nullptr;
 
     typedef std::map<SurfaceType, vector<CollisionInfo>> CollisionMap;
 
@@ -141,24 +143,31 @@ public:
         l_plat.setColor(sf::Color::White);
         l_plat.setOrigin({600, +320 - 64});
 
+        l_region.setFont(font);
+        l_region.setCharacterSize(14);
+        l_region.setColor(sf::Color::White);
+        l_region.setOrigin({0, +320});
+
         tri.setPointCount(3);
         tri.setPoint(0, {0, 0});
         tri.setPoint(1, {64, 0});
         tri.setPoint(2, {0, 64});
         tri.setOrigin({32, 32});
-        tri.setFillColor({150, 150, 150});
+        // tri.setFillColor({150, 150, 150});
 
         box.setOrigin({32, 32});
         box_g.setOrigin({32, 32});
         box_g.setFillColor({255, 255, 255, 0});
 
         body_hb.setFillColor(sf::Color::Transparent);
-        body_hb.setOutlineColor(sf::Color::Red);
+        body_hb.setOutlineColor(sf::Color::Transparent);
+        // body_hb.setOutlineColor(sf::Color::Red);
         body_hb.setOutlineThickness(2.0f);
         body_hb.setOrigin({32, 32});
 
         foot_hb.setFillColor(sf::Color::Transparent);
-        foot_hb.setOutlineColor(sf::Color::Red);
+        foot_hb.setOutlineColor(sf::Color::Transparent);
+        // foot_hb.setOutlineColor(sf::Color::Red);
         foot_hb.setOutlineThickness(2.0f);
         foot_hb.setOrigin({8, 8 - 40});
 
@@ -167,11 +176,13 @@ public:
         add_child(body_hb);
         add_child(foot_hb);
         add_child_free(box_g);
+
+        set_color({255, 255, 255});
     }
 
-    void set_lines(vector<Platform>* lines) {
+    void set_level(Level& level) {
 
-        this->lines = lines;
+        this->level = &level;
     }
 
     void draw_hud(sf::RenderWindow& window) {
@@ -179,7 +190,15 @@ public:
         window.draw(l_pos);
         window.draw(l_vel);
         window.draw(l_plat);
+        window.draw(l_region);
     }
+
+    /**
+     * @brief Set the color of this Player.
+     *
+     * @param color
+     */
+    void set_color(sf::Color color);
 
     /**
      * @brief Called every frame. Updates logic for this Player.
@@ -212,5 +231,5 @@ public:
     /**
      * @brief Set the player's position to (0, 0).
      */
-    void respawn(void);
+    void respawn(const vec2& region);
 };
