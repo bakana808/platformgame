@@ -167,4 +167,14 @@ public:
 
         return *this;
     }
+
+    bool operator==(const vec2& other) const {
+
+        return x == other.x and y == other.y;
+    }
+
+    bool operator<(const vec2& other) const {
+
+        return x < other.x and y < other.y;
+    }
 };
