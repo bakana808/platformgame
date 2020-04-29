@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: apt-get update
+      run: sudo apt-get update
     - name: install sfml
       run: sudo apt-get install libsfml-dev
     - name: make all
