@@ -8,20 +8,40 @@
 #include "level.h"
 
 class Game {
-    public:
-        Game(const Game&) = delete;
-        Game& operator=(const Game&) = delete;
-        Game();
-        void run();
-    private:
-        void processEvents();
-        void update();
-        void render();
-        sf::RenderWindow window;
-        sf::ContextSettings settings;
-        FrameClock fc;
-        sf::View view;
-        sf::View hud;
-        Level level;
-        Player player;
+public:
+
+    Game(const Game&) = delete;
+    Game& operator=(const Game&) = delete;
+    Game();
+    ~Game();
+
+    void run();
+
+private:
+
+    sf::RenderWindow* window;
+
+    FrameClock fc;
+
+    sf::View view;
+    sf::View hud;
+
+    Level level;
+    Player player;
+
+    void processEvents();
+
+    /**
+     * @brief Process game logic with the given change in time
+     * from the last frame.
+     *
+     * @param delta
+     */
+    void update(float delta);
+
+    /**
+     * @brief Render a frame.
+     */
+    void render();
+
 };
