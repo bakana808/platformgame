@@ -2,7 +2,7 @@
 CC = g++
 
 # name of executable
-OUTPUT = game
+OUTPUT = main
 
 ENTRIES = $(SRCDIR)/main.cpp
 
@@ -80,7 +80,7 @@ ifeq ($(OS), Windows_NT)
 	OUTFILE := $(OUTPUT).exe
 
 	# exec command
-	RUN.c = bin/main.exe
+	RUN.c = ${BINDIR}\${OUTPUT}.exe
 	#$(OUTFILE)
 
 	# commands to silently make missing folders
@@ -108,7 +108,7 @@ else
 	LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 	OUTFILE := $(OUTPUT)
 
-	RUN.c = ./$(OUTPUT)
+	RUN.c = ${BINDIR}/$(OUTPUT)
 
 	MKDIR_OBJS.c = @mkdir -p $(@D)
 	MKDIR_DEPS.c = @mkdir -p $(subst $(OBJDIR),$(DEPDIR),$(@D))
