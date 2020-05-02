@@ -3,6 +3,7 @@
 #include "player.h"
 #include "vector/vec2.h"
 #include "collision.h"
+#include "level/region.h"
 #include <iostream>
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -201,14 +202,19 @@ void Player::update(float delta) {
     // camera calculations
     // ------------------------------------------------------------------------
 
-    view.setSize({1280.f / view_zoom, 720.f / view_zoom});
+    view.setSize({WIDTH.f / view_zoom, HEIGHT.f / view_zoom});
 
-    // the nearest 1280x720 region the player is in
-    vec2 region(roundf(get_pos().x / 1280.f), roundf(get_pos().y / 720.f));
+    if(!region or !region->is_inside()) {
 
-    view.setCenter(vec2((region.x) * 1280, (region.y) * 720));
+        delete region;
 
-    l_region.setString(level->get_region_title(region));
+        region = new LevelRegion(this, &view);
+    }
+    else {
+
+        region->update_view(delta);
+        l_region.setString(level->get_region_title(region->get_coords()));
+    }
 
     // ------------------------------------------------------------------------
     // stasis behavior (initial behavior)
@@ -264,7 +270,7 @@ void Player::update(float delta) {
     // out-of-bounds auto reset
     if(fabs(get_pos().x) > 10000 or fabs(get_pos().y) > 10000) {
 
-        this->respawn(region);
+        this->respawn(region->get_coords());
         return;
     }
 
@@ -313,7 +319,7 @@ void Player::update(float delta) {
         // PRINT("plat_type => " + STR(plat_type));
         if(plat_type == PlatformType::HAZARD) {
             PRINT("==== PLAYER HIT HAZARD ====");
-            this->respawn(region);
+            this->respawn(region->get_coords());
             return;
         }
 

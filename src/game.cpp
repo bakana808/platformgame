@@ -1,16 +1,22 @@
+
 #include "game.h"
 #include "button.h"
 Game::Game()
-: view({0.f, 0.f}, {1280.f, 720.f})
-, hud({0.f, 0.f}, {1280.f, 720.f})
+: view({0.f, 0.f}, {WIDTH, HEIGHT})
+, hud({0.f, 0.f}, {WIDTH, HEIGHT})
 , level("level.txt")
 , player(view, hud)
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
+<<<<<<< HEAD
     window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
     window->setFramerateLimit(200);
+=======
+    window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Game", 7U, settings);
+    window->setFramerateLimit(Max_Frame_Limit);
+>>>>>>> b4020406908a40076fe2d1832885c416118eb944
     window->setKeyRepeatEnabled(false);
 
     player.set_level(level);
