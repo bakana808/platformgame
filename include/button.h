@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include "settings.h"
 #include<iostream>
 using namespace std;
 
