@@ -15,6 +15,9 @@
 using std::vector;
 
 
+class LevelRegion;
+
+
 class Player: public CompositeEntity {
 public:
 
@@ -76,6 +79,8 @@ private:
     bool is_grounded = false;
     bool is_spinning = false;
     int num_dashes = 1; // amount of dashes that can be used in the air
+
+    LevelRegion* region = NULL;
 
     sf::View& view;
     sf::View& hud;
@@ -179,6 +184,11 @@ public:
         add_child_free(box_g);
 
         set_color({255, 255, 255});
+    }
+
+    ~Player() {
+
+        delete region;
     }
 
     void set_level(Level& level) {

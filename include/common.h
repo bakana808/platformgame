@@ -5,6 +5,9 @@
 #include <iostream>
 #include <string>
 
+#define WIDTH 1280
+#define HEIGHT 720
+
 #define PRINT(x) std::cout << x << std::endl
 #define ROUND2(x) ((int)(x * 100)) / 100.f
 #define STR(x) std::to_string(x)

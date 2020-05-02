@@ -1,16 +1,17 @@
+
 #include "game.h"
 
 
 Game::Game()
-: view({0.f, 0.f}, {1280.f, 720.f})
-, hud({0.f, 0.f}, {1280.f, 720.f})
+: view({0.f, 0.f}, {WIDTH, HEIGHT})
+, hud({0.f, 0.f}, {WIDTH, HEIGHT})
 , level("level.txt")
 , player(view, hud)
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
+    window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Game", 7U, settings);
     window->setFramerateLimit(Max_Frame_Limit);
     window->setKeyRepeatEnabled(false);
 
