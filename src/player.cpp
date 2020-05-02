@@ -202,7 +202,7 @@ void Player::update(float delta) {
     // camera calculations
     // ------------------------------------------------------------------------
 
-    view.setSize({WIDTH.f / view_zoom, HEIGHT.f / view_zoom});
+    view.setSize({WIDTH / view_zoom, HEIGHT / view_zoom});
 
     if(!region or !region->is_inside()) {
 
