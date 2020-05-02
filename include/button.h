@@ -1,24 +1,23 @@
 #include <SFML/Graphics.hpp>
+#include "settings.h"
+#include<iostream>
+using namespace std;
 
-////File COntaining the button Class and prototypes for
-// Functions in button class///
-
-class Button
-{
-private:
+class Button : public sf::Drawable {
 public:
-    //The current buttons position//
-
-    sf::Texture text;
-    sf::Sprite buttonImage;
-
-    //Constructor for the button class, taking x and y coordinate//
-    Button(int posx, int posy);
-
-	//Checking if the button was clicked//
-
-	void isButtonClicked(int posx, int posy);
-
-	///Handling the button action once clicked///
-	void Buttonclicked();
+    Button(const Button&) = delete;
+    Button& operator=(const Button&) = delete;
+    Button(int x, int y, string s);
+    
+    void update(sf::Time deltaTime);
+    bool Selected;
+    bool Enabled;
+    
+private:
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    sf::RectangleShape _shape;
+    sf::Text _text;      
+    int posX;
+    int posY;
+    sf::Font _font;
 };

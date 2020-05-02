@@ -6,6 +6,7 @@
 #include "player.h"
 #include "platform.h"
 #include "level.h"
+#include "settings.h"
 
 class Game {
 public:

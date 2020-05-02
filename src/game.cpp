@@ -11,7 +11,7 @@ Game::Game()
     settings.antialiasingLevel = 8;
 
     window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
-    window->setFramerateLimit(200);
+    window->setFramerateLimit(Max_Frame_Limit);
     window->setKeyRepeatEnabled(false);
 
     player.set_level(level);

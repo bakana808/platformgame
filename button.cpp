@@ -1,51 +1,31 @@
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
 #include "button.h"
 
 using namespace std;
 
-//Start game option//
-Button::Button(int x, int y) {
 
-    tex.loadFromFile("menu.png");
-    menu.setTexture(tex);
-    menu.setScale(10, 10);
-    menu.setPosition(300, 300);
-
-    //Setings display Option//
-    tex.loadFromFile("settings.png");
-    settings.setTexture(tex);
-    settings.setScale(10, 10);
-    settings.setPosition(305, 305);
+Button::Button(int x, int y,string s) : _shape(sf::Vector2f(Button_wide,Button_high))
+{
+    _shape.setFillColor(sf::Color::White);
+    _shape.setOrigin(Button_wide/2,Button_high/2);
+    _shape.setPosition(x, y);
+    _font.loadFromFile("FiraCode-VF.ttf");
+    _text.setFont(_font); // font is a sf::Font
+    _text.setString(s);
+    _text.setCharacterSize(Menu_Font_Size); // in pixels, not points!
+    _text.setFillColor({20, 20, 50});
+    _text.setStyle(sf::Text::Bold);
+    _text.setOrigin(Button_wide/2,Button_high/2);
 }
 
-//Menu button being clicked//
-void Button::isButtonClicked(int posx, int posy)
-{
-    if (button.image.getGlobalBounds().contains(300, 300))
-    {
-        ButtonClicked();
+void Button::update(sf::Time deltaTime) {
+    float seconds = deltaTime.asSeconds();
+    
+    if (Selected) {
 
-        //How to play setting//
-        //Just prototype will make update soon//
-    if(button.image.getGlobalBounds().contains(305,305){
-            cout << " How to Play" << endl;
-            cout << " Press X to go back to main menu" << endl;
-            cout << "Directionals: " << endl;
-            cout << " Keyboard use" << endl;
-            cout << "WATCH OUT FOR ENEMIES AND OBSTACLES!" << endl;
-            cout << "HAVE FUN!" << endl;
-            //Draw new window//
-            ////Draw Text in window//
-            //if user presses x button, return to main menu//
-            //How to play instructions//
+    }
 
-	}
-
-
-
-	void Button:: ButtonClicked(){
-
-	}
+    if (Enabled) {
+    }
+}
