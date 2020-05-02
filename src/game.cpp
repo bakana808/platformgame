@@ -1,18 +1,17 @@
 
 #include "game.h"
-
-
 Game::Game()
 : view({0.f, 0.f}, {WIDTH, HEIGHT})
 , hud({0.f, 0.f}, {WIDTH, HEIGHT})
+,start(20,50,"Start Game")
 , level("level.txt")
 , player(view, hud)
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-
-    window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Game", 7U, settings);
+    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
     window->setFramerateLimit(200);
+
     window->setKeyRepeatEnabled(false);
 
     player.set_level(level);
@@ -63,6 +62,7 @@ void Game::update(float delta) {
 
 void Game::render() {
 
+
     window->clear({20, 20, 50});
 
     //=========================================================================
@@ -70,7 +70,7 @@ void Game::render() {
     //=========================================================================
 
     window->setView(view);//zoom
-
+    window->draw(start);
     window->draw(player);
     window->draw(level);
 
