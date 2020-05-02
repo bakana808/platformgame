@@ -10,6 +10,7 @@
 #include "level.h"
 #include "platform.h"
 #include "entity.h"
+#include "particle.h"
 
 using std::vector;
 

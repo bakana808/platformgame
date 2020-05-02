@@ -19,17 +19,33 @@ void Player::set_color(sf::Color color) {
 
 void Player::key_press(sf::Keyboard::Key key) {
 
+    //=========================================================================
+    // LEFT / RIGHT MOVEMENT
+    //=========================================================================
+
     if(key == sf::Keyboard::D)
         r_pressed = 1;
 
     if(key == sf::Keyboard::A)
         l_pressed = 1;
 
+    //=========================================================================
+    // JUMP
+    //=========================================================================
+
     if(key == sf::Keyboard::I and (stasis or can_jump) and not is_spinning) {
         vel.y = -1000;
         move({0, -1}); // shift player slightly up to avoid ground collisions
         jump_timer = 0.2f;
         stasis = false;
+
+        for(int i = -32; i <= 32; i += 16) {
+
+            Particle* part = new Particle(this);
+            part->handle->setPosition(this->get_pos() + vec2(i, 40));
+            this->add_child_free((Entity*)part);
+
+        }
         PRINT("jump");
     }
 
@@ -423,6 +439,8 @@ void Player::update(float delta) {
 
     // PRINT((string)pos);
     set_pos(pos);
+
+    CompositeEntity::update(delta);
 }
 
 void Player::respawn(const vec2& region) {
