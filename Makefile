@@ -58,8 +58,7 @@ SRCS := $(filter-out $(ENTRIES),$(SRCS))
 OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 DEPS := $(wildcard $(DEPDIR)**/*.d) $(wildcard $(DEPDIR)/**/*.d)
 
-EXES := $(subst .cpp,,$(ENTRIES))
-EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%)
+EXES := $(subst .cpp,,$(ENTRIES)) # remove .cpp extension
 
 
 # platform-dependant flags
@@ -74,6 +73,9 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS += -isystem'${SFML}/include'
 	CFLAGS += -static -static-libgcc -static-libstdc++
 	CFLAGS += -DSFML_STATIC
+
+	# replace src/ with bin/ and add .exe extension
+	EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%.exe)
 
 	# use static libraries for Windows
 	LIBS += -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lfreetype
@@ -107,6 +109,8 @@ else
 	# CFLAGS += -L /usr/lib/x86_64-linux-gnu/lib/ -L/usr/local/lib/
 	LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 	OUTFILE := $(OUTPUT)
+
+	EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%)
 
 	RUN.c = ${BINDIR}/$(OUTPUT)
 
@@ -152,7 +156,7 @@ include $(DEPS)
 
 all : $(EXES)
 
-run: bin/main
+run: all
 	$(RUN.c)
 
 run-test: bin/test/test-statetimer
