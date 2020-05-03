@@ -20,6 +20,7 @@ class vec2;
 float lerp(float, float, float);
 vec2 lerp(vec2, vec2, float);
 
+
 namespace game {
 
     /**
@@ -33,3 +34,9 @@ namespace game {
 
     std::string round_str(float n, int decimals = 2);
 }
+
+/**
+ * @brief Cordial directions
+ *
+ */
+enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
