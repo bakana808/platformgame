@@ -12,7 +12,31 @@
 #include "entity.h"
 #include "particle.h"
 
+#define P_WALK_MAX_VEL 800
+#define P_WALK_ACCEL 5000
+#define P_WALK_DECEL 6000
+#define P_GRAV_MAX 1500
+#define P_GRAV_ACCEL 5000
+#define P_JUMP_VEL 1000
+#define P_DASH_VEL 1500
+#define P_MAX_DASHES 1
+#define P_BOUNCE_DAMP 0.9 /* perc energy conserved after a bounce */
+
+#define P_STASIS_RVEL 500
+
+#define P_COLOR_NORMAL {255, 255, 255}
+#define P_COLOR_NODASH {150, 150, 150}
+
+#define P_KEY_RESET Key::R
+#define P_KEY_LEFT Key::A
+#define P_KEY_RIGHT Key::D
+#define P_KEY_JUMP Key::I
+#define P_KEY_DASH Key::U
+
 using std::vector;
+
+typedef sf::Keyboard Keyboard;
+typedef Keyboard::Key Key;
 
 
 class LevelRegion;
@@ -122,69 +146,7 @@ private:
 
 public:
 
-    Player(sf::View& view, sf::View& hud)
-    : view(view)
-    , hud(hud)
-    , box({64, 64})
-    , box_g({64, 64})
-    , body_hb(32)
-    , foot_hb({16, 16}) {
-
-        if(!font.loadFromFile("FiraCode-VF.ttf")) {
-            PRINT("unable to load font");
-        }
-
-        l_pos.setFont(font);
-        l_pos.setCharacterSize(14);
-        l_pos.setColor(sf::Color::White);
-        l_pos.setOrigin({600, +320});
-
-        l_vel.setFont(font);
-        l_vel.setCharacterSize(14);
-        l_vel.setColor(sf::Color::Green);
-        l_vel.setOrigin({600, +320 - 16});
-
-        l_plat.setFont(font);
-        l_plat.setCharacterSize(14);
-        l_plat.setColor(sf::Color::White);
-        l_plat.setOrigin({600, +320 - 64});
-
-        l_region.setFont(font);
-        l_region.setCharacterSize(14);
-        l_region.setColor(sf::Color::White);
-        l_region.setOrigin({0, +320});
-
-        tri.setPointCount(3);
-        tri.setPoint(0, {0, 0});
-        tri.setPoint(1, {64, 0});
-        tri.setPoint(2, {0, 64});
-        tri.setOrigin({32, 32});
-        // tri.setFillColor({150, 150, 150});
-
-        box.setOrigin({32, 32});
-        box_g.setOrigin({32, 32});
-        box_g.setFillColor({255, 255, 255, 0});
-
-        body_hb.setFillColor(sf::Color::Transparent);
-        body_hb.setOutlineColor(sf::Color::Transparent);
-        // body_hb.setOutlineColor(sf::Color::Red);
-        body_hb.setOutlineThickness(2.0f);
-        body_hb.setOrigin({32, 32});
-
-        foot_hb.setFillColor(sf::Color::Transparent);
-        foot_hb.setOutlineColor(sf::Color::Transparent);
-        // foot_hb.setOutlineColor(sf::Color::Red);
-        foot_hb.setOutlineThickness(2.0f);
-        foot_hb.setOrigin({8, 8 - 40});
-
-        add_child(box);
-        add_child(tri);
-        add_child(body_hb);
-        add_child(foot_hb);
-        add_child_free(box_g);
-
-        set_color({255, 255, 255});
-    }
+    Player(sf::View& view, sf::View& hud);
 
     ~Player() {
 
@@ -223,24 +185,52 @@ public:
      *
      * @param key
      */
-    void key_press(sf::Keyboard::Key key);
+    void key_press(Key key);
 
     /**
      * @brief Called every frame that the user holds down a key.
      *
      * @param key
      */
-    void key_hold(sf::Keyboard::Key key);
+    void key_hold(Key key);
 
     /**
      * @brief Called when the user releases a key.
      *
      * @param key
      */
-    void key_release(sf::Keyboard::Key key);
+    void key_release(Key key);
 
     /**
-     * @brief Set the player's position to (0, 0).
+     * @brief Respawn player at checkpoint according to current position.
      */
-    void respawn(const vec2& region);
+    void respawn();
+
+    //=========================================================================
+    // PLAYER ACTIONS
+    //=========================================================================
+
+    /**
+     * @brief Perform a jump.
+     *
+     */
+    void do_jump();
+
+    /**
+     * @brief Perform a dash in the specified direction.
+     *
+     * @param dir
+     */
+    void do_dash(const vec2& dir);
+
+    /**
+     * @brief Move in the specified direction.
+     *
+     * Providing UP or DOWN will not do anything.
+     *
+     * @param dir
+     * @param delta
+     */
+    void do_move(Direction dir, float delta);
+
 };

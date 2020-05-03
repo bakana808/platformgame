@@ -9,6 +9,72 @@
 #include <math.h>
 
 
+Player::Player(sf::View& view, sf::View& hud)
+: view(view)
+, hud(hud)
+, box({64, 64})
+, box_g({64, 64})
+, body_hb(32)
+, foot_hb({16, 16})
+{
+
+    if(!font.loadFromFile("FiraCode-VF.ttf")) {
+        PRINT("unable to load font");
+    }
+
+    l_pos.setFont(font);
+    l_pos.setCharacterSize(14);
+    l_pos.setColor(sf::Color::White);
+    l_pos.setOrigin({600, +320});
+
+    l_vel.setFont(font);
+    l_vel.setCharacterSize(14);
+    l_vel.setColor(sf::Color::Green);
+    l_vel.setOrigin({600, +320 - 16});
+
+    l_plat.setFont(font);
+    l_plat.setCharacterSize(14);
+    l_plat.setColor(sf::Color::White);
+    l_plat.setOrigin({600, +320 - 64});
+
+    l_region.setFont(font);
+    l_region.setCharacterSize(14);
+    l_region.setColor(sf::Color::White);
+    l_region.setOrigin({0, +320});
+
+    tri.setPointCount(3);
+    tri.setPoint(0, {0, 0});
+    tri.setPoint(1, {64, 0});
+    tri.setPoint(2, {0, 64});
+    tri.setOrigin({32, 32});
+    // tri.setFillColor({150, 150, 150});
+
+    box.setOrigin({32, 32});
+    box_g.setOrigin({32, 32});
+    box_g.setFillColor({255, 255, 255, 0});
+
+    body_hb.setFillColor(sf::Color::Transparent);
+    body_hb.setOutlineColor(sf::Color::Transparent);
+    // body_hb.setOutlineColor(sf::Color::Red);
+    body_hb.setOutlineThickness(2.0f);
+    body_hb.setOrigin({32, 32});
+
+    foot_hb.setFillColor(sf::Color::Transparent);
+    foot_hb.setOutlineColor(sf::Color::Transparent);
+    // foot_hb.setOutlineColor(sf::Color::Red);
+    foot_hb.setOutlineThickness(2.0f);
+    foot_hb.setOrigin({8, 8 - 40});
+
+    add_child(box);
+    add_child(tri);
+    add_child(body_hb);
+    add_child(foot_hb);
+    add_child_free(box_g);
+
+    set_color({255, 255, 255});
+}
+
+
 void Player::set_color(sf::Color color) {
 
     sf::Color darker(color.r * 0.8, color.g * 0.8, color.b * 0.8);
@@ -18,95 +84,150 @@ void Player::set_color(sf::Color color) {
 }
 
 
-void Player::key_press(sf::Keyboard::Key key) {
+void Player::key_press(Key key) {
+
+    //=========================================================================
+    // DEBUG RESET BUTTON
+    //=========================================================================
+
+    if(key == Key::R)
+        return this->respawn();
 
     //=========================================================================
     // LEFT / RIGHT MOVEMENT
     //=========================================================================
 
-    if(key == sf::Keyboard::D)
+    if(key == Key::D)
         r_pressed = 1;
 
-    if(key == sf::Keyboard::A)
+    if(key == Key::A)
         l_pressed = 1;
 
     //=========================================================================
     // JUMP
     //=========================================================================
 
-    if(key == sf::Keyboard::I and (stasis or can_jump) and not is_spinning) {
-        vel.y = -1000;
-        move({0, -1}); // shift player slightly up to avoid ground collisions
-        jump_timer = 0.2f;
-        stasis = false;
+    if(key == Key::I and (stasis or can_jump) and not is_spinning)
+        this->do_jump();
 
-        for(int i = -32; i <= 32; i += 16) {
+    //=========================================================================
+    // DASH / SPIN
+    //=========================================================================
 
-            Particle* part = new Particle(this);
-            part->handle->setPosition(this->get_pos() + vec2(i, 40));
-            this->add_child_free((Entity*)part);
-
-        }
-        PRINT("jump");
-    }
-
-    if(key == sf::Keyboard::U) {
+    if(key == Key::U) {
 
         is_spinning = true;
 
         // set_color({255, 255, 150});
 
-        using key = sf::Keyboard;
+        using key = Key;
 
         float x = 0, y = 0;
 
-        if(key::isKeyPressed(key::D)) {
+        if(Keyboard::isKeyPressed(Key::D)) {
             x = 1;
         }
-        else if(key::isKeyPressed(key::A)) {
+        else if(Keyboard::isKeyPressed(Key::A)) {
             x = -1;
         }
 
-        if(key::isKeyPressed(key::S)) {
+        if(Keyboard::isKeyPressed(Key::S)) {
             y = 1;
         }
-        else if(key::isKeyPressed(key::W)) {
+        else if(Keyboard::isKeyPressed(Key::W)) {
             y = -1;
         }
 
-        if(num_dashes > 0 and (x != 0 or y != 0)) {
-
-            if(can_jump) move({0, -1});
-
-            num_dashes--;
-
+        if(x != 0 or y != 0) {
             vec2 dir = vec2(x, y).normalize();
-            this->vel = dir * 1500;
-            show_afterimage();
-
-            if(num_dashes <= 0) {
-                set_color({150, 150, 150});
-            }
-
-            // if(can_jump)
-                // this->pos.y -= 1;
+            this->do_dash(dir);
         }
     }
 }
 
-void Player::key_release(sf::Keyboard::Key key) {
+void Player::key_release(Key key) {
 
-    if(key == sf::Keyboard::D)
+    if(key == Key::D)
         r_pressed = 0;
 
-    if(key == sf::Keyboard::A)
+    if(key == Key::A)
         l_pressed = 0;
 
-    if(key == sf::Keyboard::U) {
+    if(key == Key::U) {
         PRINT("unspinning");
         is_spinning = false;
     }
 }
+
+
+void Player::do_jump() {
+
+    vel.y = -P_JUMP_VEL;
+
+    move({0, -1}); // shift player slightly up to avoid ground collisions
+
+    jump_timer = 0.2f;
+    stasis = false;
+
+    // jump smoke effect
+
+    for(int i = -32; i <= 32; i += 16) {
+
+        Particle* part = new Particle(this);
+        part->handle->setPosition(this->get_pos() + vec2(i, 40));
+        this->add_child_free((Entity*)part);
+
+    }
+    PRINT("jump");
+}
+
+
+void Player::do_dash(const vec2& dir) {
+
+    if(num_dashes > 0) {
+
+        if(can_jump) move({0, -1});
+
+        num_dashes--;
+
+        this->vel = dir * P_DASH_VEL;
+        show_afterimage();
+
+        if(num_dashes <= 0) {
+            set_color(P_COLOR_NODASH);
+        }
+    }
+}
+
+
+void Player::do_move(Direction dir, float delta) {
+
+    switch(dir) {
+    case LEFT:
+
+        if(vel.x > -P_WALK_MAX_VEL)
+            vel.x -= delta * P_WALK_ACCEL;
+        break;
+
+    case RIGHT:
+
+        if(vel.x < P_WALK_MAX_VEL)
+            vel.x += delta * P_WALK_ACCEL;
+        break;
+
+    // x-axis deceleration due to no movement
+    case Direction::NONE: default:
+
+        if(!is_spinning) {
+
+            if(vel.x > +0.5) { vel.x -= fmin(+delta * P_WALK_DECEL, vel.x); }
+            if(vel.x < -0.5) { vel.x -= fmax(-delta * P_WALK_DECEL, vel.x); }
+
+            if(vel.x <= 0.5 and vel.x >= -0.5) vel.x = 0;
+        }
+    }
+}
+
 
 Player::CollisionSet* Player::test_collisions() {
 
@@ -222,8 +343,8 @@ void Player::update(float delta) {
 
     if(stasis) {
 
-        this->box.rotate(delta * 500);
-        this->tri.rotate(delta * 500);
+        this->box.rotate(delta * P_STASIS_RVEL);
+        this->tri.rotate(delta * P_STASIS_RVEL);
 
         // slowly zoom in
         if(view_zoom < 4.f)
@@ -245,34 +366,22 @@ void Player::update(float delta) {
 
     // y-axis acceleration due to gravity
 
-    if(vel.y < 1500 and not is_grounded)
-        vel.y += fmax(0.5, fmin(fabs(vel.y) / 1000, 1)) * delta * 5000;
+    if(vel.y < P_GRAV_MAX and not is_grounded)
+        vel.y += fmax(0.5, fmin(fabs(vel.y) / 1000, 1)) * delta * P_GRAV_ACCEL;
 
+    Direction move_dir;
 
-    // x-axis acceleration due to movement
-
-    if(r_pressed and vel.x < 800)
-        vel.x += delta * 5000;
-
-    if(l_pressed and vel.x > -800)
-        vel.x -= delta * 5000;
-
-    // x-axis deceleration due to no movement
-
-    if(!r_pressed and !l_pressed and not is_spinning) {
-
-        if(vel.x > +0.5) { vel.x -= fmin(+delta * 6000, vel.x); }
-        if(vel.x < -0.5) { vel.x -= fmax(-delta * 6000, vel.x); }
-
-        if(vel.x <= 0.5 and vel.x >= -0.5) vel.x = 0;
+    if(Keyboard::isKeyPressed(P_KEY_LEFT) && !Keyboard::isKeyPressed(P_KEY_RIGHT)) {
+        move_dir = LEFT;
+    }
+    else if(Keyboard::isKeyPressed(P_KEY_RIGHT) && !Keyboard::isKeyPressed(P_KEY_LEFT)) {
+        move_dir = RIGHT;
+    }
+    else {
+        move_dir = Direction::NONE;
     }
 
-    // out-of-bounds auto reset
-    if(fabs(get_pos().x) > 10000 or fabs(get_pos().y) > 10000) {
-
-        this->respawn(region->get_coords());
-        return;
-    }
+    this->do_move(move_dir, delta);
 
     // ==================================================
     //  collision checks
@@ -300,7 +409,7 @@ void Player::update(float delta) {
 
     int i = 0;
     // for(CollisionInfo col: (*cmap)[FLOOR]) {
-    for(CollisionInfo col: *cset) {
+    for(auto col: *cset) {
 
         // PRINT("processing collision (" + STR(i) + ")");
         if(col.normal == vec2::ZERO) {
@@ -319,14 +428,14 @@ void Player::update(float delta) {
         // PRINT("plat_type => " + STR(plat_type));
         if(plat_type == PlatformType::HAZARD) {
             PRINT("==== PLAYER HIT HAZARD ====");
-            this->respawn(region->get_coords());
+            this->respawn();
             return;
         }
 
         if(is_spinning) { // then bounce off the surface
 
             // calculates the angle of reflection
-            this->vel = (vel - (col.normal * 2 * vel.dot(col.normal)));
+            this->vel = (vel - (col.normal * 2 * vel.dot(col.normal))) * P_BOUNCE_DAMP;
             break;
         }
 
@@ -449,7 +558,7 @@ void Player::update(float delta) {
     CompositeEntity::update(delta);
 }
 
-void Player::respawn(const vec2& region) {
+void Player::respawn() {
 
-    set_pos(level->get_checkpoint(region));
+    set_pos(level->get_checkpoint(this->region->get_coords()));
 }
