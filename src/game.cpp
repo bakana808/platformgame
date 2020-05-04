@@ -75,7 +75,6 @@ void Game::processEvents() {
 
 void Game::update(float delta) {
 
-    player.update(delta);
     hud->update(delta);
 
     if(menu.Enabled){
