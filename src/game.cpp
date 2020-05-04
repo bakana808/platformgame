@@ -37,10 +37,9 @@ void Game::run() {
         processEvents();
         update(dt);
         render();
+        window->display();
 
         fc.push_frame();
-
-
     }
 }
 
@@ -80,7 +79,7 @@ void Game::update(float delta) {
     hud->update(delta);
 
     if(menu.Enabled){
-        menu.update();
+        menu.update(delta);
     }else if(menu.exit){
         window->close();
     }else{
@@ -93,10 +92,12 @@ void Game::update(float delta) {
 void Game::render() {
 
     window->clear({20, 20, 50});
-    if(menu.Enabled){
-        window->draw(menu);
 
-    }else if(!menu.exit){
+    if(menu.Enabled){
+
+        window->draw(menu);
+        return;
+    }
 
     //=========================================================================
     // WORLD RENDERING
@@ -107,7 +108,6 @@ void Game::render() {
     window->draw(level);
     window->draw(enemy);
 
-
     //=========================================================================
     // HUD RENDERING
     //=========================================================================
@@ -115,7 +115,5 @@ void Game::render() {
     window->setView(hud_view);
 
     window->draw(*hud);
-    enemy.draw_hud(*window);
 
-    window->display();
 }

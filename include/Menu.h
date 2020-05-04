@@ -10,8 +10,8 @@ public:
     Menu(const Button&) = delete;
     Menu& operator=(const Button&) = delete;
     Menu();
-    
-    void update();
+
+    void update(float delta);
     //bool Selected;
     bool Enabled;
     int  Menu_Operation;

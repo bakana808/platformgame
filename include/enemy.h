@@ -26,8 +26,6 @@ public:
  	//Enemy Cosnstructor
     Enemy(sf::View& view, sf::View&hud);
 
-    void draw_hud(sf::RenderWindow& window);
-
     void update(float delta) override;
 
     //Handle enemy movement

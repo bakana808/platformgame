@@ -19,7 +19,7 @@ Menu :: Menu():
 
 
 
-void Menu::update() {
+void Menu::update(float delta) {
     //response for keboard event
     if(Menu_Operation == 1){//up
         start_game.ButtonIsLight=true;
@@ -38,8 +38,8 @@ void Menu::update() {
     }
     //refresh menu state.
 
-    start_game.update();
-    exit_game.update();
+    start_game.update(delta);
+    exit_game.update(delta);
 
     //disable if animation done
     if(start_game.Enabled==false){
