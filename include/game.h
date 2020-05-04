@@ -10,9 +10,9 @@
 #include "player.h"
 #include "platform.h"
 #include "level.h"
-#include "Menu.h"
+#include "menu.h"
 #include "enemy.h"
-#include "obstacle.hpp"
+#include "obstacle.h"
 
 class HUD;
 

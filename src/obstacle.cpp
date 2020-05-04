@@ -1,8 +1,8 @@
-#include"obstacle.hpp"
+#include"obstacle.h"
 
 
 void Obstacle:: spawnTrap(){
-		
+
 	tex.loadFromFile("upperTriangle.png");
 	topTrap.setTexture(tex);
 	topTrap.setScale(0.2, 0.2);
@@ -23,7 +23,7 @@ void Obstacle:: activateTrap(){
 
 		topYposition--;
 		bottomYposition++;
-	
+
      if(topYposition==topStopYposition && bottomYposition==bottomStopYposition)
      {
 	     //Spawn traps at starting position//
@@ -31,10 +31,10 @@ void Obstacle:: activateTrap(){
 		bottomTrap.setPosition(bottomXposition,bottomYposition);}
 
 	else{
-	
+
 		topYposition--;
 		bottomYposition++;
 			}
-	}	
-}	
+	}
+}
 
