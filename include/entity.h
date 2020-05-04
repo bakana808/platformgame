@@ -204,6 +204,7 @@ public:
             child->set_pos(pos);
     }
 
+<<<<<<< Updated upstream
 
     virtual void update(float delta) override {
 
@@ -288,3 +289,6 @@ public:
     }
 };
 
+=======
+};
+>>>>>>> Stashed changes

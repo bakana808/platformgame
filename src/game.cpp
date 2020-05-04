@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
+=======
+#include "game.h"
+#include "player.h"
+
+>>>>>>> Stashed changes
 
 #include "game.h"
 Game::Game()
@@ -13,7 +19,7 @@ Game::Game()
 
     window->setKeyRepeatEnabled(false);
 
-    player.set_level(level);
+player.set_level(level);
 }
 
 Game::~Game() {
@@ -26,12 +32,15 @@ void Game::run() {
     while (window->isOpen()) {
 
         float dt = fc.get_delta();
-
+	
+ 
         processEvents();
         update(dt);
         render();
 
         fc.push_frame();
+
+ 
     }
 }
 
@@ -66,6 +75,7 @@ void Game::processEvents() {
 
 
 void Game::update(float delta) {
+<<<<<<< Updated upstream
     if(menu.Enabled){
         menu.update();
     }else if(menu.exit){
@@ -73,6 +83,11 @@ void Game::update(float delta) {
     }else{
         player.update(delta);
     }
+=======
+    player.update(delta);
+ 	
+ //   obstacle.activateTrap();*/
+>>>>>>> Stashed changes
 }
 
 void Game::render() {
@@ -84,10 +99,12 @@ void Game::render() {
     //=========================================================================
     // WORLD RENDERING
     //=========================================================================
-
+	
     window->setView(view);//zoom
     window->draw(player);
     window->draw(level);
+    window->draw(enemy);
+    
 
     //=========================================================================
     // HUD RENDERING
@@ -95,6 +112,7 @@ void Game::render() {
 
     window->setView(hud);
     player.draw_hud(*window);
+    enemy.draw_hud(*window);
 
     }
 

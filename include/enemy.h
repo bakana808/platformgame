@@ -1,35 +1,49 @@
-
 #include <SFML/Graphics.hpp>
-#include <Time.h>
-#include <stdlib.h>
+#include"player.h"
 
-class Enemy
-{
+class Enemy: public CompositeEntity {
+
 private:
     int speed = 4;
 
 public:
-    float posx;
-    float posy;
+   
+    int enemyXposition=200;
+    int enemyYposition=200;
+    int fireballXposition=enemyXposition; 
+    int fireballYposition=enemyYposition;
+    int teleporterXposition=250;
+    int teleporterYposition=250;
+
+
 
     //This is the current enemy's image
     sf::Texture tex;
     sf::Sprite enemyimage;
     sf::Sprite fireballimage;
     sf::Sprite teleporterimage;
+    sf::View& view;
+    sf::View& hud;
+	
 
-    //Enemy Cosnstructor
-    Enemy();
+ 
+ 	//Enemy Cosnstructor
+    Enemy(sf::View& view, sf::View&hud);
+     
 
+    void draw_hud(sf::RenderWindow& window);
+   
     //Handle enemy movement
-    void move();
+  
+    void enemyMove();
 
-    //Enemy Fireball??//
-    //A fireball shooting from the enemy mouth//
+    void spawnEnemyfireball();
 
-    void fireball();
+    void enemyFireballattack();
 
-    void teleport();
+    void spawnTeleporter();
 
-    int PICK(int start, int stop);
+    void enemySpawn();
+
+    int Random_position(int start, int stop);
 };
