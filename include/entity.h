@@ -204,7 +204,6 @@ public:
             child->set_pos(pos);
     }
 
-
     virtual void update(float delta) override {
 
         // update all child entities
@@ -287,4 +286,3 @@ public:
             source->remove_child(this);
     }
 };
-

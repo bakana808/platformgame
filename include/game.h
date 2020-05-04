@@ -10,8 +10,9 @@
 #include "player.h"
 #include "platform.h"
 #include "level.h"
-#include "button.h"
-
+#include "Menu.h"
+#include "enemy.h"
+#include "obstacle.hpp"
 
 class HUD;
 
@@ -30,6 +31,10 @@ private:
     Player player;
     Button start;
     HUD* hud;
+    Menu menu;
+
+    Enemy enemy;
+    Obstacle obstacle;
 
     void processEvents();
 

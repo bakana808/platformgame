@@ -38,7 +38,7 @@ void Enemy::move()
     // goomba.enemyimage.move(5, 0);
 }
 
-void teleport()
+void Enemy::teleport()
 {
     //psychic/ghost kind Enemy//
     //porter will teleport through time into different spaces on the map//
@@ -52,7 +52,7 @@ void teleport()
 
     //If 5 seconds pass//
     //Wjile teleporter is in startig position//
-    while(teleporterimage.setPosition(400,600) {
+    while(teleporterimage.getPosition() == {400,600} {
         if (sf::Time::t1 = sf::seconds(5f))
         {
             //Randomly teleport enemy on screen//

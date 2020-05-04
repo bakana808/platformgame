@@ -13,7 +13,8 @@ public:
     Button& operator=(const Button&) = delete;
     Button(int x, int y, string s);
 
-    void update(sf::Time deltaTime);
+    void update(float deltaTime);
+    bool ButtonIsLight;
     bool Selected;
     bool Enabled;
 
@@ -24,4 +25,8 @@ private:
     int posX;
     int posY;
     sf::Font _font;
+    sf::Color Butt_High_Light;
+    sf::Color Butt_backgroud;
+    sf::Vector2f _velocity;
+    int Button_Frame_count;
 };
