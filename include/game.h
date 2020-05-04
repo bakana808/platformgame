@@ -7,8 +7,13 @@
 #include "player.h"
 #include "platform.h"
 #include "level.h"
+<<<<<<< Updated upstream
 #include "Menu.h"
 
+=======
+#include "enemy.h"
+#include "obstacle.hpp"
+>>>>>>> Stashed changes
 
 class Game {
 public:
@@ -31,7 +36,13 @@ private:
 
     Level level;
     Player player;
+<<<<<<< Updated upstream
     Menu menu;
+=======
+    Enemy enemy;
+    Obstacle obstacle;
+    
+>>>>>>> Stashed changes
 
     void processEvents();
 

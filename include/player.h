@@ -204,6 +204,7 @@ public:
     /**
      * @brief Respawn player at checkpoint according to current position.
      */
+<<<<<<< Updated upstream
     void respawn();
 
     //=========================================================================
@@ -234,3 +235,7 @@ public:
     void do_move(Direction dir, float delta);
 
 };
+=======
+    void respawn(const vec2& region);
+};
+>>>>>>> Stashed changes
