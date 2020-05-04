@@ -7,7 +7,7 @@
 #include "player.h"
 #include "platform.h"
 #include "level.h"
-#include "button.h"
+#include "Menu.h"
 
 
 class Game {
@@ -31,7 +31,7 @@ private:
 
     Level level;
     Player player;
-    Button start;
+    Menu menu;
 
     void processEvents();
 

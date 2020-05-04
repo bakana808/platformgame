@@ -3,7 +3,6 @@
 Game::Game()
 : view({0.f, 0.f}, {WIDTH, HEIGHT})
 , hud({0.f, 0.f}, {WIDTH, HEIGHT})
-,start(20,50,"Start Game")
 , level("level.txt")
 , player(view, hud)
 {
@@ -39,38 +38,54 @@ void Game::run() {
 void Game::processEvents() {
 
     sf::Event event;
-    if (window->pollEvent(event)) {
-        if ((event.type == sf::Event::Closed)
-          || ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))) {
+    while (window->pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
             window->close();
+        } else if (event.type == sf::Event::KeyPressed) {
+            player.key_press(event.key.code);
+            if (event.key.code == sf::Keyboard::Escape) {
+                window->close();
+            } else if (event.key.code == sf::Keyboard::Up) {
+                menu.Menu_Operation = 1;
+            } else if (event.key.code == sf::Keyboard::Down) {
+                menu.Menu_Operation = 2;
+            } else if (event.key.code == sf::Keyboard::Enter) {
+                menu.Menu_Operation = 3;
+            }
+        } else if (event.type == sf::Event::KeyReleased) {
+            player.key_release(event.key.code);
+            if(event.key.code == sf::Keyboard::Up)
+                menu.Menu_Operation = 0;
+            else if (event.key.code == sf::Keyboard::Down)
+                menu.Menu_Operation = 0;
+            else if (event.key.code == sf::Keyboard::Enter)
+                menu.Menu_Operation = 0;
         }
-        if(event.type == sf::Event::EventType::KeyPressed) {
-                player.key_press(event.key.code);
-                if(event.key.code == sf::Keyboard::Escape) {
-                    window->close();
-                }
-            }
-            if(event.type == sf::Event::EventType::KeyReleased) {
-                player.key_release(event.key.code);
-            }
     }
 }
 
+
 void Game::update(float delta) {
-    player.update(delta);
+    if(menu.Enabled){
+        menu.update();
+    }else if(menu.exit){
+        window->close();
+    }else{
+        player.update(delta);
+    }
 }
 
 void Game::render() {
-
-
     window->clear({20, 20, 50});
+    if(menu.Enabled){
+        window->draw(menu);
 
+    }else if(!menu.exit){
     //=========================================================================
     // WORLD RENDERING
     //=========================================================================
 
     window->setView(view);//zoom
-    window->draw(start);
     window->draw(player);
     window->draw(level);
 
@@ -79,8 +94,10 @@ void Game::render() {
     //=========================================================================
 
     window->setView(hud);
-
     player.draw_hud(*window);
+
+    }
+
 
     window->display();
 }
