@@ -1,12 +1,16 @@
 
 #include "game.h"
+#include "hud.h"
+
+
 Game::Game()
 : view({0.f, 0.f}, {WIDTH, HEIGHT})
-, hud({0.f, 0.f}, {WIDTH, HEIGHT})
-,start(20,50,"Start Game")
+, hud_view({0.f, 0.f}, {WIDTH, HEIGHT})
+, start(20,50,"Start Game")
 , level("level.txt")
-, player(view, hud)
+, player(view, hud_view)
 {
+    hud = new HUD(this);
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
@@ -19,6 +23,7 @@ Game::Game()
 
 Game::~Game() {
 
+    delete hud;
     delete window;
 }
 
@@ -57,7 +62,9 @@ void Game::processEvents() {
 }
 
 void Game::update(float delta) {
+
     player.update(delta);
+    hud->update(delta);
 }
 
 void Game::render() {
@@ -78,9 +85,9 @@ void Game::render() {
     // HUD RENDERING
     //=========================================================================
 
-    window->setView(hud);
+    window->setView(hud_view);
 
-    player.draw_hud(*window);
+    window->draw(*hud);
 
     window->display();
 }

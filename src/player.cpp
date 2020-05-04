@@ -17,31 +17,6 @@ Player::Player(sf::View& view, sf::View& hud)
 , body_hb(32)
 , foot_hb({16, 16})
 {
-
-    if(!font.loadFromFile("FiraCode-VF.ttf")) {
-        PRINT("unable to load font");
-    }
-
-    l_pos.setFont(font);
-    l_pos.setCharacterSize(14);
-    l_pos.setColor(sf::Color::White);
-    l_pos.setOrigin({600, +320});
-
-    l_vel.setFont(font);
-    l_vel.setCharacterSize(14);
-    l_vel.setColor(sf::Color::Green);
-    l_vel.setOrigin({600, +320 - 16});
-
-    l_plat.setFont(font);
-    l_plat.setCharacterSize(14);
-    l_plat.setColor(sf::Color::White);
-    l_plat.setOrigin({600, +320 - 64});
-
-    l_region.setFont(font);
-    l_region.setCharacterSize(14);
-    l_region.setColor(sf::Color::White);
-    l_region.setOrigin({0, +320});
-
     tri.setPointCount(3);
     tri.setPoint(0, {0, 0});
     tri.setPoint(1, {64, 0});
@@ -71,7 +46,7 @@ Player::Player(sf::View& view, sf::View& hud)
     add_child(foot_hb);
     add_child_free(box_g);
 
-    set_color({255, 255, 255});
+    set_color(P_COLOR_NORMAL);
 }
 
 
@@ -107,7 +82,7 @@ void Player::key_press(Key key) {
     // JUMP
     //=========================================================================
 
-    if(key == Key::I and (stasis or can_jump) and not is_spinning)
+    if(key == Key::I and (stasis or b_can_jump) and not b_spinning)
         this->do_jump();
 
     //=========================================================================
@@ -116,7 +91,7 @@ void Player::key_press(Key key) {
 
     if(key == Key::U) {
 
-        is_spinning = true;
+        b_spinning = true;
 
         // set_color({255, 255, 150});
 
@@ -155,7 +130,7 @@ void Player::key_release(Key key) {
 
     if(key == Key::U) {
         PRINT("unspinning");
-        is_spinning = false;
+        b_spinning = false;
     }
 }
 
@@ -186,7 +161,7 @@ void Player::do_dash(const vec2& dir) {
 
     if(num_dashes > 0) {
 
-        if(can_jump) move({0, -1});
+        if(b_can_jump) move({0, -1});
 
         num_dashes--;
 
@@ -218,7 +193,7 @@ void Player::do_move(Direction dir, float delta) {
     // x-axis deceleration due to no movement
     case Direction::NONE: default:
 
-        if(!is_spinning) {
+        if(!b_spinning) {
 
             if(vel.x > +0.5) { vel.x -= fmin(+delta * P_WALK_DECEL, vel.x); }
             if(vel.x < -0.5) { vel.x -= fmax(-delta * P_WALK_DECEL, vel.x); }
@@ -242,7 +217,7 @@ Player::CollisionSet* Player::test_collisions() {
 
     for(Platform& line: level->platforms) {
 
-        bool can_jump = false;
+        bool b_can_jump = false;
         SurfaceType col_type = NONE;
         vec2 normal;
         float angle = 0.f;
@@ -267,10 +242,10 @@ Player::CollisionSet* Player::test_collisions() {
             // COLLISION WITH FEET HITBOX
             // --------------------------
 
-            if(not can_jump) {
+            if(not b_can_jump) {
 
                 foot_collision = get_collision(line.get_shape(), foot_hb);
-                can_jump = foot_collision.has_collided();
+                b_can_jump = foot_collision.has_collided();
             }
 
             if(body_collision.has_collided()) { // player is colliding
@@ -298,7 +273,7 @@ Player::CollisionSet* Player::test_collisions() {
                 }
 
                 // add collision info to the corresponding collision type
-                // (*cmap)[col_type].push_back({can_jump, col_type, line, normal, angle, magnitude});
+                // (*cmap)[col_type].push_back({b_can_jump, col_type, line, normal, angle, magnitude});
                 // PRINT(
                 //     "adding collision (" + STR(cset->size()) + ")\n"
                 //     "  surface: " + STR(col_type) + "\n"
@@ -307,7 +282,7 @@ Player::CollisionSet* Player::test_collisions() {
                 //     "  mag: " + STR(magnitude) + "\n"
                 // );
                 // PRINT("plat_type => " + STR(line.get_type()));
-                cset->insert({can_jump, col_type, &line, normal, angle, magnitude});
+                cset->insert({b_can_jump, col_type, &line, normal, angle, magnitude});
             }
         }
     }
@@ -394,7 +369,7 @@ void Player::update(float delta) {
 
     // concat floor - wall - ceiling collisions, in that order
 
-    bool can_jump = false;
+    bool b_can_jump = false;
     bool on_ground = false;
 
     string plat_info = "";
@@ -432,7 +407,7 @@ void Player::update(float delta) {
             return;
         }
 
-        if(is_spinning) { // then bounce off the surface
+        if(b_spinning) { // then bounce off the surface
 
             // calculates the angle of reflection
             this->vel = (vel - (col.normal * 2 * vel.dot(col.normal))) * P_BOUNCE_DAMP;
@@ -450,7 +425,7 @@ void Player::update(float delta) {
 
             plat_info += "FLOOR cos=" + STR(normal_cos) + "\n";
 
-            if(!can_jump and col.can_jump) can_jump = true;
+            if(!b_can_jump and col.b_can_jump) b_can_jump = true;
             if(!on_ground) on_ground = true;
 
             break;
@@ -506,11 +481,11 @@ void Player::update(float delta) {
     if(jump_timer > 0)
         jump_timer -= delta;
 
-    if(this->can_jump != can_jump) {
+    if(this->b_can_jump != b_can_jump) {
 
-        this->can_jump = can_jump;
+        this->b_can_jump = b_can_jump;
 
-        if(can_jump) {
+        if(b_can_jump) {
             PRINT("can now jump");
         } else {
             PRINT("cannot jump");
@@ -521,15 +496,15 @@ void Player::update(float delta) {
 
         if(this->is_grounded = on_ground) {
             PRINT("touched ground");
-            set_color({255, 255, 255});
+            set_color(P_COLOR_NORMAL);
             num_dashes = 1;
         } else {
             PRINT("left ground");
-            if(!is_spinning and jump_timer <= 0) vel.y = 0;
+            if(!b_spinning and jump_timer <= 0) vel.y = 0;
         }
     }
 
-    if(is_spinning) {
+    if(b_spinning) {
 
         float mag = vel.magnitude();
 
@@ -542,19 +517,9 @@ void Player::update(float delta) {
         this->tri.setRotation(this->vel.x * 50 / 1000);
     }
 
-    // 64 px above center of player
-    l_pos.setString((string)pos);
-
-    // 32 px above l_pos
-    l_vel.setString((string)vel);
-
-    // 64 px above l_vel
-    l_plat.setString(plat_info + "\nspinning = " + STR(is_spinning) + "\ncan jump = " + STR(can_jump)
-                     + "\ndashes = " + STR(num_dashes));
-
-    // PRINT((string)pos);
     set_pos(pos);
 
+    // update children
     CompositeEntity::update(delta);
 }
 

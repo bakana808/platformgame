@@ -20,7 +20,7 @@
 #define P_JUMP_VEL 1000
 #define P_DASH_VEL 1500
 #define P_MAX_DASHES 1
-#define P_BOUNCE_DAMP 0.9 /* perc energy conserved after a bounce */
+#define P_BOUNCE_DAMP 1.0 /* perc energy conserved after a bounce */
 
 #define P_STASIS_RVEL 500
 
@@ -55,7 +55,7 @@ public:
      */
     struct CollisionInfo {
         // true if the foot hitbox is intersecting a platform
-        bool can_jump;
+        bool b_can_jump;
 
         SurfaceType surface;
 
@@ -99,9 +99,9 @@ private:
     float jump_timer = 0.f; // if > 0, do not check floor collisions
     float unground_timer = 0.f;
 
-    bool can_jump = false;
+    bool b_can_jump = false;
     bool is_grounded = false;
-    bool is_spinning = false;
+    bool b_spinning = false;
     int num_dashes = 1; // amount of dashes that can be used in the air
 
     LevelRegion* region = NULL;
@@ -158,14 +158,6 @@ public:
         this->level = &level;
     }
 
-    void draw_hud(sf::RenderWindow& window) {
-
-        window.draw(l_pos);
-        window.draw(l_vel);
-        window.draw(l_plat);
-        window.draw(l_region);
-    }
-
     /**
      * @brief Set the color of this Player.
      *
@@ -205,6 +197,18 @@ public:
      * @brief Respawn player at checkpoint according to current position.
      */
     void respawn();
+
+    //=========================================================================
+    // PLAYER INFO GETTERS
+    //=========================================================================
+
+    const vec2& get_vel() { return vel; }
+
+    bool is_spinning() { return b_spinning; }
+
+    int get_num_dashes() { return num_dashes; }
+
+    bool can_jump() { return b_can_jump; }
 
     //=========================================================================
     // PLAYER ACTIONS

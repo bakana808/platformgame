@@ -1,4 +1,7 @@
 
+#pragma once
+
+
 #include <cmath>
 #include <vector>
 
@@ -10,16 +13,10 @@
 #include "button.h"
 
 
+class HUD;
+
+
 class Game {
-public:
-
-    Game(const Game&) = delete;
-    Game& operator=(const Game&) = delete;
-    Game();
-    ~Game();
-
-    void run();
-
 private:
 
     sf::RenderWindow* window;
@@ -27,11 +24,12 @@ private:
     FrameClock fc;
 
     sf::View view;
-    sf::View hud;
+    sf::View hud_view;
 
     Level level;
     Player player;
     Button start;
+    HUD* hud;
 
     void processEvents();
 
@@ -48,4 +46,19 @@ private:
      */
     void render();
 
+public:
+
+    Game(const Game&) = delete;
+
+    Game& operator=(const Game&) = delete;
+
+    Game();
+
+    ~Game();
+
+    void run();
+
+    Player& get_player() { return player; }
+
+    Level& get_level() { return level; }
 };
