@@ -19,4 +19,6 @@ private:
     int posX;
     int posY;
     sf::Font _font;
+    sf::Color Butt_High_Light;
+    sf::Color Butt_backgroud;
 };
