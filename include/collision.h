@@ -1,5 +1,9 @@
 
+#pragma once
+
+
 #include "common.h"
+#include "vector/vec2.h"
 #include <optional>
 #include <vector>
 
@@ -10,15 +14,38 @@
 using std::vector;
 
 
-class projection {
+/**
+ * @brief Represents two points on a given axis.
+ *
+ * (treated as a one-dimensional line)
+ *
+ */
+class Projection {
 public:
     float min, max;
 
-    bool overlaps(projection b) {
+    /**
+     * @brief Returns if the given projection overlaps this one.
+     *
+     * Assumes both projections are on the same axis.
+     *
+     * @param b
+     * @return true if this projection overlaps this one
+     * @return false if this projection does not overlap this one
+     */
+    bool overlaps(Projection b) {
         return !(min > b.max or b.min > max);
     }
 
-    float get_overlap(projection b) {
+    /**
+     * @brief Returns the magnitude of overlap.
+     *
+     * Will return 0 if there is no overlap.
+     *
+     * @param b
+     * @return float the magnitude of overlap.
+     */
+    float get_overlap(Projection b) {
         if(!overlaps(b)) return 0;
 
         if(b.max >= min) return b.max - min;
@@ -27,6 +54,13 @@ public:
 };
 
 
+/**
+ * @brief The Minimum Translation Vector (MTV).
+ *
+ * The MTV holds information on the the shortest vector needed to
+ * resolve a collision between two objects.
+ *
+ */
 struct MTV {
 
     // normal vector of the collision surface
@@ -40,6 +74,12 @@ struct MTV {
 };
 
 
+/**
+ * @brief Holds information on the collision between two objects (the MTV).
+ *
+ * Inherits from std::optional to be able to represent no collision.
+ *
+ */
 class Collision: public std::optional<MTV> {
 public:
 
@@ -66,54 +106,26 @@ public:
             return nullptr;
         }
     }
-
-
 };
 
 
-void push_normals(vector<vec2>* normals, vector<vec2> vertices) {
-
-    if(vertices.size() <= 1) return;
-
-    for(int i = 0; i < vertices.size(); i++) {
-
-        // current vertex
-        vec2 p1 = vertices[i];
-        // PRINT("vert => {" << p1.x << ", " << p1.y << "}");
-
-        // next vertex
-        vec2 p2 = vertices[(i + 1) % vertices.size()];
-
-        // edge vector p1 - p2
-        vec2 edge = p1 - p2;
-
-        // vector normal to (p1 - p2)
-        vec2 norm = {-edge.y, edge.x};
-
-        normals->push_back(norm.normalize());
-    }
-}
+/**
+ * @brief Given a reference to a
+ *
+ * @param normals
+ * @param vertices
+ */
+void push_normals(vector<vec2>* normals, vector<vec2> vertices);
 
 
-projection project(vec2 normal, vector<vec2> vertices) {
-
-    float min = normal.dot(vertices[0]);
-    float max = min;
-
-    for(int i = 1; i < vertices.size(); i++) {
-
-        float proj = normal.dot(vertices[i]);
-
-        if(proj < min) {
-            min = proj;
-        }
-        else if(proj > max) {
-            max = proj;
-        }
-    }
-
-    return {min, max};
-}
+/**
+ * @brief Project a shape onto an axis.
+ *
+ * @param axis the axis to test
+ * @param vertices the vertices of the shape
+ * @return Projection
+ */
+Projection project(vec2 normal, vector<vec2> vertices);
 
 /**
  * @brief Project a circle onto an axis.
@@ -121,146 +133,16 @@ projection project(vec2 normal, vector<vec2> vertices) {
  * @param axis the axis to test
  * @param center the center of the circle
  * @param radius the radius of the circle
- * @return projection
+ * @return Projection
  */
-projection project(vec2 normal, vec2 center, float radius) {
-
-    float proj = normal.dot(center);
-
-    return {proj - radius, proj + radius};
-}
+Projection project(vec2 normal, vec2 center, float radius);
 
 /**
  * @brief Get the Minimum Translation Vector (MTV) using the
  * Separation Axis Theorem.
  */
-Collision get_collision(vector<vec2> vertices_a, vector<vec2> vertices_b) {
+Collision get_collision(vector<vec2> vertices_a, vector<vec2> vertices_b);
 
-    vector<vec2> normals;
+Collision get_collision(const sf::Shape& a, const sf::Shape& b);
 
-    // PRINT("collecting normals of A");
-    push_normals(&normals, vertices_a);
-
-    // PRINT("collecting normals of B");
-    push_normals(&normals, vertices_b);
-
-    float smallest_overlap = -INFINITY;
-    vec2 smallest_axis;
-
-    // PRINT(normals.size() << " normals");
-    // PRINT("collecting projections");
-    for(vec2 normal: normals) {
-
-        // PRINT("{" << normal.x << ", " << normal.y << "}");
-        // PRINT(" - getting 1st projection");
-        projection p1 = project(normal, vertices_a);
-        // PRINT(" - getting 2nd projection");
-        projection p2 = project(normal, vertices_b);
-        // PRINT("{" << p1.min << ", " << p1.max << "} <=> {" << p2.min << ", " << p2.max << "}");
-
-        if(!p1.overlaps(p2)) {
-            // PRINT(" - no overlap");
-            return Collision();
-        }
-        else {
-            // PRINT(" - found overlap");
-            float overlap = p1.get_overlap(p2);
-
-            if(fabs(overlap) < fabs(smallest_overlap)) {
-
-                smallest_overlap = overlap;
-                smallest_axis = normal;
-            }
-        }
-    }
-
-    // PRINT("done");
-
-    return Collision({smallest_axis, smallest_overlap});
-}
-
-Collision get_collision(const sf::Shape& a, const sf::Shape& b) {
-
-    vector<vec2> verts_a = {
-        a.getTransform().transformPoint(a.getPoint(0)),
-        a.getTransform().transformPoint(a.getPoint(1)),
-        a.getTransform().transformPoint(a.getPoint(2)),
-        a.getTransform().transformPoint(a.getPoint(3))
-    };
-
-    vector<vec2> verts_b = {
-        b.getTransform().transformPoint(b.getPoint(0)),
-        b.getTransform().transformPoint(b.getPoint(1)),
-        b.getTransform().transformPoint(b.getPoint(2)),
-        b.getTransform().transformPoint(b.getPoint(3))
-    };
-
-    return get_collision(verts_a, verts_b);
-}
-
-Collision get_collision(const sf::Shape& a, const sf::CircleShape& b) {
-
-    // PRINT("preparing vertices");
-
-    vector<vec2> verts_a = {
-        a.getTransform().transformPoint(a.getPoint(0)),
-        a.getTransform().transformPoint(a.getPoint(1)),
-        a.getTransform().transformPoint(a.getPoint(2)),
-        a.getTransform().transformPoint(a.getPoint(3))
-    };
-
-    const vec2& b_center = b.getPosition();
-
-    // PRINT("finding circle -> shape axis");
-
-    // get the vector of the shortest line from B to a vertice on A
-    // ------------------------------------------------------------
-
-    float min = INFINITY;
-    vec2 min_axis;
-
-    for(vec2 vert: verts_a) {
-
-        vec2 axis = vert - b_center;
-        float mag_sq = axis.dot(axis);
-
-        if(mag_sq < min) {
-            min = mag_sq;
-            min_axis = min_axis;
-        }
-    }
-
-    // PRINT("finding other axes");
-
-    // prepare axes
-
-    vector<vec2> normals;
-    push_normals(&normals, verts_a);
-    normals.push_back(min_axis.normalize());
-
-    float smallest_overlap = INFINITY;
-    vec2 smallest_axis;
-
-    for(vec2 normal: normals) {
-
-        projection p1 = project(normal, verts_a);
-        projection p2 = project(normal, b_center, b.getRadius());
-
-        if(!p1.overlaps(p2)) {
-
-            return Collision();
-        }
-        else {
-            // PRINT(" - found overlap");
-            float overlap = p1.get_overlap(p2);
-
-            if(fabs(overlap) < fabs(smallest_overlap)) {
-
-                smallest_overlap = overlap;
-                smallest_axis = normal;
-            }
-        }
-    }
-
-    return Collision({smallest_axis, smallest_overlap});
-}
+Collision get_collision(const sf::Shape& a, const sf::CircleShape& b);
