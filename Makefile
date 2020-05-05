@@ -1,9 +1,11 @@
 
+# the c++ compiler to use
 CC = g++
 
-# name of executable
+# name of output executable
 OUTPUT = main
 
+# list of source files with a main() function
 ENTRIES = $(SRCDIR)/main.cpp
 
 # .o / .cpp / .h / .d directories
@@ -26,20 +28,43 @@ SFML = D:/libs/sfml_2.5.1
 # C libraries
 # -----------
 
-LIBS =
+# Windows-specific libraries
+ifeq ($(OS), Windows_NT)
+
+# NOTE: static variants of SFML libraries used
+# The use of static libraries was used so the compiled .exe file
+# does not require any additional .dlls to be included with it.
+LIBS += -lsfml-graphics-s -lsfml-window-s -lsfml-system-s
+LIBS += -lopengl32 -lwinmm -lgdi32 -lfreetype
+
+# Unix-specific libraries
+else
+
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system
+
+endif
+
 
 # dependency generator flags
 # --------------------------
+# Compiling source files will generate a .d file. This file follows
+# the makefile syntax, which contains targets where the target is the .cpp file
+# and the dependencies are the header files found in the .cpp file.
+#
+# By including these .d files into this makefile we can automate the process of
+# adding header files into the Makefile for a given source file.
 
 # -MT: sets the name of the target generated
 # -MMD: ignores system headers when generating dependancies
 # -MP: generates phony targets for each dependency
 # -MF: sets the name of the .d file generated
+
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 
 # compile flags
 # -------------
 
+# -Wall: displays all warnings when compiling
 # -D_DEBUG: when set, includes debugging messages in the game
 # -DSFML_STATIC : when set (combined with linking with "-s" libraries),
 #     links the SFML libraries statically (copies the SFML code into the program),
@@ -51,8 +76,14 @@ CFLAGS += -U__STRICT_ANSI__ -Wall -std=c++1z -D_DEBUG -I"./$(INCDIR)"
 #==============================================================================
 #==============================================================================
 
-# collect source files
+# ALL AUTOMATIC BELOW
+
+#==============================================================================
+#==============================================================================
+
+# automatically find all source files in this project and store it in $(SRCS)
 # (first wildcard gets root-level .cpp's, second gets nested .cpp's)
+
 SRCS := $(wildcard $(SRCDIR)**/*.cpp) $(wildcard $(SRCDIR)/**/*.cpp)
 SRCS := $(filter-out $(ENTRIES),$(SRCS))
 OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
@@ -79,7 +110,6 @@ ifeq ($(OS), Windows_NT)
 	# EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%.exe)
 
 	# use static libraries for Windows
-	LIBS += -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lfreetype
 	OUTFILE := $(OUTPUT).exe
 
 	# exec command
@@ -111,7 +141,7 @@ else
 	LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 	OUTFILE := $(OUTPUT)
 
-
+	# exec command
 	RUN.c = ${BINDIR}/$(OUTPUT)
 
 	MKDIR_OBJS.c = @mkdir -p $(@D)
@@ -128,6 +158,8 @@ endif
 %.o : %.cpp # remove default target
 
 # executable linking
+# ------------------
+
 $(BINDIR)/% : $(OBJDIR)/%.o $(OBJS)
 	@echo     creating exec "$(BINDIR)/$(notdir $@)"
 	$(CC) $^ -o $(BINDIR)/$(notdir $@) $(CFLAGS) $(LIBS)
@@ -136,16 +168,22 @@ $(BINDIR)/% : $(OBJDIR)/%.o $(OBJS)
 # $(CC) $^ -o $(OUTPUT) $(CFLAGS) $(LIBS)
 
 # compile step
+# ------------------
+
 $(OBJDIR)/%.o $(DEPDIR)/%d: $(SRCDIR)/%.cpp
 	$(MKDIR_OBJS.c)
 	$(MKDIR_DEPS.c)
 	$(MKDIR_BINS.c)
 	$(CC) $(CFLAGS) $(DEPFLAGS) $< -o $(@:$(DEPDIR)%.d=$(OBJDIR)%.o) -c
 
-# executable dependancy
+# have our output file depend on all
+# ----------------------------------
+
 $(OUTFILE): all
 
-# include src dependencies
+# include all .d files
+# --------------------
+
 include $(DEPS)
 
 #==============================================================================
