@@ -22,11 +22,17 @@ private:
 
 public:
 
+    vec2 a, b;
+    float thickness;
+
     Platform(const vec2& a,
              const vec2& b,
              float thickness,
              PlatformType type = NORMAL)
              : type(type)
+             , a(a)
+             , b(b)
+             , thickness(thickness)
     {
         vec2 diff = b - a;
 

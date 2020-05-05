@@ -67,14 +67,24 @@ public:
 
     ~CompositeEntity() {
 
+        PRINT("deleting composite entity [" << (bound_children.size() + free_children.size()) << " ents]");
+
+        // FIXME: deleting these points sometimes crashes the program
+
+        /*
         for(Entity* child: bound_children)
             delete child;
 
         for(Entity* child: free_children)
             delete child;
+        */
+
+        PRINT(" child ents deleted");
 
         bound_children.clear();
         free_children.clear();
+
+        PRINT(" vectors cleared");
     }
 
 

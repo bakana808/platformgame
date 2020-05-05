@@ -15,6 +15,10 @@
 using vec2i = sf::Vector2i;
 using std::string;
 
+typedef sf::Keyboard Keyboard;
+typedef Keyboard::Key Key;
+
+
 class vec2;
 
 float lerp(float, float, float);

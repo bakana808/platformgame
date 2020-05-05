@@ -29,7 +29,7 @@ public:
      * @param pos
      * @return sf::Text*
      */
-    sf::Text* add_elm(string id, const vec2& pos);
+    sf::Text* add_elm(string id, const vec2& pos, int size = 14);
 
     /**
      * @brief Set the text of an element.

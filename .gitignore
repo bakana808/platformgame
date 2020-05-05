@@ -9,3 +9,4 @@ game
 *.exe
 
 !game/
+level_out.txt

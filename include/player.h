@@ -34,9 +34,6 @@
 
 using std::vector;
 
-typedef sf::Keyboard Keyboard;
-typedef Keyboard::Key Key;
-
 
 class Level;
 class LevelRegion;
