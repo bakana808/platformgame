@@ -26,6 +26,12 @@ public:
      */
     virtual void set_pos(const vec2&) = 0;
 
+    /**
+     * @brief Gets the position of this entity.
+     *
+     * @return const vec2&
+     */
+    virtual const vec2& get_pos() = 0;
 
     /**
      * @brief Process a time step for this entity.
@@ -185,7 +191,7 @@ public:
      *
      * @return const vec2&
      */
-    const vec2& get_pos(void) {
+    const vec2& get_pos(void) override {
 
         return this->pos;
     }
@@ -284,5 +290,9 @@ public:
 
         if(source)
             source->remove_child(this);
+    }
+
+    bool operator==(const GameObject& other) {
+
     }
 };

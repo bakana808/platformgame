@@ -30,8 +30,8 @@ Button::Button(int x, int y,string s) : _shape(sf::Vector2f(Button_wide,Button_h
     _text.setStyle(sf::Text::Bold);
     _text.setOrigin(_text.getLocalBounds().width/2, _text.getLocalBounds().height/2+8);
     _text.setPosition(x, y);
-    Button_Frame_count = 0;
 
+    Button_Frame_count = 0;
 }
 
 void Button::update(float delta) {
@@ -43,15 +43,15 @@ void Button::update(float delta) {
     }
         //highlight
     if (Selected) {
-        if(Button_Frame_count<100){
+        if(Button_Frame_count<10){
                 _shape.scale(Button_Scale_Rate,Button_Scale_Rate);
                 _text.scale(Button_Scale_Rate,Button_Scale_Rate);
                 Button_Frame_count++;
-        }else if(Button_Frame_count<200){
+        }else if(Button_Frame_count<20){
                 _shape.scale(Button_Scale_Rate-0.02,Button_Scale_Rate-0.02);
                 _text.scale(Button_Scale_Rate-0.02,Button_Scale_Rate-0.02);
                 Button_Frame_count++;
-        }else if(Button_Frame_count<400){
+        }else if(Button_Frame_count<40){
                 _shape.move(5,0);
                 _text.move(5,0);
                 Button_Frame_count++;

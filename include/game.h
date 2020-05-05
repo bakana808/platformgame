@@ -27,13 +27,12 @@ private:
     sf::View view;
     sf::View hud_view;
 
-    Level level;
+    Level* level;
     Player player;
     Button start;
     HUD* hud;
     Menu menu;
 
-    Enemy enemy;
     Obstacle obstacle;
 
     void processEvents();
@@ -65,5 +64,5 @@ public:
 
     Player& get_player() { return player; }
 
-    Level& get_level() { return level; }
+    Level& get_level() { return *level; }
 };

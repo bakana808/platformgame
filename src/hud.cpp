@@ -62,6 +62,8 @@ void HUD::set_pos(const vec2& pos) {
         pair.second->setPosition(pos);
 }
 
+const vec2& HUD::get_pos() { return vec2::ZERO; }
+
 
 void HUD::update(float delta) {
 

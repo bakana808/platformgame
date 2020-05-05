@@ -1,23 +1,35 @@
+
 #include "enemy.h"
-#include <SFML/Graphics.hpp>
+#include "game.h"
+#include "level/region.h"
+#include <math.h>
+
+Enemy::Enemy(Game* game): game(game)
+{
+    PRINT("creating enemy");
+    // tex.loadFromFile("redsquare.png");
+
+    body.setPointCount(3);
+    body.setPoint(0, {-32, 32});
+    body.setPoint(1, {+32, 32});
+    body.setPoint(2, {0, -32});
+    body.setFillColor({255, 0, 0});
+
+    PRINT("    adding body");
+    this->add_child(body);
+    PRINT("    done");
+
+    // enemyimage.setTexture(tex);
+    // enemyimage.setScale(0.5, 0.5);
+    // enemyimage.setPosition(enemyXposition, enemyYposition);
+
+    // spawnTeleporter();
+}
 
 //Defining Pick function//
 int Enemy::Random_position(int start, int stop)
 {
     return (rand() % (stop - start + 1)) + start;
-}
-
-//EnemyCreation//
-void Enemy::enemySpawn()
-{
-    tex.loadFromFile("redsquare.png");
-    enemyimage.setTexture(tex);
-    enemyimage.setScale(0.5, 0.5);
-    enemyimage.setPosition(enemyXposition, enemyYposition);
-
-    //Handles enemy Movement&Fireballattack//
-    enemyMove();
-    enemyFireballattack();
 }
 
 void Enemy::enemyMove()
@@ -32,12 +44,13 @@ void Enemy::enemyMove()
         enemyXposition--;
     }
 }
+
 void Enemy::spawnEnemyfireball()
 {
-    tex.loadFromFile("redsquare.png");
-    fireballimage.setTexture(tex);
-    fireballimage.setScale(0.01, 0.01);
-    fireballimage.setPosition(fireballXposition, fireballYposition);
+    // tex.loadFromFile("redsquare.png");
+    // fireballimage.setTexture(tex);
+    // fireballimage.setScale(0.01, 0.01);
+    // fireballimage.setPosition(fireballXposition, fireballYposition);
 }
 
 void Enemy::enemyFireballattack()
@@ -51,17 +64,17 @@ void Enemy::enemyFireballattack()
 
         fireballXposition--;
         //Updating fireballMovement//
-        fireballimage.setPosition(fireballXposition, fireballYposition);
+        // fireballimage.setPosition(fireballXposition, fireballYposition);
     }
 }
 
 void Enemy::spawnTeleporter()
 {
 
-    tex.loadFromFile("teleporter.png");
-    teleporterimage.setTexture(tex);
-    teleporterimage.setScale(0.3, 0.3);
-    teleporterimage.setPosition(teleporterXposition, teleporterYposition);
+    // tex.loadFromFile("teleporter.png");
+    // teleporterimage.setTexture(tex);
+    // teleporterimage.setScale(0.3, 0.3);
+    // teleporterimage.setPosition(teleporterXposition, teleporterYposition);
 
     //while teleporter is in starting position//
     while (teleporterXposition == 250)
@@ -72,18 +85,85 @@ void Enemy::spawnTeleporter()
         teleporterYposition = Random_position(0, 300);
 
         //New Teleporter Position//
-        teleporterimage.setPosition(teleporterXposition, teleporterYposition);
+        // teleporterimage.setPosition(teleporterXposition, teleporterYposition);
     }
 }
 
-Enemy::Enemy(sf::View &view, sf::View &hud): view(view), hud(hud)
-{
-    enemySpawn();
-    spawnTeleporter();
+vec2 Enemy::get_player_axis() {
+
+    return this->get_pos() - game->get_player().get_pos();
+}
+
+void Enemy::delete_bullet() {
+    if(bullet) {
+        this->remove_child(bullet);
+    }
+
+    bullet = NULL;
+}
+
+void Enemy::fire_bullet() {
+
+    delete_bullet();
+
+    bullet = new Bullet(game, this, get_player_axis() * -1, 3);
+    bullet->set_pos(this->get_pos());
+
+    this->add_child((Entity*)bullet);
 }
 
 void Enemy::update(float delta) {
 
+    static float fire_timer = 0.f;
+
+    // if enemy is not on the same region as the player then do nothing
+    if(LevelRegion::get_coords(this) != game->get_player().get_region()->get_coords()) {
+        fire_timer = 0.f;
+        delete_bullet();
+
+        return;
+    }
+
+    fire_timer += delta;
+
+    float factor = fire_timer / 2.f;
+    float gb = factor * factor * factor * 255;
+    body.setFillColor({gb, 255 - gb, 255 - gb});
+
+    if(fire_timer > 2.f) {
+        fire_timer -= 2.f;
+        fire_bullet();
+    }
+
+    if(bullet) {
+        bullet->update(delta);
+    }
+
+    body.setRotation(-get_player_axis().heading());
+}
+
+
+void Bullet::update(float delta) {
+
+    this->move(dir * speed);
+
+    sf::CircleShape *p_body = game->get_player().get_body();
+
+    // collision check on player
+
+    if(get_collision(body, *p_body).has_collided()) {
+        game->get_player().respawn();
+    }
+
+    // collision check on platforms
+
+    for(auto plat: game->get_level().get_platforms()) {
+
+        if(get_collision(body, plat.get_shape()).has_collided()) {
+
+            // source->remove_child(this);
+        }
+    }
 }
 
 //////IDEAS && ADD-ONS/////

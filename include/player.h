@@ -7,7 +7,6 @@
 #include <set>
 
 #include "common.h"
-#include "level.h"
 #include "platform.h"
 #include "entity.h"
 #include "particle.h"
@@ -39,6 +38,7 @@ typedef sf::Keyboard Keyboard;
 typedef Keyboard::Key Key;
 
 
+class Level;
 class LevelRegion;
 
 
@@ -82,7 +82,7 @@ private:
     sf::RectangleShape box_g;
     sf::ConvexShape tri;
 
-    sf::CircleShape body_hb;
+    sf::CircleShape* body_hb;
     sf::RectangleShape foot_hb;
 
     sf::Font font;
@@ -151,6 +151,7 @@ public:
     ~Player() {
 
         delete region;
+        delete body_hb;
     }
 
     void set_level(Level& level) {
@@ -209,6 +210,10 @@ public:
     int get_num_dashes() { return num_dashes; }
 
     bool can_jump() { return b_can_jump; }
+
+    sf::CircleShape* get_body() { return body_hb; }
+
+    LevelRegion* get_region() { return region; }
 
     //=========================================================================
     // PLAYER ACTIONS

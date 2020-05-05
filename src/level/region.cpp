@@ -31,6 +31,19 @@ LevelRegion::LevelRegion(Player *player, sf::View *view)
 }
 
 
+vec2 LevelRegion::get_coords(Entity *ent) {
+
+    const vec2 &pos = ent->get_pos();
+
+    vec2 offset(REGION_WIDTH/2, REGION_HEIGHT/2);
+
+    return vec2(
+        floorf((pos.x + offset.x) / REGION_WIDTH),
+        floorf((pos.y + offset.y) / REGION_HEIGHT)
+    );
+}
+
+
 bool LevelRegion::is_inside(void) {
 
     const vec2 &pos = player->get_pos();

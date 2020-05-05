@@ -7,10 +7,9 @@ Game::Game()
 : view({0.f, 0.f}, {WIDTH, HEIGHT})
 , hud_view({0.f, 0.f}, {WIDTH, HEIGHT})
 , start(20,50,"Start Game")
-, level("level.txt")
 , player(view, hud_view)
-, enemy(view, hud_view)
 {
+    level = new Level(this);
     hud = new HUD(this);
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
@@ -19,16 +18,19 @@ Game::Game()
 
     window->setKeyRepeatEnabled(false);
 
-player.set_level(level);
+    player.set_level(*level);
 }
 
 Game::~Game() {
 
     delete hud;
     delete window;
+    delete level;
 }
 
 void Game::run() {
+
+    level->load("level.txt");
 
     while (window->isOpen()) {
 
@@ -83,6 +85,9 @@ void Game::update(float delta) {
         window->close();
     }else{
         player.update(delta);
+
+        for(Enemy* enemy: level->get_enemies())
+            enemy->update(delta);
     }
 
     //   obstacle.activateTrap();*/
@@ -104,8 +109,7 @@ void Game::render() {
 
     window->setView(view);//zoom
     window->draw(player);
-    window->draw(level);
-    window->draw(enemy);
+    window->draw(*level);
 
     //=========================================================================
     // HUD RENDERING

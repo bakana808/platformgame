@@ -1,6 +1,7 @@
 
 
 #include "player.h"
+#include "level.h"
 #include "vector/vec2.h"
 #include "collision.h"
 #include "level/region.h"
@@ -14,7 +15,6 @@ Player::Player(sf::View& view, sf::View& hud)
 , hud(hud)
 , box({64, 64})
 , box_g({64, 64})
-, body_hb(32)
 , foot_hb({16, 16})
 {
     tri.setPointCount(3);
@@ -28,11 +28,12 @@ Player::Player(sf::View& view, sf::View& hud)
     box_g.setOrigin({32, 32});
     box_g.setFillColor({255, 255, 255, 0});
 
-    body_hb.setFillColor(sf::Color::Transparent);
-    body_hb.setOutlineColor(sf::Color::Transparent);
+    body_hb = new sf::CircleShape(32);
+    body_hb->setFillColor(sf::Color::Transparent);
+    body_hb->setOutlineColor(sf::Color::Transparent);
     // body_hb.setOutlineColor(sf::Color::Red);
-    body_hb.setOutlineThickness(2.0f);
-    body_hb.setOrigin({32, 32});
+    body_hb->setOutlineThickness(2.0f);
+    body_hb->setOrigin({32, 32});
 
     foot_hb.setFillColor(sf::Color::Transparent);
     foot_hb.setOutlineColor(sf::Color::Transparent);
@@ -42,7 +43,7 @@ Player::Player(sf::View& view, sf::View& hud)
 
     add_child(box);
     add_child(tri);
-    add_child(body_hb);
+    add_child(*body_hb);
     add_child(foot_hb);
     add_child_free(box_g);
 
@@ -235,7 +236,7 @@ Player::CollisionSet* Player::test_collisions() {
             // COLLISION WITH PLAYER
             // ---------------------
 
-            body_collision = get_collision(line.get_shape(), body_hb);
+            body_collision = get_collision(line.get_shape(), *body_hb);
 
             // PRINT("testing collision");
 

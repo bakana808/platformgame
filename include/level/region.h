@@ -25,6 +25,8 @@ public:
 
     const vec2& get_coords() const { return coords; }
 
+    static vec2 get_coords(Entity *ent);
+
     /**
      * @brief Returns true if the player is inside the bounds defined by
      * min and max.

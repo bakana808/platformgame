@@ -44,5 +44,7 @@ public:
 
     void set_pos(const vec2&) override;
 
+    const vec2& get_pos() override;
+
     void update(float delta) override;
 };
