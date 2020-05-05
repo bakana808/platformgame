@@ -73,7 +73,7 @@ void Game::processEvents() {
                 menu.Menu_Operation = 1;
             } else if (event.key.code == sf::Keyboard::Down) {
                 menu.Menu_Operation = 2;
-            } else if (event.key.code == sf::Keyboard::Key::Enter) {
+            } else if (event.key.code == sf::Keyboard::Key::Return) {
                 menu.Menu_Operation = 3;
             }
 
@@ -101,7 +101,7 @@ void Game::processEvents() {
                 menu.Menu_Operation = 0;
             else if (event.key.code == sf::Keyboard::Down)
                 menu.Menu_Operation = 0;
-            else if (event.key.code == sf::Keyboard::Key::Enter)
+            else if (event.key.code == sf::Keyboard::Key::Return)
                 menu.Menu_Operation = 0;
         }
     }

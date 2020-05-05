@@ -70,7 +70,7 @@ void Editor::key_press(Key key) {
 
         this->move({0, -speed}); break;
 
-    case Key::Enter:
+    case Key::Return:
 
         if(!plat_a) { // set first point
 
