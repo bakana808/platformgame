@@ -59,6 +59,7 @@ OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 DEPS := $(wildcard $(DEPDIR)**/*.d) $(wildcard $(DEPDIR)/**/*.d)
 
 EXES := $(subst .cpp,,$(ENTRIES)) # remove .cpp extension
+EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%)
 
 
 # platform-dependant flags
@@ -75,7 +76,7 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS += -DSFML_STATIC
 
 	# replace src/ with bin/ and add .exe extension
-	EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%.exe)
+	# EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%.exe)
 
 	# use static libraries for Windows
 	LIBS += -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32 -lfreetype
@@ -110,7 +111,6 @@ else
 	LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 	OUTFILE := $(OUTPUT)
 
-	EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%)
 
 	RUN.c = ${BINDIR}/$(OUTPUT)
 
