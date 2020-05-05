@@ -114,8 +114,6 @@ void Enemy::fire_bullet() {
 
 void Enemy::update(float delta) {
 
-    static float fire_timer = 0.f;
-
     // if enemy is not on the same region as the player then do nothing
     if(LevelRegion::get_coords(this) != game->get_player().get_region()->get_coords()) {
         fire_timer = 0.f;

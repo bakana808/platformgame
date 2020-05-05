@@ -49,6 +49,7 @@ private:
     Game* game;
 
     int speed = 4;
+    float fire_timer = 0;
 
 public:
 
