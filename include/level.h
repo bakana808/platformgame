@@ -10,6 +10,7 @@
 #include <map>
 
 #define FONT_FILE "FiraCode-VF.ttf"
+#define LEVEL_OUTPUT "level_out.txt"
 
 
 class Game;
@@ -37,6 +38,7 @@ public:
         for(Enemy* e: enemies)
             delete e;
     }
+
     /**
      * @brief Load a level from a file.
      *
@@ -44,7 +46,21 @@ public:
      */
     void load(string filename);
 
+    /**
+     * @brief Save the level into a file.
+     *
+     */
+    void save();
+
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    void add_platform(const vec2& a, const vec2& b, float width, int type);
+
+    void add_message(const vec2& pos, string message);
+
+    void add_checkpoint(const vec2& reg, const vec2& point);
+
+    void add_shooter(const vec2& pos);
 
     string get_region_title(const vec2& region);
 

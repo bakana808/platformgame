@@ -36,7 +36,7 @@ void Level::load(string filename) {
                         ss >> width and ss >> type
                     ) {
 
-                        platforms.push_back({{x1, y1}, {x2, y2}, width, static_cast<PlatformType>(type)});
+                        add_platform({x1, y1}, {x2, y2}, width, type);
                     }
                 }
                     break;
@@ -54,14 +54,7 @@ void Level::load(string filename) {
                             message += tmp + " ";
                         }
 
-                        sf::Text text;
-
-                        text.setFont(this->font);
-                        text.setPosition(x, y);
-                        text.setCharacterSize(14);
-                        text.setString(message);
-
-                        messages.push_back(std::move(text));
+                        add_message({x, y}, message);
                     }
                 }
                     break;
@@ -90,8 +83,7 @@ void Level::load(string filename) {
 
                     if(ss >> rx and ss >> ry and ss >> x and ss >> y) {
 
-                        PRINT("    adding checkpoint");
-                        checkpoints[{rx, ry}] = vec2(x, y);
+                        add_checkpoint({rx, ry}, {x, y});
                     }
                 }
                     break;
@@ -103,10 +95,7 @@ void Level::load(string filename) {
 
                     if(ss >> x and ss >> y) {
 
-                        PRINT("    adding enemy");
-                        Enemy* enemy = new Enemy(game);
-                        enemy->set_pos({x, y});
-                        enemies.push_back(enemy);
+                        add_shooter({x, y});
                         // enemy.set_pos(vec2(x, y));
                         // enemies.push_back(enemy);
                     }
@@ -124,6 +113,76 @@ void Level::load(string filename) {
         PRINT("could not read \"" + filename + "\" !");
     }
 }
+
+void Level::save() {
+
+    std::remove(LEVEL_OUTPUT);
+
+    std::fstream file;
+
+    file.open(LEVEL_OUTPUT, std::fstream::binary | std::fstream::in | std::fstream::out | std::fstream::trunc);
+
+    if(!file.good()) {
+        PRINT("failed to save level");
+        return;
+    }
+
+    for(auto plat: platforms) {
+        file << "\np " << plat.a.x << " " << plat.a.y;
+        file << " " << plat.b.x << " " << plat.b.y;
+        file << " " << plat.thickness << " " << (int)plat.get_type();
+    }
+
+    for(auto enemy: enemies) {
+        file << "\ne " << enemy->get_pos().x << " " << enemy->get_pos().y;
+    }
+
+    for(auto ch: checkpoints) {
+        file << "\nc " << ch.first.first << " " << ch.first.second;
+        file << " " << ch.second.x << " " << ch.second.y;
+    }
+
+    for(auto msg: messages) {
+        file << "\nm " << msg.getPosition().x << " " << msg.getPosition().y;
+        file << " " << (string)msg.getString();
+    }
+}
+
+
+void Level::add_platform(const vec2& a, const vec2& b, float width, int type) {
+
+    platforms.push_back({a, b, width, static_cast<PlatformType>(type)});
+}
+
+
+void Level::add_message(const vec2& pos, string message) {
+
+    sf::Text text;
+
+    text.setFont(this->font);
+    text.setPosition(pos);
+    text.setCharacterSize(14);
+    text.setString(message);
+
+    messages.push_back(std::move(text));
+}
+
+
+void Level::add_checkpoint(const vec2& reg, const vec2& point) {
+
+    PRINT("    adding checkpoint");
+    checkpoints[{reg.x, reg.y}] = point;
+}
+
+
+void Level::add_shooter(const vec2& pos) {
+
+    PRINT("    adding enemy");
+    Enemy* enemy = new Enemy(game);
+    enemy->set_pos(pos);
+    enemies.push_back(enemy);
+}
+
 
 void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 

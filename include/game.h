@@ -12,6 +12,7 @@
 #include "level.h"
 #include "menu.h"
 #include "enemy.h"
+#include "editor.h"
 #include "obstacle.h"
 
 class HUD;
@@ -32,6 +33,8 @@ private:
     Button start;
     HUD* hud;
     Menu menu;
+
+    Editor* editor = NULL;
 
     Obstacle obstacle;
 
