@@ -94,6 +94,13 @@ public:
     operator std::string() const;
 
     /**
+     * @brief Negate this vector.
+     *
+     * @return vec2
+     */
+    vec2 operator-() const { return vec2(-x, -y); }
+
+    /**
      * @brief Returns this vector scaled by a scalar.
      *
      * @param c
