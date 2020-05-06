@@ -1,13 +1,11 @@
 
 #pragma once
 
-
 #include "common.h"
 #include "vector/vec2.h"
-#include <optional>
-#include <vector>
 
 #define _USE_MATH_DEFINES
+#include <vector>
 #include <cmath>
 #include <limits>
 
@@ -15,13 +13,14 @@ using std::vector;
 
 
 /**
- * @brief Represents two points on a given axis.
+ * @brief Represents a region on a given axis.
  *
  * (treated as a one-dimensional line)
  *
  */
 class Projection {
 public:
+
     float min, max;
 
     /**
@@ -34,6 +33,7 @@ public:
      * @return false if this projection does not overlap this one
      */
     bool overlaps(Projection b) {
+
         return !(min > b.max or b.min > max);
     }
 
@@ -46,6 +46,7 @@ public:
      * @return float the magnitude of overlap.
      */
     float get_overlap(Projection b) {
+
         if(!overlaps(b)) return 0;
 
         if(b.max >= min) return b.max - min;
@@ -61,61 +62,82 @@ public:
  * resolve a collision between two objects.
  *
  */
-struct MTV {
+// struct MTV {
 
-    // normal vector of the collision surface
-    vec2 normal;
+//     // normal vector of the collision surface
+//     vec2 axis;
 
-    // minimum distance to resolve the collision
-    float mt_length;
+//     // minimum distance to resolve the collision
+//     float mt_length;
 
-    // here, you can translate one of the shapes by (normal * mt_length)
-    // to move the shape out of the collision.
-};
+//     // here, you can translate one of the shapes by (normal * mt_length)
+//     // to move the shape out of the collision.
+// };
 
 
 /**
- * @brief Holds information on the collision between two objects (the MTV).
+ * @brief Holds information on the collision between two objects.
  *
- * Inherits from std::optional to be able to represent no collision.
+ * The axis and magnitude that is stored is also known as the
+ * "minimum translation vector".
+ *
+ * Translating one of the intersecting objects by the axis scaled by the
+ * magnitude will resolve the intersection.
+ *
+ * This translation is gauranteed to be the shortest vector needed to
+ * resolve the intersection based on the collision check.
  *
  */
-class Collision: public std::optional<MTV> {
+class Collision {
+private:
+
+    bool b_has_collided;
+
+    vec2 *axis; // the axis where the shapes collided
+
+    float *magnitude; // the magnitude of intersection
+
 public:
 
-    Collision(): std::optional<MTV>(std::nullopt) {};
+    Collision() : b_has_collided(false), axis(NULL), magnitude(NULL) {}
 
-    Collision(MTV mtv): std::optional<MTV>(mtv) {};
+    Collision(const vec2& axis, float magnitude)
+    : b_has_collided(true) {
 
-    inline bool has_collided(void) { return this->has_value(); }
-
-    vec2* get_normal(void) {
-
-        if(has_collided()) {
-            return &value().normal;
-        } else {
-            return nullptr;
-        }
+        this->axis = new vec2(axis);
+        this->magnitude = new float(magnitude);
     }
 
-    float* get_overlap_len(void) {
+    bool has_collided(void) { return b_has_collided; }
 
-        if(has_collided()) {
-            return &value().mt_length;
-        } else {
-            return nullptr;
-        }
+    vec2* get_axis(void) {
+
+        if(axis) return axis;
+
+        throw 1;
     }
+
+    float* get_magnitude(void) {
+
+        if(magnitude) return magnitude;
+
+        throw 1;
+    }
+
 };
 
 
 /**
- * @brief Given a reference to a
+ * @brief Converts a vector of vertices to test axes and appends them
+ * to the given pointer to a vector of axes.
+ *
+ * This implementation uses the normals of all edges of the shape as the
+ * test axes.
  *
  * @param normals
  * @param vertices
  */
-void push_normals(vector<vec2>* normals, vector<vec2> vertices);
+void push_normals(vector<vec2>* axes, vector<vec2> vertices);
 
 
 /**
@@ -125,7 +147,7 @@ void push_normals(vector<vec2>* normals, vector<vec2> vertices);
  * @param vertices the vertices of the shape
  * @return Projection
  */
-Projection project(vec2 normal, vector<vec2> vertices);
+Projection project_convex(vec2 axis, vector<vec2> vertices);
 
 /**
  * @brief Project a circle onto an axis.
@@ -135,13 +157,28 @@ Projection project(vec2 normal, vector<vec2> vertices);
  * @param radius the radius of the circle
  * @return Projection
  */
-Projection project(vec2 normal, vec2 center, float radius);
+Projection project_circle(vec2 normal, vec2 center, float radius);
 
 /**
- * @brief Get the Minimum Translation Vector (MTV) using the
- * Separation Axis Theorem.
+ * @brief Check the collision between two convex shapes.
+ *
+ * @param vertices_a the vertices of shape A
+ * @param vertices_b the vertices of shape B
+ * @return Collision the collision test results
  */
 Collision get_collision(vector<vec2> vertices_a, vector<vec2> vertices_b);
+
+/**
+ * @brief Check the collision between a convex shape and a circle.
+ *
+ * This implementation is a bit different than the convex-convex test.
+ *
+ * @param vertices_a the vertices of shape A
+ * @param center_b   the center position of shape B
+ * @param radius_b   the radius of shape B
+ * @return Collision the collision test results
+ */
+Collision get_collision(vector<vec2> vertices_a, const vec2& center_b, float radius_b);
 
 Collision get_collision(const sf::Shape& a, const sf::Shape& b);
 
