@@ -11,7 +11,7 @@
 
 
 /**
- * @brief A 2D vector
+ * @brief A 2D vector with additional math functions.
  *
  */
 class vec2: public sf::Vector2f {
@@ -32,11 +32,6 @@ public:
         // this->y = v.y;
     }
 
-    float heading_rad() {
-
-        return atan2f(x, y);
-    }
-
     /**
      * @brief Returns the angle of the given vector (in degrees)
      * The range of the angle will be [0, 360)
@@ -52,6 +47,11 @@ public:
         if(angle > max) angle -= 360;
 
         return angle;
+    }
+
+    float heading_rad() {
+
+        return atan2f(x, y);
     }
 
     /**
