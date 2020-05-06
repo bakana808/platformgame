@@ -12,18 +12,22 @@
 #define ROUND2(x) ((int)(x * 100)) / 100.f
 #define STR(x) std::to_string(x)
 
-using vec2i = sf::Vector2i;
-using std::string;
-
+typedef std::string string;
+typedef sf::Vector2i vec2i;
 typedef sf::Keyboard Keyboard;
 typedef Keyboard::Key Key;
 
-
+// linear interpolation functions (unused)
 class vec2;
 
 float lerp(float, float, float);
 vec2 lerp(vec2, vec2, float);
 
+/**
+ * @brief Cordial directions for general use.
+ *
+ */
+enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
 
 namespace game {
 
@@ -38,9 +42,3 @@ namespace game {
 
     std::string round_str(float n, int decimals = 2);
 }
-
-/**
- * @brief Cordial directions
- *
- */
-enum Direction { NONE, LEFT, RIGHT, UP, DOWN };
