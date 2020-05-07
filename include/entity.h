@@ -17,6 +17,10 @@ using std::vector;
  *
  */
 class Entity: public sf::Drawable {
+private:
+
+    bool b_is_deleted = false;
+
 public:
 
     /**
@@ -42,6 +46,16 @@ public:
      * @param delta the change in time from the last frame
      */
     virtual void update(float delta) = 0;
+
+    /**
+     * @brief Return if this Entity is to be deleted.
+     *
+     * @return true
+     * @return false
+     */
+    bool is_deleted() { return b_is_deleted; }
+
+    void destroy() { b_is_deleted = true; }
 };
 
 
@@ -71,8 +85,11 @@ public:
 
         // FIXME: deleting these points sometimes crashes the program
 
-        for(auto t: children)
-            remove_child(t.first);
+        auto it = children.begin();
+        while(it != children.end()) {
+
+            it = remove_child(it, "");
+        }
     }
 
     /**
@@ -101,12 +118,21 @@ public:
     template<class T>
     void remove_child(T* child) {
 
-        PRINT("removing child " << child << " (" << typeid(T).name() << ")");
-
         auto it = children.find(child);
-        if(it != children.end()) children.erase(it);
+        if(it != children.end()) {
+            remove_child(it, typeid(T).name());
+        }
+    }
 
-        delete child;
+    std::map<Entity*, bool>::iterator remove_child(std::map<Entity*, bool>::iterator it, string name) {
+
+        PRINT("removing child " << it->first << " (" << name << ")");
+
+        auto new_it = children.erase(it);
+
+        delete it->first;
+
+        return new_it;
     }
 
 
@@ -154,13 +180,8 @@ public:
 
         this->pos = pos;
 
-        auto it = children.begin();
-        while(it != children.end()) {
-
-            if(it->second)
-                it->first->set_pos(pos);
-            it++;
-        }
+        for(auto t: children)
+            if(t.second) t.first->set_pos(pos);
     }
 
 
@@ -193,7 +214,11 @@ public:
         while(it != children.end()) {
 
             it->first->update(delta);
-            it++;
+
+            if(it->first->is_deleted())
+                it = remove_child(it, "");
+            else
+                it++;
         }
     }
 };
@@ -256,18 +281,7 @@ public:
 
     const vec2& get_pos(void) { return pos; }
 
-
     void update(float delta) override {}
-
-    /**
-     * @brief Delete this object. (self-delete)
-     *
-     */
-    void destroy() {
-
-        if(source)
-            source->remove_child(this);
-    }
 
     bool operator==(const GameObject& other) {
 
