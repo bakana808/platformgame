@@ -171,6 +171,8 @@ $(BINDIR)/% : $(OBJDIR)/%.o $(OBJS)
 # ------------------
 
 $(OBJDIR)/%.o $(DEPDIR)/%d: $(SRCDIR)/%.cpp
+	@echo [INFO] TARGET: $@
+	@echo [INFO] PREREQS: $?
 	$(MKDIR_OBJS.c)
 	$(MKDIR_DEPS.c)
 	$(MKDIR_BINS.c)
