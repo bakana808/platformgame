@@ -121,8 +121,9 @@ void Enemy::update(float delta) {
     fire_timer += delta;
 
     float factor = fire_timer / 2.f;
-    float gb = factor * factor * factor * 255;
-    body->setFillColor({gb, 255 - gb, 255 - gb});
+    sf::Uint8 r = (int)(factor * factor * factor * 255);
+    sf::Uint8 gb = 255 - r;
+    body->setFillColor({r, gb, gb});
 
     if(fire_timer > 2.f) {
         fire_timer -= 2.f;

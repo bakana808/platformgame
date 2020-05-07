@@ -46,7 +46,7 @@ void Editor::update(float delta) {
 
 void Editor::key_press(Key key) {
 
-    int speed = EDITOR_GRID;
+    float speed = EDITOR_GRID;
 
     if(Keyboard::isKeyPressed(Key::LShift)) {
         speed = speed * 10;

@@ -48,6 +48,12 @@ Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
     set_color(P_COLOR_NORMAL);
 }
 
+Player::~Player() {
+
+    delete region;
+    delete body_hb;
+}
+
 
 void Player::set_color(sf::Color color) {
 
@@ -91,10 +97,6 @@ void Player::key_press(Key key) {
     if(key == Key::U) {
 
         b_spinning = true;
-
-        // set_color({255, 255, 150});
-
-        using key = Key;
 
         float x = 0, y = 0;
 
@@ -224,7 +226,7 @@ Player::CollisionSet* Player::test_collisions() {
         float dist = (box->getPosition() - line.getPosition()).magnitude();
 
         // only test collision if within proximity
-        if((box->getPosition() - line.getPosition()).magnitude() < line.get_length() + 10) {
+        if(dist < line.get_length() + 10) {
 
             // PRINT("finding collision");
 
@@ -411,6 +413,7 @@ void Player::update(float delta) {
             if(!b_can_jump and col.b_can_jump) b_can_jump = true;
             if(!on_ground) on_ground = true;
 
+        default:
             break;
 
     // }
@@ -477,7 +480,7 @@ void Player::update(float delta) {
 
     if(this->is_grounded != on_ground) {
 
-        if(this->is_grounded = on_ground) {
+        if((this->is_grounded = on_ground)) {
             PRINT("touched ground");
             set_color(P_COLOR_NORMAL);
             num_dashes = 1;

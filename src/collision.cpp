@@ -6,7 +6,7 @@ void push_normals(vector<vec2>* axes, vector<vec2> vertices) {
 
     if(vertices.size() <= 1) return;
 
-    for(int i = 0; i < vertices.size(); i++) {
+    for(unsigned int i = 0; i < vertices.size(); i++) {
 
         // current vertex
         vec2 p1 = vertices[i];
@@ -31,7 +31,7 @@ Projection project_convex(vec2 axis, vector<vec2> vertices) {
     float min = axis.dot(vertices[0]);
     float max = min;
 
-    for(int i = 1; i < vertices.size(); i++) {
+    for(unsigned int i = 1; i < vertices.size(); i++) {
 
         float proj = axis.dot(vertices[i]);
 

@@ -19,7 +19,7 @@ namespace game {
 
     float round(float n, int decimals) {
 
-        int f = (int)pow(10, f);
+        int f = (int)pow(10, decimals);
 
         return roundf(n * f) / f;
     }

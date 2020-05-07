@@ -225,6 +225,8 @@ private:
 
     static int object_count;
 
+    vec2 pos;
+
 public:
 
     T* handle;
@@ -237,6 +239,8 @@ public:
         handle = new T();
         drawable = (sf::Drawable*)handle;
         transformable = (sf::Transformable*)handle;
+
+        pos = transformable->getPosition();
     }
 
     ~GameObject() {
@@ -254,9 +258,10 @@ public:
     void set_pos(const vec2& pos) override {
 
         transformable->setPosition(pos);
+        this->pos = pos;
     }
 
-    const vec2& get_pos(void) { return transformable->getPosition(); }
+    const vec2& get_pos(void) { return pos; }
 
 
     void update(float delta) override {}

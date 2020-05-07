@@ -116,15 +116,14 @@ private:
         box_g->setPosition(box->getPosition());
         box_g->setRotation(box->getRotation());
         ghost_alpha = 100;
-        box_g->setFillColor({255, 255, 255, ghost_alpha});
+        box_g->setFillColor({255, 255, 255, sf::Uint8(ghost_alpha)});
     }
 
     void update_afterimage(float delta) {
 
-        auto color = box_g->getFillColor();
         if(ghost_alpha > 0) {
             ghost_alpha = fmax(0, ghost_alpha - delta * 500);
-            box_g->setFillColor({255, 255, 255, (int)ghost_alpha});
+            box_g->setFillColor({255, 255, 255, sf::Uint8(ghost_alpha)});
         }
     }
 
@@ -146,11 +145,7 @@ public:
 
     Player(sf::View& view, sf::View& hud);
 
-    ~Player() {
-
-        delete region;
-        delete body_hb;
-    }
+    ~Player();
 
     void set_level(Level& level) {
 

@@ -15,9 +15,9 @@ private:
 
     vec2 coords, min, max, vmin, vmax;
 
-    sf::View *view; // reference to the view used to render the world
-
     Player *player; // reference to the player
+
+    sf::View *view; // reference to the view used to render the world
 
 public:
 

@@ -40,12 +40,14 @@ sf::Text* HUD::add_elm(string id, const vec2& pos, int size) {
 
     elm->setFont(font);
     elm->setCharacterSize(size);
-    elm->setColor(sf::Color::White);
+    elm->setFillColor(sf::Color::White);
     elm->setOrigin(-pos.x, -pos.y);
 
     elements[id] = elm;
 
     PRINT("added HUD element @ " + (string)pos + " (id=" + id + ")");
+
+    return elm;
 }
 
 
