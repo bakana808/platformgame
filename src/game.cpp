@@ -9,10 +9,16 @@ Game::Game()
 : view({0.f, 0.f}, {WIDTH, HEIGHT})
 , hud_view({0.f, 0.f}, {WIDTH, HEIGHT})
 , start(20,50,"Start Game")
-, player(view, hud_view)
 {
-    level = new Level(this);
+    player = em.create_entity(new Player(view, hud_view));
+    level = em.create_entity(new Level(this));
+
+    player->set_level(*level);
+
+    // this isn't added to the manager since it's rendered
+    // in a different view
     hud = new HUD(this);
+
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
@@ -20,9 +26,7 @@ Game::Game()
 
     window->setKeyRepeatEnabled(false);
 
-    player.set_level(*level);
-
-    // editor = new Editor(this);
+    PRINT("created game");
 }
 
 Game::~Game() {
@@ -64,7 +68,7 @@ void Game::processEvents() {
                 editor->key_press(event.key.code);
             }
             else if(!editor) {
-                player.key_press(event.key.code);
+                player->key_press(event.key.code);
             }
 
             if (event.key.code == sf::Keyboard::Escape) {
@@ -79,11 +83,12 @@ void Game::processEvents() {
 
             if(event.key.code == Key::E) {
                 if(editor) {
-                    delete editor; editor = nullptr;
+                    delete editor;
+                    editor = nullptr;
                 } else {
                     editor = new Editor(this);
 
-                    vec2 pos = player.get_pos();
+                    vec2 pos = player->get_pos();
                     editor->set_pos({roundf(pos.x / 10) * 10, roundf(pos.y / 10) * 10});
                 }
             }
@@ -94,7 +99,7 @@ void Game::processEvents() {
                 editor->key_release(event.key.code);
             }
             else if(!editor) {
-                player.key_release(event.key.code);
+                player->key_release(event.key.code);
             }
 
             if(event.key.code == sf::Keyboard::Up)
@@ -110,29 +115,33 @@ void Game::processEvents() {
 
 void Game::update(float delta) {
 
-    hud->update(delta);
-
     if(menu.Enabled){
+
         menu.update(delta);
+
     }else if(menu.exit){
+
         window->close();
+
     }else{
 
-        // only update the editor if there is an editor
+        if(editor) {
 
-        if(editor) { editor->update(delta); }
-        else {
-            // PRINT("updating player");
-            player.update(delta);
-            // PRINT("updating enemies");
-            for(Enemy* enemy: level->get_enemies())
-                enemy->update(delta);
+            editor->update(delta);
+
+        } else {
+
+            // PRINT("updating HUD");
+            hud->update(delta);
+
+            // PRINT("updating EM");
+            em.update(delta);
+
             // PRINT("done updating");
         }
     }
-
-    //   obstacle.activateTrap();*/
 }
+
 
 void Game::render() {
 
@@ -148,18 +157,18 @@ void Game::render() {
     // WORLD RENDERING
     //=========================================================================
 
-    window->setView(view);//zoom
-    window->draw(player);
-    window->draw(*level);
+    // PRINT("drawing EM");
+    window->setView(view);
+    window->draw(em); // entity manager
 
-    if(editor) { window->draw(*editor); }
+    if(editor) window->draw(*editor);
 
     //=========================================================================
     // HUD RENDERING
     //=========================================================================
 
+    // PRINT("drawing HUD");
     window->setView(hud_view);
-
-    window->draw(*hud);
+    window->draw(*hud); // HUD object
 
 }

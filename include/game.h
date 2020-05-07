@@ -14,6 +14,7 @@
 #include "enemy.h"
 #include "editor.h"
 #include "obstacle.h"
+#include "entity/manager.h"
 
 class HUD;
 
@@ -28,8 +29,10 @@ private:
     sf::View view;
     sf::View hud_view;
 
+    EntityManager em;
+
     Level* level;
-    Player player;
+    Player *player;
     Button start;
     HUD* hud;
     Menu menu;
@@ -65,7 +68,7 @@ public:
 
     void run();
 
-    Player& get_player() { return player; }
+    Player& get_player() { return *player; }
 
     Level& get_level() { return *level; }
 };

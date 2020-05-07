@@ -196,6 +196,13 @@ void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         target.draw(*enemy, states);
 }
 
+
+void Level::update(float delta) {
+
+    for(Enemy* enemy: enemies) enemy->update(delta);
+}
+
+
 string Level::get_region_title(const vec2& region) {
 
     std::pair<int, int> key = {(int)region.x, (int)region.y};

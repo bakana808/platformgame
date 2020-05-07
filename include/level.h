@@ -18,7 +18,7 @@ class Enemy;
 class Platform;
 
 
-class Level: public sf::Drawable {
+class Level: public Entity {
 private:
 
     Game* game;
@@ -53,6 +53,12 @@ public:
     void save();
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    void update(float delta) override;
+
+    void set_pos(const vec2& pos) override {}
+
+    const vec2& get_pos() override { return vec2::ZERO; }
 
     void add_platform(const vec2& a, const vec2& b, float width, int type);
 

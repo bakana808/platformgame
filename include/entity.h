@@ -104,7 +104,7 @@ public:
         PRINT("removing child " << child << " (" << typeid(T).name() << ")");
 
         auto it = children.find(child);
-        children.erase(it);
+        if(it != children.end()) children.erase(it);
 
         delete child;
     }
