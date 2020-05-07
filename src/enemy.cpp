@@ -111,6 +111,7 @@ void Enemy::fire_bullet() {
 void Enemy::update(float delta) {
 
     // if enemy is not on the same region as the player then do nothing
+
     if(LevelRegion::get_coords(this) != game->get_player().get_region()->get_coords()) {
         fire_timer = 0.f;
         delete_bullet();
@@ -118,12 +119,16 @@ void Enemy::update(float delta) {
         return;
     }
 
-    fire_timer += delta;
+    // fade to red before firing
 
     float factor = fire_timer / 2.f;
     sf::Uint8 r = (int)(factor * factor * factor * 255);
     sf::Uint8 gb = 255 - r;
     body->setFillColor({r, gb, gb});
+
+    // increment timer to fire
+
+    fire_timer += delta;
 
     if(fire_timer > 2.f) {
         fire_timer -= 2.f;
@@ -133,6 +138,8 @@ void Enemy::update(float delta) {
     if(bullet) {
         bullet->update(delta);
     }
+
+    // rotate to "aim" at the player
 
     body->setRotation(-get_player_axis().heading());
 }

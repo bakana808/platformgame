@@ -174,7 +174,7 @@ $(OBJDIR)/%.o $(DEPDIR)/%d: $(SRCDIR)/%.cpp
 	$(MKDIR_OBJS.c)
 	$(MKDIR_DEPS.c)
 	$(MKDIR_BINS.c)
-	$(CC) $(CFLAGS) $(DEPFLAGS) $< -o $(@:$(DEPDIR)%.d=$(OBJDIR)%.o) -c
+	$(CC) $(CFLAGS) $(FLAGS) $(DEPFLAGS) $< -o $(@:$(DEPDIR)%.d=$(OBJDIR)%.o) -c
 
 # have our output file depend on all
 # ----------------------------------

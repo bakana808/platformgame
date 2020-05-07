@@ -21,9 +21,8 @@ Game::Game()
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", 7U, settings);
+    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Game", sf::Style::None, settings);
     window->setFramerateLimit(200);
-
     window->setKeyRepeatEnabled(false);
 
     PRINT("created game");

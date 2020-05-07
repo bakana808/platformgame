@@ -34,14 +34,14 @@ Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
     body_hb->setRadius(32);
     body_hb->setFillColor(sf::Color::Transparent);
     body_hb->setOutlineColor(sf::Color::Transparent);
-    // body_hb.setOutlineColor(sf::Color::Red);
+    // body_hb->setOutlineColor(sf::Color::Red);
     body_hb->setOutlineThickness(2.0f);
     body_hb->setOrigin({32, 32});
 
     foot_hb = add_child<sf::RectangleShape>();
     foot_hb->setFillColor(sf::Color::Transparent);
     foot_hb->setOutlineColor(sf::Color::Transparent);
-    // foot_hb.setOutlineColor(sf::Color::Red);
+    // foot_hb->setOutlineColor(sf::Color::Red);
     foot_hb->setOutlineThickness(2.0f);
     foot_hb->setOrigin({8, 8 - 40});
 

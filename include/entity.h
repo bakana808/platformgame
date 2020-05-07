@@ -223,8 +223,6 @@ private:
     sf::Drawable * drawable;
     sf::Transformable * transformable;
 
-    static int object_count;
-
     vec2 pos;
 
 public:
@@ -232,9 +230,6 @@ public:
     T* handle;
 
     GameObject(CompositeEntity* source = nullptr) : source(source) {
-
-        // static_assert(std::is_base_of<sf::Drawable, T>::value, "Given object not a drawable");
-        // static_assert(std::is_base_of<sf::Transformable, T>::value, "Given object not a transformable");
 
         handle = new T();
         drawable = (sf::Drawable*)handle;
@@ -246,8 +241,6 @@ public:
     ~GameObject() {
 
         delete handle;
-
-        object_count--;
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
@@ -281,6 +274,3 @@ public:
         return this->handle == other.handle;
     }
 };
-
-template<class T>
-int GameObject<T>::object_count = 0;
