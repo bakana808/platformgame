@@ -21,10 +21,28 @@ private:
 
 public:
 
+    /**
+     * @brief Calculates the region coordinates and camera bounds
+     * according to the position of the player.
+     *
+     * @param player
+     * @param view
+     */
     LevelRegion(Player *player, sf::View *view);
 
+    /**
+     * @brief Get the region coordinates of this object.
+     *
+     * @return const vec2&
+     */
     const vec2& get_coords() const { return coords; }
 
+    /**
+     * @brief Get the region coordinates of any entity.
+     *
+     * @param ent
+     * @return vec2
+     */
     static vec2 get_coords(Entity *ent);
 
     /**

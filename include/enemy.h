@@ -19,7 +19,7 @@ private:
     Game* game;
     Enemy* source;
 
-    sf::RectangleShape body;
+    sf::RectangleShape* body;
 
     vec2 dir;
     float speed;
@@ -32,11 +32,11 @@ public:
     , dir(direction.normalize())
     , speed(speed)
     {
-        body.setFillColor(sf::Color::Red);
-        body.setSize({32, 32});
-        body.setOrigin({16, 16});
+        body = add_child<sf::RectangleShape>();
 
-        this->add_child(body);
+        body->setFillColor(sf::Color::Red);
+        body->setSize({32, 32});
+        body->setOrigin({16, 16});
     }
 
     void update(float delta) override;
@@ -53,7 +53,7 @@ private:
 
 public:
 
-    Bullet* bullet;
+    Bullet* bullet = NULL;
 
     int enemyXposition=200;
     int enemyYposition=200;
@@ -63,7 +63,7 @@ public:
     int teleporterYposition=250;
 
     //This is the current enemy's image
-    sf::ConvexShape body;
+    sf::ConvexShape *body;
     // sf::Sprite enemyimage;
     // sf::Sprite fireballimage;
     // sf::Sprite teleporterimage;

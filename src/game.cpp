@@ -122,9 +122,12 @@ void Game::update(float delta) {
 
         if(editor) { editor->update(delta); }
         else {
+            // PRINT("updating player");
             player.update(delta);
+            // PRINT("updating enemies");
             for(Enemy* enemy: level->get_enemies())
                 enemy->update(delta);
+            // PRINT("done updating");
         }
     }
 

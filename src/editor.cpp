@@ -5,20 +5,19 @@
 
 Editor::Editor(Game* game): game(game) {
 
-    cursor.setFillColor(sf::Color::Transparent);
-    cursor.setOutlineColor(sf::Color::Red);
-    cursor.setOutlineThickness(2.f);
-    cursor.setRadius(10);
-    cursor.setOrigin({10, 10});
+    cursor = add_child<sf::CircleShape>();
+    cursor->setFillColor(sf::Color::Transparent);
+    cursor->setOutlineColor(sf::Color::Red);
+    cursor->setOutlineThickness(2.f);
+    cursor->setRadius(10);
+    cursor->setOrigin({10, 10});
 
     font.loadFromFile("FiraCode-VF.ttf");
 
-    info.setFont(font);
-    info.setOrigin({-15, 0});
-    info.setCharacterSize(14);
-
-    this->add_child(cursor);
-    this->add_child(info);
+    info = add_child<sf::Text>();
+    info->setFont(font);
+    info->setOrigin({-15, 0});
+    info->setCharacterSize(14);
 }
 
 Editor::~Editor() {
@@ -42,7 +41,7 @@ void Editor::update(float delta) {
         msg += "A = " + (string)*plat_a + "\n";
     }
 
-    info.setString(msg);
+    info->setString(msg);
 }
 
 void Editor::key_press(Key key) {

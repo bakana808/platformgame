@@ -10,42 +10,40 @@
 #include <math.h>
 
 
-Player::Player(sf::View& view, sf::View& hud)
-: view(view)
-, hud(hud)
-, box({64, 64})
-, box_g({64, 64})
-, foot_hb({16, 16})
+Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
 {
-    tri.setPointCount(3);
-    tri.setPoint(0, {0, 0});
-    tri.setPoint(1, {64, 0});
-    tri.setPoint(2, {0, 64});
-    tri.setOrigin({32, 32});
-    // tri.setFillColor({150, 150, 150});
 
-    box.setOrigin({32, 32});
-    box_g.setOrigin({32, 32});
-    box_g.setFillColor({255, 255, 255, 0});
+    box = add_child<sf::RectangleShape>();
+    box->setSize({64, 64});
+    box->setOrigin({32, 32});
 
-    body_hb = new sf::CircleShape(32);
+    tri = add_child<sf::ConvexShape>();
+    tri->setPointCount(3);
+    tri->setPoint(0, {0, 0});
+    tri->setPoint(1, {64, 0});
+    tri->setPoint(2, {0, 64});
+    tri->setOrigin({32, 32});
+    // tri->setFillColor({150, 150, 150});
+
+    box_g = add_child<sf::RectangleShape>(false);
+    box_g->setSize({64, 64});
+    box_g->setOrigin({32, 32});
+    box_g->setFillColor({255, 255, 255, 0});
+
+    body_hb = add_child<sf::CircleShape>();
+    body_hb->setRadius(32);
     body_hb->setFillColor(sf::Color::Transparent);
     body_hb->setOutlineColor(sf::Color::Transparent);
     // body_hb.setOutlineColor(sf::Color::Red);
     body_hb->setOutlineThickness(2.0f);
     body_hb->setOrigin({32, 32});
 
-    foot_hb.setFillColor(sf::Color::Transparent);
-    foot_hb.setOutlineColor(sf::Color::Transparent);
+    foot_hb = add_child<sf::RectangleShape>();
+    foot_hb->setFillColor(sf::Color::Transparent);
+    foot_hb->setOutlineColor(sf::Color::Transparent);
     // foot_hb.setOutlineColor(sf::Color::Red);
-    foot_hb.setOutlineThickness(2.0f);
-    foot_hb.setOrigin({8, 8 - 40});
-
-    add_child(box);
-    add_child(tri);
-    add_child(*body_hb);
-    add_child(foot_hb);
-    add_child_free(box_g);
+    foot_hb->setOutlineThickness(2.0f);
+    foot_hb->setOrigin({8, 8 - 40});
 
     set_color(P_COLOR_NORMAL);
 }
@@ -55,8 +53,8 @@ void Player::set_color(sf::Color color) {
 
     sf::Color darker(color.r * 0.8, color.g * 0.8, color.b * 0.8);
 
-    this->box.setFillColor(color);
-    this->tri.setFillColor(darker);
+    this->box->setFillColor(color);
+    this->tri->setFillColor(darker);
 }
 
 
@@ -151,7 +149,7 @@ void Player::do_jump() {
 
         Particle* part = new Particle(this);
         part->handle->setPosition(this->get_pos() + vec2(i, 40));
-        this->add_child_free((Entity*)part);
+        this->add_child(part, false);
 
     }
     PRINT("jump");
@@ -207,12 +205,9 @@ void Player::do_move(Direction dir, float delta) {
 
 Player::CollisionSet* Player::test_collisions() {
 
-    // auto* cmap = new CollisionMap();
     auto* cset = new CollisionSet();
 
-    if(!level) return cset;
-
-    // PRINT("# cols => " + STR(cset->size()));
+    if(!level) return cset; // return the empty set if the level isn't loaded
 
     Collision body_collision, foot_collision;
 
@@ -226,10 +221,10 @@ Player::CollisionSet* Player::test_collisions() {
 
         // PRINT("checking distance");
 
-        float dist = (box.getPosition() - line.getPosition()).magnitude();
+        float dist = (box->getPosition() - line.getPosition()).magnitude();
 
         // only test collision if within proximity
-        if((box.getPosition() - line.getPosition()).magnitude() < line.get_length() + 10) {
+        if((box->getPosition() - line.getPosition()).magnitude() < line.get_length() + 10) {
 
             // PRINT("finding collision");
 
@@ -245,18 +240,14 @@ Player::CollisionSet* Player::test_collisions() {
 
             if(not b_can_jump) {
 
-                foot_collision = get_collision(line.get_shape(), foot_hb);
+                foot_collision = get_collision(line.get_shape(), *foot_hb);
                 b_can_jump = foot_collision.has_collided();
             }
 
             if(body_collision.has_collided()) { // player is colliding
 
-                // PRINT("collision found");
-
-                // adjust object position by minimum translation vector
-
-                normal = *body_collision.get_normal();
-                magnitude = *body_collision.get_overlap_len();
+                normal = *body_collision.get_axis();
+                magnitude = *body_collision.get_magnitude();
                 angle = normal.heading(-180, 180);
 
 
@@ -273,16 +264,6 @@ Player::CollisionSet* Player::test_collisions() {
                     col_type = WALL;
                 }
 
-                // add collision info to the corresponding collision type
-                // (*cmap)[col_type].push_back({b_can_jump, col_type, line, normal, angle, magnitude});
-                // PRINT(
-                //     "adding collision (" + STR(cset->size()) + ")\n"
-                //     "  surface: " + STR(col_type) + "\n"
-                //     "  normal: " + (string)normal + "\n"
-                //     "  angle: " + STR(angle) + "\n"
-                //     "  mag: " + STR(magnitude) + "\n"
-                // );
-                // PRINT("plat_type => " + STR(line.get_type()));
                 cset->insert({b_can_jump, col_type, &line, normal, angle, magnitude});
             }
         }
@@ -319,8 +300,8 @@ void Player::update(float delta) {
 
     if(stasis) {
 
-        this->box.rotate(delta * P_STASIS_RVEL);
-        this->tri.rotate(delta * P_STASIS_RVEL);
+        this->box->rotate(delta * P_STASIS_RVEL);
+        this->tri->rotate(delta * P_STASIS_RVEL);
 
         // slowly zoom in
         if(view_zoom < 4.f)
@@ -365,8 +346,9 @@ void Player::update(float delta) {
 
     vec2 pos = get_pos();
 
-    // std::unique_ptr<CollisionMap> cmap(test_collisions());
+    // CollisionSet *cset = test_collisions();
     std::unique_ptr<CollisionSet> cset(test_collisions());
+    // std::unique_ptr<CollisionMap> cmap(test_collisions());
 
     // concat floor - wall - ceiling collisions, in that order
 
@@ -380,8 +362,8 @@ void Player::update(float delta) {
 
     //-------------------------------------------------------------------------
     // check floor collisions
-
-    // PRINT("# cols => " + STR(cset->size()));
+    //-------------------------------------------------------------------------
+    // PRINT("PROCESSING COLLISONS");
 
     int i = 0;
     // for(CollisionInfo col: (*cmap)[FLOOR]) {
@@ -509,19 +491,21 @@ void Player::update(float delta) {
 
         float mag = vel.magnitude();
 
-        this->box.rotate(mag * delta * 2);
-        this->tri.rotate(mag * delta * 2);
+        this->box->rotate(mag * delta * 2);
+        this->tri->rotate(mag * delta * 2);
 
     } else {
 
-        this->box.setRotation(this->vel.x * 50 / 1000);
-        this->tri.setRotation(this->vel.x * 50 / 1000);
+        this->box->setRotation(this->vel.x * 50 / 1000);
+        this->tri->setRotation(this->vel.x * 50 / 1000);
     }
 
     set_pos(pos);
 
     // update children
     CompositeEntity::update(delta);
+
+    // delete cset;
 }
 
 void Player::respawn() {

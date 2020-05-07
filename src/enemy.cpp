@@ -9,14 +9,13 @@ Enemy::Enemy(Game* game): game(game)
     PRINT("creating enemy");
     // tex.loadFromFile("redsquare.png");
 
-    body.setPointCount(3);
-    body.setPoint(0, {-32, 32});
-    body.setPoint(1, {+32, 32});
-    body.setPoint(2, {0, -32});
-    body.setFillColor({255, 0, 0});
+    body = add_child<sf::ConvexShape>();
+    body->setPointCount(3);
+    body->setPoint(0, {-32, 32});
+    body->setPoint(1, {+32, 32});
+    body->setPoint(2, {0, -32});
+    body->setFillColor({255, 0, 0});
 
-    PRINT("    adding body");
-    this->add_child(body);
     PRINT("    done");
 
     // enemyimage.setTexture(tex);
@@ -97,19 +96,16 @@ vec2 Enemy::get_player_axis() {
 void Enemy::delete_bullet() {
     if(bullet) {
         this->remove_child(bullet);
+        bullet = NULL;
     }
-
-    bullet = NULL;
 }
 
 void Enemy::fire_bullet() {
 
     delete_bullet();
 
-    bullet = new Bullet(game, this, get_player_axis() * -1, 3);
+    bullet = add_child(new Bullet(game, this, get_player_axis() * -1, 3));
     bullet->set_pos(this->get_pos());
-
-    this->add_child((Entity*)bullet);
 }
 
 void Enemy::update(float delta) {
@@ -126,7 +122,7 @@ void Enemy::update(float delta) {
 
     float factor = fire_timer / 2.f;
     float gb = factor * factor * factor * 255;
-    body.setFillColor({gb, 255 - gb, 255 - gb});
+    body->setFillColor({gb, 255 - gb, 255 - gb});
 
     if(fire_timer > 2.f) {
         fire_timer -= 2.f;
@@ -137,7 +133,7 @@ void Enemy::update(float delta) {
         bullet->update(delta);
     }
 
-    body.setRotation(-get_player_axis().heading());
+    body->setRotation(-get_player_axis().heading());
 }
 
 
@@ -149,7 +145,7 @@ void Bullet::update(float delta) {
 
     // collision check on player
 
-    if(get_collision(body, *p_body).has_collided()) {
+    if(get_collision(*body, *p_body).has_collided()) {
         game->get_player().respawn();
     }
 
@@ -157,7 +153,7 @@ void Bullet::update(float delta) {
 
     for(auto plat: game->get_level().get_platforms()) {
 
-        if(get_collision(body, plat.get_shape()).has_collided()) {
+        if(get_collision(*body, plat.get_shape()).has_collided()) {
 
             // source->remove_child(this);
         }

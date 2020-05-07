@@ -3,23 +3,26 @@
 
 #include <algorithm>
 #include <memory>
+#include <utility>
+#include <map>
 #include "common.h"
 #include "vector/vec2.h"
 
+using std::pair;
+using std::vector;
+
 
 /**
- * @brief A drawable object.
+ * @brief A drawable and updatable object.
  *
  */
 class Entity: public sf::Drawable {
 public:
 
-
     /**
      * @brief Draw this entity.
      */
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const = 0;
-
 
     /**
      * @brief Sets the position of this entity.
@@ -42,7 +45,7 @@ public:
 };
 
 
-template<typename DT>
+template<typename T>
 class GameObject;
 
 
@@ -53,11 +56,8 @@ class GameObject;
 class CompositeEntity: public Entity {
 private:
 
-    // position of entities within will mirror parent
-    std::vector<Entity*> bound_children;
-
-    // position of entities within are independant of parent
-    std::vector<Entity*> free_children;
+    // if the bool is true, mirror the position of the parent
+    std::map<Entity*, bool> children;
 
     vec2 pos;
 
@@ -67,48 +67,29 @@ public:
 
     ~CompositeEntity() {
 
-        PRINT("deleting composite entity [" << (bound_children.size() + free_children.size()) << " ents]");
+        PRINT("deleting entity");
 
         // FIXME: deleting these points sometimes crashes the program
 
-        /*
-        for(Entity* child: bound_children)
-            delete child;
-
-        for(Entity* child: free_children)
-            delete child;
-        */
-
-        PRINT(" child ents deleted");
-
-        bound_children.clear();
-        free_children.clear();
-
-        PRINT(" vectors cleared");
+        for(auto t: children)
+            remove_child(t.first);
     }
-
 
     /**
      * @brief Add a sub-entity to this entity.
      *
      * @param child the child to add
      */
-    void add_child(Entity* child) {
+    template<class T>
+    T* add_child(T* child, bool mirror_pos = true) {
 
-        this->bound_children.push_back(child);
-        child->set_pos(pos);
+        PRINT("adding child " << child << " (" << typeid(T).name() << ")");
+
+        this->children[child] = mirror_pos;
+        if(mirror_pos) child->set_pos(pos);
+
+        return child;
     }
-
-    /**
-     * @brief Add a free sub-entity to this entity.
-     *
-     * @param child the child to add
-     */
-    void add_child_free(Entity* child) {
-
-        this->free_children.push_back(child);
-    }
-
 
     /**
      * @brief Removes and deletes a child entity.
@@ -117,17 +98,15 @@ public:
      *
      * @param child
      */
-    void remove_child(Entity* child) {
+    template<class T>
+    void remove_child(T* child) {
 
-        PRINT("removing child " << child);
-        {
-            std::vector<Entity*>& vec = this->bound_children;
-            vec.erase(std::remove(vec.begin(), vec.end(), child), vec.end());
-        }
-        {
-            std::vector<Entity*>& vec = this->free_children;
-            vec.erase(std::remove(vec.begin(), vec.end(), child), vec.end());
-        }
+        PRINT("removing child " << child << " (" << typeid(T).name() << ")");
+
+        auto it = children.find(child);
+        children.erase(it);
+
+        delete child;
     }
 
 
@@ -141,28 +120,15 @@ public:
      * @tparam DT
      * @param obj
      */
-    template<class DT>
-    void add_child(DT& obj) {
+    template<class T>
+    T* add_child(bool mirror_pos = true) {
 
-        GameObject<DT> *ent = new GameObject<DT>(std::unique_ptr<DT>(&obj), this);
-        this->add_child((Entity*)ent);
+        // GameObject<T> *ent = new GameObject<T>(std::unique_ptr<T>(&obj), this);
+        GameObject<T> *obj = new GameObject<T>(this);
+        this->add_child(obj, mirror_pos);
+
+        return obj->handle;
     }
-
-
-    template<class DT>
-    void add_child_free(DT& obj) {
-
-        GameObject<DT> *ent = new GameObject<DT>(std::unique_ptr<DT>(&obj), this);
-        this->add_child_free((Entity*)ent);
-    }
-
-
-    /**
-     * @brief Get the vector of child entities. Read-only.
-     *
-     * @return const std::vector<Entity*>&
-     */
-    const std::vector<Entity*>& get_children(void) { return bound_children; }
 
 
     /**
@@ -173,11 +139,8 @@ public:
      */
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
 
-        for(const Entity* child: bound_children)
-            target.draw(*child, states);
-
-        for(const Entity* child: free_children)
-            target.draw(*child, states);
+        for(auto t: children)
+            target.draw(*t.first);
     }
 
 
@@ -191,8 +154,13 @@ public:
 
         this->pos = pos;
 
-        for(Entity* child: bound_children)
-            child->set_pos(pos);
+        auto it = children.begin();
+        while(it != children.end()) {
+
+            if(it->second)
+                it->first->set_pos(pos);
+            it++;
+        }
     }
 
 
@@ -214,21 +182,19 @@ public:
      */
     void move(const vec2& translation) {
 
-        this->pos += translation;
-
-        for(Entity* child: bound_children)
-            child->set_pos(pos);
+        set_pos(this->pos + translation);
     }
 
     virtual void update(float delta) override {
 
         // update all child entities
 
-        for(Entity* child: bound_children)
-            child->update(delta);
+        auto it = children.begin();
+        while(it != children.end()) {
 
-        for(Entity* child: free_children)
-            child->update(delta);
+            it->first->update(delta);
+            it++;
+        }
     }
 };
 
@@ -247,9 +213,8 @@ public:
  * narrowed down to only those that inherit sf::Drawable and sf::Transformable,
  * and should raise a compiler error if it doesn't.
  *
- * The term DT is short for Drawable-Transformable.
  */
-template<class DT>
+template<class T>
 class GameObject: public Entity {
 private:
 
@@ -258,32 +223,36 @@ private:
     sf::Drawable * drawable;
     sf::Transformable * transformable;
 
+    static int object_count;
+
 public:
 
-    std::unique_ptr<DT> handle;
+    T* handle;
 
-    GameObject(std::unique_ptr<DT>&& handle, CompositeEntity* source = nullptr)
-    : source(source)
-    , handle(std::move(handle))
-    , drawable((sf::Drawable*)handle.get())
-    , transformable((sf::Transformable*)handle.get())
-    {
-        // compile-time asserts to ensure that the
-        // parent object inherits from these types.
-        static_assert(std::is_base_of<sf::Drawable, DT>::value, "Given object not a drawable");
-        static_assert(std::is_base_of<sf::Transformable, DT>::value, "Given object not a transformable");
+    GameObject(CompositeEntity* source = nullptr) : source(source) {
+
+        // static_assert(std::is_base_of<sf::Drawable, T>::value, "Given object not a drawable");
+        // static_assert(std::is_base_of<sf::Transformable, T>::value, "Given object not a transformable");
+
+        handle = new T();
+        drawable = (sf::Drawable*)handle;
+        transformable = (sf::Transformable*)handle;
     }
 
     ~GameObject() {
 
-        destroy();
+        delete handle;
+
+        object_count--;
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+
         target.draw(*drawable, states);
     }
 
     void set_pos(const vec2& pos) override {
+
         transformable->setPosition(pos);
     }
 
@@ -304,5 +273,9 @@ public:
 
     bool operator==(const GameObject& other) {
 
+        return this->handle == other.handle;
     }
 };
+
+template<class T>
+int GameObject<T>::object_count = 0;

@@ -19,8 +19,8 @@ private:
 
     sf::Font font;
 
-    sf::CircleShape cursor;
-    sf::Text info;
+    sf::CircleShape *cursor;
+    sf::Text *info;
 
     vec2 *plat_a = NULL, *plat_b = NULL;
     int plat_mode = 0;

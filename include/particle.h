@@ -11,7 +11,7 @@ private:
 public:
 
     Particle(CompositeEntity* source, float size = 50.f)
-    : GameObject(std::unique_ptr<sf::RectangleShape>(new sf::RectangleShape()), source)
+    : GameObject(source)
     , size(size)
     {
         handle->setSize({size, size});

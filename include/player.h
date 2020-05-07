@@ -75,12 +75,13 @@ private:
 
     vec2 vel;
 
-    sf::RectangleShape box;
-    sf::RectangleShape box_g;
-    sf::ConvexShape tri;
+    // NOTE: these pointers are not owned by this class
 
-    sf::CircleShape* body_hb;
-    sf::RectangleShape foot_hb;
+    sf::RectangleShape *box, *box_g;
+    sf::ConvexShape *tri;
+
+    sf::CircleShape *body_hb;
+    sf::RectangleShape *foot_hb;
 
     sf::Font font;
     sf::Text l_pos;
@@ -112,18 +113,18 @@ private:
 
     void show_afterimage() {
 
-        box_g.setPosition(box.getPosition());
-        box_g.setRotation(box.getRotation());
+        box_g->setPosition(box->getPosition());
+        box_g->setRotation(box->getRotation());
         ghost_alpha = 100;
-        box_g.setFillColor({255, 255, 255, ghost_alpha});
+        box_g->setFillColor({255, 255, 255, ghost_alpha});
     }
 
     void update_afterimage(float delta) {
 
-        auto color = box_g.getFillColor();
+        auto color = box_g->getFillColor();
         if(ghost_alpha > 0) {
             ghost_alpha = fmax(0, ghost_alpha - delta * 500);
-            box_g.setFillColor({255, 255, 255, (int)ghost_alpha});
+            box_g->setFillColor({255, 255, 255, (int)ghost_alpha});
         }
     }
 
