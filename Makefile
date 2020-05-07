@@ -162,7 +162,7 @@ endif
 
 $(BINDIR)/% : $(OBJDIR)/%.o $(OBJS)
 	@echo     creating exec "$(BINDIR)/$(notdir $@)"
-	$(CC) $^ -o $(BINDIR)/$(notdir $@) $(CFLAGS) $(LIBS)
+	$(CC) $(FLAGS) $^ -o $(BINDIR)/$(notdir $@) $(CFLAGS) $(LIBS)
 
 # link step
 # $(CC) $^ -o $(OUTPUT) $(CFLAGS) $(LIBS)
@@ -190,9 +190,20 @@ include $(DEPS)
 # utility rules
 #==============================================================================
 
-.PHONY: all run run-test clean
+.PHONY: info all run run-test clean
 
-all : $(EXES)
+info :
+	@echo =====================================================================
+	@echo COMPILING INFO:
+	@echo =====================================================================
+	@echo src dir: $(SRCDIR)/
+	@echo inc dir: $(INCDIR)/
+	@echo dep dir: $(DEPDIR)/
+	@echo bin dir: $(BINDIR)/
+	@echo srcs: $(SRCS)
+	@echo =====================================================================
+
+all : info $(EXES)
 
 run: all
 	$(RUN.c)
