@@ -36,7 +36,7 @@ private:
 
 public:
 
-    FrameClock(float upper_dt = (1.0 / 144.0)): upper_dt(upper_dt) {
+    FrameClock(float upper_dt = (1.0 / 60.0)): upper_dt(upper_dt) {
         clock.restart();
     }
 
