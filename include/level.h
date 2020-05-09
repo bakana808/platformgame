@@ -35,9 +35,12 @@ public:
     Level(Game* game): game(game) {}
 
     ~Level() {
+        PRINT("LEVEL: destructor called");
         for(Enemy* e: enemies)
             delete e;
     }
+
+    string get_name() { return "Level"; }
 
     /**
      * @brief Load a level from a file.

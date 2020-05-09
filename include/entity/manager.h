@@ -33,6 +33,7 @@ public:
     T* create_entity(T* ent) {
 
         entities.push_back(ent);
+        PRINT("EM: adding \"" << ent->get_name() << "\" (" << ent << ")");
 
         return ent;
     }
@@ -47,8 +48,11 @@ public:
     void delete_entity(T* ent) {
 
         auto it = std::find(entities.begin(), entities.end(), ent);
-        if(it != entities.end()) entities.erase(it);
-        delete ent;
+        if(it != entities.end()) {
+            entities.erase(it);
+            PRINT("EM: deleting \"" << ent->get_name() << "\" (" << ent << ")");
+            delete ent;
+        }
     }
 
     /**

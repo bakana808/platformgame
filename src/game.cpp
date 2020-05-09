@@ -32,7 +32,6 @@ Game::~Game() {
 
     delete hud;
     delete window;
-    delete level;
     delete editor;
 }
 

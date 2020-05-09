@@ -48,6 +48,14 @@ public:
     virtual void update(float delta) = 0;
 
     /**
+     * @brief Return the name of this entity as a string.
+     *
+     * Used for debugging purposes.
+     *
+     */
+    virtual string get_name() { return "UNNAMED"; }
+
+    /**
      * @brief Return if this Entity is to be deleted.
      *
      * @return true
@@ -100,7 +108,7 @@ public:
     template<class T>
     T* add_child(T* child, bool mirror_pos = true) {
 
-        PRINT("adding child " << child << " (" << typeid(T).name() << ")");
+        PRINT("adding child " << child->get_name() << " (" << child << ")");
 
         this->children[child] = mirror_pos;
         if(mirror_pos) child->set_pos(pos);
@@ -126,7 +134,7 @@ public:
 
     std::map<Entity*, bool>::iterator remove_child(std::map<Entity*, bool>::iterator it, string name) {
 
-        PRINT("removing child " << it->first << " (" << name << ")");
+        PRINT("removing child \"" << it->first->get_name() << "\"" << " (" << it->first << ")");
 
         auto new_it = children.erase(it);
 
@@ -250,12 +258,15 @@ private:
 
     vec2 pos;
 
+    string name;
+
 public:
 
     T* handle;
 
     GameObject(CompositeEntity* source = nullptr) : source(source) {
 
+        name = typeid(T).name();
         handle = new T();
         drawable = (sf::Drawable*)handle;
         transformable = (sf::Transformable*)handle;
@@ -280,6 +291,8 @@ public:
     }
 
     const vec2& get_pos(void) { return pos; }
+
+    string get_name() override { return name; }
 
     void update(float delta) override {}
 

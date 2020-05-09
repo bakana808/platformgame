@@ -79,6 +79,8 @@ public:
 
     //Handle enemy movement
 
+    string get_name() override { return "Enemy"; }
+
     /**
      * @brief Return the vector of this position minus the player's position.
      *

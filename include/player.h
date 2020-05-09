@@ -196,6 +196,8 @@ public:
     // PLAYER INFO GETTERS
     //=========================================================================
 
+    string get_name() override { return "Player"; }
+
     const vec2& get_vel() { return vel; }
 
     bool is_spinning() { return b_spinning; }

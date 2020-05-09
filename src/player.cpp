@@ -51,7 +51,6 @@ Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
 Player::~Player() {
 
     delete region;
-    delete body_hb;
 }
 
 
