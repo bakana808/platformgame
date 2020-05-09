@@ -192,12 +192,16 @@ include $(DEPS)
 # utility rules
 #==============================================================================
 
-.PHONY: info all run run-test clean
+.PHONY: info all run run-debug run-test clean set-debug
+
+# prevents make from deleting .o files on success
+.SECONDARY: $(OBJS)
 
 info :
 	@echo =====================================================================
 	@echo COMPILING INFO:
 	@echo =====================================================================
+	@echo additional flags: $(FLAGS)
 	@echo src dir: $(SRCDIR)/
 	@echo inc dir: $(INCDIR)/
 	@echo dep dir: $(DEPDIR)/
@@ -205,10 +209,16 @@ info :
 	@echo srcs: $(SRCS)
 	@echo =====================================================================
 
+# sets flags to compile the program for use in GDB
+set-debug:
+	$(eval FLAGS=-g)
+
 all : info $(EXES)
 
 run: all
 	$(RUN.c)
+
+run-debug: set-debug run
 
 run-test: bin/test/test-statetimer
 	bin/test-statetimer.exe
