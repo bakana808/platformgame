@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "entity.h"
+#include "entity/composite.h"
 
 
 class ControllableEntity: public CompositeEntity {

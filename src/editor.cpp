@@ -5,7 +5,9 @@
 
 Editor::Editor(Game* game): game(game) {
 
-    cursor = add_child<sf::CircleShape>();
+    this->set_name("Editor");
+
+    cursor = spawn_entity<sf::CircleShape>();
     cursor->setFillColor(sf::Color::Transparent);
     cursor->setOutlineColor(sf::Color::Red);
     cursor->setOutlineThickness(2.f);
@@ -14,7 +16,7 @@ Editor::Editor(Game* game): game(game) {
 
     font.loadFromFile("FiraCode-VF.ttf");
 
-    info = add_child<sf::Text>();
+    info = spawn_entity<sf::Text>();
     info->setFont(font);
     info->setOrigin({-15, 0});
     info->setCharacterSize(14);
@@ -42,6 +44,9 @@ void Editor::update(float delta) {
     }
 
     info->setString(msg);
+
+    cursor->setPosition(get_pos());
+    info->setPosition(get_pos());
 }
 
 void Editor::key_press(Key key) {

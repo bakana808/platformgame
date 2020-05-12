@@ -12,12 +12,12 @@
 
 Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
 {
-
-    box = add_child<sf::RectangleShape>();
+    this->set_name("Player");
+    box = spawn_entity<sf::RectangleShape>();
     box->setSize({64, 64});
     box->setOrigin({32, 32});
 
-    tri = add_child<sf::ConvexShape>();
+    tri = spawn_entity<sf::ConvexShape>();
     tri->setPointCount(3);
     tri->setPoint(0, {0, 0});
     tri->setPoint(1, {64, 0});
@@ -25,12 +25,12 @@ Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
     tri->setOrigin({32, 32});
     // tri->setFillColor({150, 150, 150});
 
-    box_g = add_child<sf::RectangleShape>(false);
+    box_g = spawn_entity<sf::RectangleShape>(false);
     box_g->setSize({64, 64});
     box_g->setOrigin({32, 32});
     box_g->setFillColor({255, 255, 255, 0});
 
-    body_hb = add_child<sf::CircleShape>();
+    body_hb = spawn_entity<sf::CircleShape>();
     body_hb->setRadius(32);
     body_hb->setFillColor(sf::Color::Transparent);
     body_hb->setOutlineColor(sf::Color::Transparent);
@@ -38,7 +38,7 @@ Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
     body_hb->setOutlineThickness(2.0f);
     body_hb->setOrigin({32, 32});
 
-    foot_hb = add_child<sf::RectangleShape>();
+    foot_hb = spawn_entity<sf::RectangleShape>();
     foot_hb->setFillColor(sf::Color::Transparent);
     foot_hb->setOutlineColor(sf::Color::Transparent);
     // foot_hb->setOutlineColor(sf::Color::Red);
@@ -51,6 +51,17 @@ Player::Player(sf::View& view, sf::View& hud) : view(view), hud(hud)
 Player::~Player() {
 
     delete region;
+}
+
+
+void Player::set_pos(const vec2& pos) {
+
+    CompositeEntity::set_pos(pos);
+
+    box->setPosition(pos);
+    tri->setPosition(pos);
+    body_hb->setPosition(pos);
+    foot_hb->setPosition(pos);
 }
 
 
@@ -148,10 +159,8 @@ void Player::do_jump() {
 
     for(int i = -32; i <= 32; i += 16) {
 
-        Particle* part = new Particle(this);
+        Particle* part = spawn_entity<Particle>();
         part->handle->setPosition(this->get_pos() + vec2(i, 40));
-        this->add_child(part, false);
-
     }
     PRINT("jump");
 }
@@ -212,7 +221,7 @@ Player::CollisionSet* Player::test_collisions() {
 
     Collision body_collision, foot_collision;
 
-    for(Platform& line: level->platforms) {
+    for(Platform* plat: level->platforms) {
 
         bool b_can_jump = false;
         SurfaceType col_type = NONE;
@@ -222,17 +231,17 @@ Player::CollisionSet* Player::test_collisions() {
 
         // PRINT("checking distance");
 
-        float dist = (box->getPosition() - line.getPosition()).magnitude();
+        float dist = (box->getPosition() - plat->get_pos()).magnitude();
 
         // only test collision if within proximity
-        if(dist < line.get_length() + 10) {
+        if(dist < plat->get_length() + 10) {
 
             // PRINT("finding collision");
 
             // COLLISION WITH PLAYER
             // ---------------------
 
-            body_collision = get_collision(line.get_shape(), *body_hb);
+            body_collision = get_collision(plat->get_shape(), *body_hb);
 
             // PRINT("testing collision");
 
@@ -241,7 +250,7 @@ Player::CollisionSet* Player::test_collisions() {
 
             if(not b_can_jump) {
 
-                foot_collision = get_collision(line.get_shape(), *foot_hb);
+                foot_collision = get_collision(plat->get_shape(), *foot_hb);
                 b_can_jump = foot_collision.has_collided();
             }
 
@@ -265,7 +274,7 @@ Player::CollisionSet* Player::test_collisions() {
                     col_type = WALL;
                 }
 
-                cset->insert({b_can_jump, col_type, &line, normal, angle, magnitude});
+                cset->insert({b_can_jump, col_type, plat, normal, angle, magnitude});
             }
         }
     }
@@ -394,7 +403,13 @@ void Player::update(float delta) {
         if(b_spinning) { // then bounce off the surface
 
             // calculates the angle of reflection
+            vec2 old_vel = this->vel;
             this->vel = (vel - (col.normal * 2 * vel.dot(col.normal))) * P_BOUNCE_DAMP;
+
+            pos -= col.normal;
+
+            PRINT("bounce vector: " << (string)old_vel << " -> " << (string)this->vel <<
+                  "(+ " << (string)col.normal << ")");
             break;
         }
 
@@ -470,21 +485,23 @@ void Player::update(float delta) {
 
         this->b_can_jump = b_can_jump;
 
+        /*
         if(b_can_jump) {
             PRINT("can now jump");
         } else {
             PRINT("cannot jump");
         }
+        */
     }
 
     if(this->is_grounded != on_ground) {
 
         if((this->is_grounded = on_ground)) {
-            PRINT("touched ground");
+            // PRINT("touched ground");
             set_color(P_COLOR_NORMAL);
             num_dashes = 1;
         } else {
-            PRINT("left ground");
+            // PRINT("left ground");
             if(!b_spinning and jump_timer <= 0) vel.y = 0;
         }
     }

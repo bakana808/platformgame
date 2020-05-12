@@ -5,6 +5,7 @@
 #include "player.h"
 #include "entity.h"
 #include "collision.h"
+#include <vector>
 
 
 class Game;
@@ -32,7 +33,9 @@ public:
     , dir(direction.normalize())
     , speed(speed)
     {
-        body = add_child<sf::RectangleShape>();
+        this->set_name("Bullet");
+
+        body = spawn_entity<sf::RectangleShape>();
 
         body->setFillColor(sf::Color::Red);
         body->setSize({32, 32});
@@ -40,20 +43,29 @@ public:
     }
 
     void update(float delta) override;
+
+    void set_pos(const vec2& pos) override {
+
+        CompositeEntity::set_pos(pos);
+
+        body->setPosition(pos);
+    }
 };
 
 class Enemy: public CompositeEntity {
+
+    friend class Bullet;
 
 private:
 
     Game* game;
 
-    int speed = 4;
+    int speed = 2000;
     float fire_timer = 0;
 
-public:
+    std::vector<Bullet*> bullets;
 
-    Bullet* bullet = NULL;
+public:
 
     int enemyXposition=200;
     int enemyYposition=200;
@@ -71,15 +83,12 @@ public:
  	//Enemy Cosnstructor
     Enemy(Game* game);
 
-    ~Enemy() {
-        delete_bullet();
-    }
+    ~Enemy() {}
 
     void update(float delta) override;
+    void set_pos(const vec2& pos) override;
 
     //Handle enemy movement
-
-    string get_name() override { return "Enemy"; }
 
     /**
      * @brief Return the vector of this position minus the player's position.
@@ -93,8 +102,6 @@ public:
      *
      */
     void fire_bullet();
-
-    void delete_bullet();
 
     void enemyMove();
 

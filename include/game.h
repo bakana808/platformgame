@@ -71,4 +71,6 @@ public:
     Player& get_player() { return *player; }
 
     Level& get_level() { return *level; }
+
+    EntityManager& get_entity_manager() { return em; }
 };

@@ -6,18 +6,17 @@
 
 #include "common.h"
 #include "vector/vec2.h"
+#include "entity/composite.h"
 
 
 enum PlatformType { NORMAL = 0, HAZARD };
 
-class Platform: public sf::Drawable {
+class Platform: public CompositeEntity {
 private:
 
     float length;
 
-    sf::RectangleShape line;
-    sf::CircleShape f_pt, b_pt; // front/back points
-
+    sf::RectangleShape *line;
     PlatformType type;
 
 public:
@@ -34,6 +33,8 @@ public:
              , b(b)
              , thickness(thickness)
     {
+        this->set_name("Platform");
+
         vec2 diff = b - a;
 
         length = sqrt((diff.x * diff.x) + (diff.y * diff.y));
@@ -56,35 +57,34 @@ public:
             color = {255, 100, 100}; break;
         }
 
-        line.setSize({length, thickness});
-        line.setOrigin({0, midpt});
-        line.setPosition(a);
+        this->set_pos(a);
 
-        line.setRotation(angle * (180.f / M_PI));
-        line.setFillColor(color);
+        line = spawn_entity<sf::RectangleShape>();
+        line->setSize({length, thickness});
+        line->setOrigin({0, midpt});
+        line->setPosition(a);
 
-        f_pt.setRadius(midpt);
-        f_pt.setPosition(a);
-        f_pt.setOrigin({midpt, midpt});
-        f_pt.setFillColor(color);
+        line->setRotation(angle * (180.f / M_PI));
+        line->setFillColor(color);
 
-        b_pt.setRadius(midpt);
-        b_pt.setPosition(b);
-        b_pt.setOrigin({midpt, midpt});
-        b_pt.setFillColor(color);
+        sf::CircleShape* f_pt = spawn_entity<sf::CircleShape>();
+        f_pt->setRadius(midpt);
+        f_pt->setPosition(a);
+        f_pt->setOrigin({midpt, midpt});
+        f_pt->setFillColor(color);
+
+        sf::CircleShape* b_pt = spawn_entity<sf::CircleShape>();
+        b_pt->setRadius(midpt);
+        b_pt->setPosition(b);
+        b_pt->setOrigin({midpt, midpt});
+        b_pt->setFillColor(color);
     }
 
-    sf::RectangleShape& get_shape() { return line; }
-    const vec2& getPosition() { return static_cast<const vec2&>(line.getPosition()); }
+    sf::RectangleShape& get_shape() { return *line; }
+
+    const vec2& getPosition() { return static_cast<const vec2&>(line->getPosition()); }
 
     float get_length(void) { return length; }
 
     PlatformType get_type(void) { return type; }
-
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
-
-        target.draw(f_pt, states);
-        target.draw(b_pt, states);
-        target.draw(line, states);
-    }
 };

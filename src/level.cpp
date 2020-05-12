@@ -107,7 +107,7 @@ void Level::load(string filename) {
             }
         }
 
-        PRINT("finished loading (" + STR(platforms.size()) + " platforms)");
+        PRINT("finished loading. " << entity_count() << " sub-ents.");
     }
     else {
         PRINT("could not read \"" + filename + "\" !");
@@ -128,9 +128,9 @@ void Level::save() {
     }
 
     for(auto plat: platforms) {
-        file << "\np " << plat.a.x << " " << plat.a.y;
-        file << " " << plat.b.x << " " << plat.b.y;
-        file << " " << plat.thickness << " " << (int)plat.get_type();
+        file << "\np " << plat->a.x << " " << plat->a.y;
+        file << " " << plat->b.x << " " << plat->b.y;
+        file << " " << plat->thickness << " " << (int)plat->get_type();
     }
 
     for(auto enemy: enemies) {
@@ -143,63 +143,53 @@ void Level::save() {
     }
 
     for(auto msg: messages) {
-        file << "\nm " << msg.getPosition().x << " " << msg.getPosition().y;
-        file << " " << (string)msg.getString();
+        file << "\nm " << msg->getPosition().x << " " << msg->getPosition().y;
+        file << " " << (string)msg->getString();
     }
 }
 
 
 void Level::add_platform(const vec2& a, const vec2& b, float width, int type) {
 
-    platforms.push_back({a, b, width, static_cast<PlatformType>(type)});
+    PRINT(get_name() << ": adding platform");
+
+    Platform* plat = spawn_entity<Platform>(a, b, width, static_cast<PlatformType>(type));
+
+    platforms.push_back(plat);
 }
 
 
 void Level::add_message(const vec2& pos, string message) {
 
-    sf::Text text;
+    PRINT(get_name() << ": adding message");
 
-    text.setFont(this->font);
-    text.setPosition(pos);
-    text.setCharacterSize(14);
-    text.setString(message);
+    sf::Text* text = spawn_entity<sf::Text>();
 
-    messages.push_back(std::move(text));
+    text->setFont(this->font);
+    text->setPosition(pos);
+    text->setCharacterSize(14);
+    text->setString(message);
+
+    messages.push_back(text);
 }
 
 
 void Level::add_checkpoint(const vec2& reg, const vec2& point) {
 
-    PRINT("    adding checkpoint");
+    PRINT(get_name() << ": adding checkpoint");
+
     checkpoints[{reg.x, reg.y}] = point;
 }
 
 
 void Level::add_shooter(const vec2& pos) {
 
-    PRINT("    adding enemy");
-    Enemy* enemy = new Enemy(game);
+    PRINT(get_name() << ": adding enemy");
+
+    Enemy* enemy = spawn_entity<Enemy>(game);
     enemy->set_pos(pos);
+
     enemies.push_back(enemy);
-}
-
-
-void Level::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-
-    for(Platform plat: platforms)
-        target.draw(plat, states);
-
-    for(sf::Text msg: messages)
-        target.draw(msg, states);
-
-    for(Enemy* enemy: enemies)
-        target.draw(*enemy, states);
-}
-
-
-void Level::update(float delta) {
-
-    for(Enemy* enemy: enemies) enemy->update(delta);
 }
 
 

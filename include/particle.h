@@ -1,6 +1,6 @@
 
 #include "common.h"
-#include "entity.h"
+#include "entity/object.h"
 
 
 class Particle: public GameObject<sf::RectangleShape> {
@@ -10,10 +10,8 @@ private:
 
 public:
 
-    Particle(CompositeEntity* source, float size = 50.f)
-    : GameObject(source)
-    , size(size)
-    {
+    Particle(float size = 50.f): size(size) {
+
         handle->setSize({size, size});
         handle->setOrigin({size/2, size/2});
         handle->setFillColor({255, 255, 255, 100});

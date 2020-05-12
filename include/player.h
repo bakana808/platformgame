@@ -8,7 +8,7 @@
 
 #include "common.h"
 #include "platform.h"
-#include "entity.h"
+#include "entity/composite.h"
 #include "particle.h"
 
 #define P_WALK_MAX_VEL 800
@@ -19,7 +19,7 @@
 #define P_JUMP_VEL 1000
 #define P_DASH_VEL 1500
 #define P_MAX_DASHES 1
-#define P_BOUNCE_DAMP 1.0 /* perc energy conserved after a bounce */
+#define P_BOUNCE_DAMP 0.75 /* perc energy conserved after a bounce */
 
 #define P_STASIS_RVEL 500
 
@@ -152,6 +152,8 @@ public:
         this->level = &level;
     }
 
+    void set_pos(const vec2& pos) override;
+
     /**
      * @brief Set the color of this Player.
      *
@@ -195,8 +197,6 @@ public:
     //=========================================================================
     // PLAYER INFO GETTERS
     //=========================================================================
-
-    string get_name() override { return "Player"; }
 
     const vec2& get_vel() { return vel; }
 

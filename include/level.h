@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "vector/vec2.h"
+#include "entity/composite.h"
 #include "enemy.h"
 
 #include <fstream>
@@ -18,7 +19,7 @@ class Enemy;
 class Platform;
 
 
-class Level: public Entity {
+class Level: public CompositeEntity {
 private:
 
     Game* game;
@@ -27,20 +28,15 @@ private:
 public:
 
     std::vector<Enemy*> enemies;
-    std::vector<Platform> platforms;
-    std::vector<sf::Text> messages;
+    std::vector<Platform*> platforms;
+    std::vector<sf::Text*> messages;
     std::map<std::pair<int, int>, string> titles;
     std::map<std::pair<int, int>, vec2> checkpoints;
 
-    Level(Game* game): game(game) {}
+    Level(Game* game): game(game) {
 
-    ~Level() {
-        PRINT("LEVEL: destructor called");
-        for(Enemy* e: enemies)
-            delete e;
+        set_name("Level");
     }
-
-    string get_name() { return "Level"; }
 
     /**
      * @brief Load a level from a file.
@@ -54,10 +50,6 @@ public:
      *
      */
     void save();
-
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-    void update(float delta) override;
 
     void set_pos(const vec2& pos) override {}
 
@@ -75,7 +67,7 @@ public:
 
     const vec2& get_checkpoint(const vec2& region);
 
-    std::vector<Platform>& get_platforms() { return platforms; }
+    std::vector<Platform*>& get_platforms() { return platforms; }
 
     std::vector<Enemy*>& get_enemies() { return enemies; }
 };

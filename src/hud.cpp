@@ -6,6 +6,7 @@
 #define HUD_DEBUG_VEL "debug_vel"
 #define HUD_DEBUG_COL "debug_col"
 #define HUD_DEBUG_REG "debug_reg"
+#define HUD_DEBUG_ENT "debug_ent"
 
 #define HUD_TIMER "timer"
 
@@ -22,6 +23,7 @@ HUD::HUD(Game* game): game(game) {
     add_elm(HUD_DEBUG_POS, {-600, -320});
     add_elm(HUD_DEBUG_VEL, {-600, -320 + 16});
     add_elm(HUD_DEBUG_COL, {-600, -320 + 64});
+    add_elm(HUD_DEBUG_ENT, {-600, -320 + 128});
     add_elm(HUD_DEBUG_REG, { 000, -320});
 }
 
@@ -94,4 +96,6 @@ void HUD::update(float delta) {
         "can jump = " + STR(player.can_jump()) + "\n"
         "dashes = " + STR(player.get_num_dashes()) + "\n"
     );
+
+    set_elm(HUD_DEBUG_ENT, "ents: " + STR(game->get_entity_manager().entity_count_rec()));
 }

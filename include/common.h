@@ -46,4 +46,6 @@ namespace game {
     float round(float n, int decimals = 2);
 
     std::string round_str(float n, int decimals = 2);
+
+    string demangle(const char *name);
 }

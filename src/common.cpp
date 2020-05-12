@@ -3,6 +3,7 @@
 #include "vector/vec2.h"
 #include <math.h>
 #include <sstream>
+#include <cxxabi.h>
 
 
 inline float lerp(float a, float b, float t) {
@@ -31,5 +32,10 @@ namespace game {
 
         ss << std::fixed << n;
         return ss.str();
+    }
+
+    string demangle(const char *name) {
+
+        return abi::__cxa_demangle(name, NULL, NULL, NULL);
     }
 }

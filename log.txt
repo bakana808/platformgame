@@ -1,0 +1,1597 @@
+GNU gdb (GDB) 8.1
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-w64-mingw32".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from bin\main...done.
+(gdb) d e run
+Starting program: F:\code\ee205\final\bin\main.exe 
+[New Thread 20260.0x23e0]
+[New Thread 20260.0x608c]
+[New Thread 20260.0x5328]
+[New Thread 20260.0x6bb0]
+[New Thread 20260.0x1d18]
+[New Thread 20260.0x6680]
+[New Thread 20260.0x5004]
+[Thread 20260.0x6680 exited with code 0]
+[Thread 20260.0x5004 exited with code 0]
+[New Thread 20260.0x6368]
+[Thread 20260.0x1d18 exited with code 0]
+[New Thread 20260.0x51a0]
+[New Thread 20260.0x59a4]
+[New Thread 20260.0x4a34]
+[New Thread 20260.0x3e28]
+[New Thread 20260.0x2924]
+Player: adding sub-ent 0x2d18070 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0x2d18280 (N2sf11ConvexShapeE)
+Player: adding sub-ent 0x2d1c5e0 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0x2d1c940 (N2sf11CircleShapeE)
+Player: adding sub-ent 0x2d1d360 (N2sf14RectangleShapeE)
+Root: adding sub-ent 0x2d1aba0 (Player)
+Root: adding sub-ent 0x2d1d7e0 (Level)
+added HUD element @ [0.00, 320.00] (id=timer)
+added HUD element @ [-600.00, -320.00] (id=debug_pos)
+added HUD element @ [-600.00, -304.00] (id=debug_vel)
+added HUD element @ [-600.00, -256.00] (id=debug_col)
+added HUD element @ [-600.00, -192.00] (id=debug_ent)
+added HUD element @ [0.00, -320.00] (id=debug_reg)
+[New Thread 20260.0x2164]
+created game
+loading level from "level.txt"...
+Level: adding platform
+Platform: adding sub-ent 0x2d49aa0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d49df0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4a340 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d49850 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d498e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d4ac80 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4b1d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4a8a0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d4a930 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d4bb10 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4c020 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4b730 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d4b7c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d4ca00 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4cf10 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4c620 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d4c6b0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d4d850 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4dd60 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4d470 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d4d500 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d4d630 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4ebd0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4c580 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d4e400 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d4f510 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d4fa20 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4f130 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d4f1c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d50360 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d50870 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4ff80 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d50010 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d511b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d516c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d50dd0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d50e60 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d50f90 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d52530 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d4e2d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d51d80 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d52e70 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d53380 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d52a90 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d52b20 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d53cc0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d541d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d538e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d53970 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d54b10 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d55020 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d54730 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d547c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d55960 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d55e70 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d55580 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d55610 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d567b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d56cc0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d563d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d56460 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d57600 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d57b10 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d57220 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d572b0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d58450 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d58960 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d58070 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d51cb0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d59360 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d59870 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d51c20 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d59120 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5a1b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5a6c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d59dd0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d59e60 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5b000 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5b510 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d5ac20 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d5acb0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5be50 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5c360 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d5ba70 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d5bb00 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5cca0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5d1b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d5c8c0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d5c950 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5daf0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5e000 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d5d710 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d5d7a0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5e940 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5ee50 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d5e560 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d5e5f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d5f790 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d5fca0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d5f3b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d5f440 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d605e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d60af0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d60200 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d60290 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d61430 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d61940 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d61050 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d610e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d62280 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d62790 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d61ea0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d61f30 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d630d0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d635e0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d62cf0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d62d80 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d63f20 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d64430 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d63b40 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d63bd0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d64d70 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d65280 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d64990 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d64a20 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d65bc0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d660d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d657e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d65870 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d66a10 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d66f20 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d66630 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d666c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d67a70 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d67f80 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d58ec0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d58f50 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d688c0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d68d80 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d684e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d68570 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d696c0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d69bd0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d692e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d69370 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6a510 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d6aa20 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6a130 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6a1c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6b360 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d6b870 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6af80 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6b010 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6c1b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d6c6c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6bdd0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6be60 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6d000 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d6d510 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6cc20 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6ccb0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6de50 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d6e360 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6da70 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6db00 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6eca0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d6f1b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6e8c0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6e950 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d6faf0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d70000 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d6f710 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d6f7a0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d70940 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d70e50 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d70560 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d705f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d71790 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d71ca0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d713b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d71440 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d725e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d72af0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d72200 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d72290 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d73430 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d73940 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d73050 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d730e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d74280 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d74790 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d73ea0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d73f30 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d750d0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d755e0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d74cf0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d74d80 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d75f20 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d76430 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d75b40 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d75bd0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d76d70 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d77280 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d76990 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d76a20 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d77bc0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d780d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d777e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d77870 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d78a10 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d78f20 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d78630 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d786c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d79860 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d79d70 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d79480 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d79510 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7a6b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d7abc0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7a2d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7a360 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7b500 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d7ba10 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7b120 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7b1b0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7c350 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d7c860 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7bf70 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7c000 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7d1a0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d7d6b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7cdc0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7ce50 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7dff0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d7e500 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7dc10 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7dca0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7ee40 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d7f350 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7ea60 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7eaf0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d7fc90 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d801a0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d7f8b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d7f940 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d80ae0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d80ff0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d80700 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d80790 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d81930 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d81e40 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d81550 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d815e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d82780 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d82c90 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d823a0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d82430 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d835d0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d83ae0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d831f0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d83280 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d67860 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d84d30 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d67480 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d67510 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d85670 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d85b80 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d85290 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d85320 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d864c0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d869d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d860e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d86170 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d87310 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d87820 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d86f30 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d86fc0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d88160 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d88670 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d87d80 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d87e10 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d88fb0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d894c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d88bd0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d88c60 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d89e00 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8a310 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d89a20 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d89ab0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d8ac50 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8b160 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8a870 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8a900 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d8baa0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8bfb0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8b6c0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8b750 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d8c8f0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8ce00 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8c510 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8c5a0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d8d740 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8dc50 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8d360 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8d3f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d8e590 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8eaa0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8e1b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8e240 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d8f3e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d8f8f0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8f000 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8f090 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d90230 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d90740 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d8fe50 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d8fee0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d91080 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d91590 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d90ca0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d90d30 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d91ed0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d923e0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d91af0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d91b80 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d92d20 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d93230 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d92940 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d929d0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d93b70 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d94080 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d93790 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d93820 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d949c0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d94ed0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d945e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d94670 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d95810 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d95d20 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d95430 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d954c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d96660 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d96b70 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d96280 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d96310 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d974b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d979c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d970d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d97160 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d98300 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d98810 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d97f20 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d97fb0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d99150 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d99660 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d98d70 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d98e00 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d99fa0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9a4b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d99bc0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d99c50 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d9adf0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9b300 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9aa10 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d9aaa0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d9bc40 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9c150 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9b860 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d9b8f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d9ca90 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9cfa0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9c6b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d9c740 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d9d8e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9ddf0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9d500 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d9d590 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d9e730 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9ec40 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9e350 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d9e3e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2d9f580 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2d9fa90 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9f1a0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d9f230 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da03d0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da08e0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d9fff0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da0080 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da1220 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da1730 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da0e40 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da0ed0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da2070 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da2580 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da1c90 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da1d20 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da2ec0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da33d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da2ae0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da2b70 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da3d10 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da4220 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da3930 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da39c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da4b60 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da5070 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da4780 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da4810 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da59b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da5ec0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da55d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da5660 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da6800 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da6d10 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da6420 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da64b0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da7650 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da7b60 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da7270 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da7300 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da84a0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da89b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da80c0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da8150 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2da92f0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2da9800 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da8f10 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da8fa0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2daa140 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2daa650 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2da9d60 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2da9df0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2daaf90 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dab4a0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2daabb0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2daac40 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dabde0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dac2f0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2daba00 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2daba90 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dacc30 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dad140 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dac850 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dac8e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dada80 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dadf90 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dad6a0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dad730 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dae8d0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2daede0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dae4f0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dae580 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2daf720 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dafc30 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2daf340 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2daf3d0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db0570 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db0a80 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db0190 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db0220 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db13c0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db18d0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db0fe0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db1070 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db2210 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db2720 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db1e30 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db1ec0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db3060 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db3570 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db2c80 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db2d10 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db3eb0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db43c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db3ad0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db3b60 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db4d00 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db5210 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db4920 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db49b0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db5b50 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db6060 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db5770 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db5800 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db69a0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db6eb0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db65c0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db6650 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db77f0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db7d00 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db7410 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db74a0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db8640 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db8b50 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db8260 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db82f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2db9490 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2db99a0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db90b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db9140 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dba2e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dba7f0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2db9f00 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2db9f90 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dbb130 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dbb640 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dbad50 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dbade0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dbbf80 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dbc490 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dbbba0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dbbc30 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dbcdd0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dbd2e0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dbc9f0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dbca80 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dbec80 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dbeee0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dbe8a0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2d84810 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dbea30 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dbf760 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2d84780 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dbefb0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc00a0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc05b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dbfcc0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dbfd50 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc0ef0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc1400 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc0b10 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc0ba0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc1d40 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc2250 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc1960 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc19f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc2b90 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc30a0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc27b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc2840 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc39e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc3ef0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc3600 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc3690 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc4840 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc4d50 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc4460 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc44f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc5690 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc5ba0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc52b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc5340 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc64e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc69f0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc6100 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc6190 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc7330 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc7840 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc6f50 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc6fe0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc8180 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc8690 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc7da0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc7e30 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc8fd0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dc94e0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc8bf0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc8c80 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dc9e20 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dca330 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dc9a40 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dc9ad0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dcac70 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dcb180 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dca890 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dca920 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dcbac0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dcbfd0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dcb6e0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dcb770 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dcc910 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dcce20 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dcc530 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dcc5c0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dcd760 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dcdc70 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dcd380 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dcd410 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0x2dce5b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0x2dceac0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0x2dce1d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0x2dce260 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc04b0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc09c0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc00d0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc0160 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc1300 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc1810 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc0f20 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc0fb0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc2150 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc2660 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc1d70 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc1e00 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc2fa0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc34b0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc2bc0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc2c50 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc3df0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc4300 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc3a10 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc3aa0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc4c40 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc5150 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc4860 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc48f0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc5a90 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc5fa0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc56b0 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc5740 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc68e0 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc6df0 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc6500 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc6590 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc7730 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc7c40 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc7350 (Platform)
+Level: adding platform
+Platform: adding sub-ent 0xbbc73e0 (N2sf14RectangleShapeE)
+Platform: adding sub-ent 0xbbc8580 (N2sf11CircleShapeE)
+Platform: adding sub-ent 0xbbc8a90 (N2sf11CircleShapeE)
+Level: adding sub-ent 0xbbc81a0 (Platform)
+Level: adding enemy
+creating enemy
+Enemy: adding sub-ent 0xbbc8230 (N2sf11ConvexShapeE)
+    done
+Level: adding sub-ent 0x2d497a0 (Enemy)
+Level: adding enemy
+creating enemy
+Enemy: adding sub-ent 0xbbc9240 (N2sf11ConvexShapeE)
+    done
+Level: adding sub-ent 0xbbc9190 (Enemy)
+Level: adding enemy
+creating enemy
+Enemy: adding sub-ent 0xbbc9650 (N2sf11ConvexShapeE)
+    done
+Level: adding sub-ent 0xbbc95a0 (Enemy)
+Level: adding checkpoint
+Level: adding checkpoint
+Level: adding checkpoint
+Level: adding checkpoint
+Level: adding message
+Level: adding sub-ent 0xbbc9dc0 (N2sf4TextE)
+Level: adding message
+Level: adding sub-ent 0xbbca120 (N2sf4TextE)
+Level: adding message
+Level: adding sub-ent 0xbbc9fe0 (N2sf4TextE)
+Level: adding checkpoint
+finished loading. 164 sub-ents.
+entered region[0.00, 0.00]: [-1000.00, -500.00] to [1000.00, 500.00]
+Player: adding sub-ent 0xbbd4ca0 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbd4f70 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbda960 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbdac30 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbdafb0 (N2sf14RectangleShapeE)
+jump
+Player: deleting sub-ent 0xbbd4ca0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbd4ca0
+Player: sub-ents reduced from 10 -> 9
+Player: deleting sub-ent 0xbbd4f70 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbd4f70
+Player: sub-ents reduced from 9 -> 8
+Player: deleting sub-ent 0xbbda960 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbda960
+Player: sub-ents reduced from 8 -> 7
+Player: deleting sub-ent 0xbbdac30 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbdac30
+Player: sub-ents reduced from 7 -> 6
+Player: deleting sub-ent 0xbbdafb0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbdafb0
+Player: sub-ents reduced from 6 -> 5
+Player: adding sub-ent 0xbbdb140 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbd4ca0 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbd4f70 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbda960 (N2sf14RectangleShapeE)
+Player: adding sub-ent 0xbbdac30 (N2sf14RectangleShapeE)
+jump
+unspinning
+Player: deleting sub-ent 0xbbdb140 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbdb140
+Player: sub-ents reduced from 10 -> 9
+Player: deleting sub-ent 0xbbd4ca0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbd4ca0
+Player: sub-ents reduced from 9 -> 8
+Player: deleting sub-ent 0xbbd4f70 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbd4f70
+Player: sub-ents reduced from 8 -> 7
+Player: deleting sub-ent 0xbbda960 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbda960
+Player: sub-ents reduced from 7 -> 6
+Player: deleting sub-ent 0xbbdac30 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbdac30
+Player: sub-ents reduced from 6 -> 5
+UNNAMED: deleting sub-ent 0x2d1aba0 (Player)
+UNNAMED: deleting sub-ent 0x2d18070 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d18070
+UNNAMED: sub-ents reduced from 5 -> 4
+UNNAMED: deleting sub-ent 0x2d1c5e0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d1c5e0
+UNNAMED: sub-ents reduced from 4 -> 3
+UNNAMED: deleting sub-ent 0x2d1d360 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d1d360
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: deleting sub-ent 0x2d1d7e0 (Level)
+LEVEL: destructor called
+UNNAMED: deleting sub-ent 0xbbc8230 (N2sf11ConvexShapeE)
+N2sf11ConvexShapeE: destructor called 0xbbc8230
+UNNAMED: sub-ents reduced from 1 -> 0
+UNNAMED: deleting sub-ent 0xbbc9240 (N2sf11ConvexShapeE)
+N2sf11ConvexShapeE: destructor called 0xbbc9240
+UNNAMED: sub-ents reduced from 1 -> 0
+UNNAMED: deleting sub-ent 0xbbc9650 (N2sf11ConvexShapeE)
+N2sf11ConvexShapeE: destructor called 0xbbc9650
+UNNAMED: sub-ents reduced from 1 -> 0
+UNNAMED: deleting sub-ent 0x2d49850 (Platform)
+UNNAMED: deleting sub-ent 0x2d49aa0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d49aa0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d4a340 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d4a340
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 164 -> 163
+UNNAMED: deleting sub-ent 0x2d4b730 (Platform)
+UNNAMED: deleting sub-ent 0x2d4a930 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d4a930
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d4c020 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d4c020
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 163 -> 162
+UNNAMED: deleting sub-ent 0x2d4d470 (Platform)
+UNNAMED: deleting sub-ent 0x2d4c6b0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d4c6b0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d4dd60 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d4dd60
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 162 -> 161
+UNNAMED: deleting sub-ent 0x2d4f130 (Platform)
+UNNAMED: deleting sub-ent 0x2d4e400 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d4e400
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d4fa20 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d4fa20
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 161 -> 160
+UNNAMED: deleting sub-ent 0x2d50dd0 (Platform)
+UNNAMED: deleting sub-ent 0x2d50010 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d50010
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d516c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d516c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 160 -> 159
+UNNAMED: deleting sub-ent 0x2d52a90 (Platform)
+UNNAMED: deleting sub-ent 0x2d51d80 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d51d80
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d53380 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d53380
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 159 -> 158
+UNNAMED: deleting sub-ent 0x2d54730 (Platform)
+UNNAMED: deleting sub-ent 0x2d53970 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d53970
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d55020 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d55020
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 158 -> 157
+UNNAMED: deleting sub-ent 0x2d563d0 (Platform)
+UNNAMED: deleting sub-ent 0x2d55610 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d55610
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d56cc0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d56cc0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 157 -> 156
+UNNAMED: deleting sub-ent 0x2d58070 (Platform)
+UNNAMED: deleting sub-ent 0x2d572b0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d572b0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d58960 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d58960
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 156 -> 155
+UNNAMED: deleting sub-ent 0x2d59dd0 (Platform)
+UNNAMED: deleting sub-ent 0x2d59120 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d59120
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d5a6c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d5a6c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 155 -> 154
+UNNAMED: deleting sub-ent 0x2d5ba70 (Platform)
+UNNAMED: deleting sub-ent 0x2d5acb0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d5acb0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d5c360 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d5c360
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 154 -> 153
+UNNAMED: deleting sub-ent 0x2d5d710 (Platform)
+UNNAMED: deleting sub-ent 0x2d5c950 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d5c950
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d5e000 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d5e000
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 153 -> 152
+UNNAMED: deleting sub-ent 0x2d5f3b0 (Platform)
+UNNAMED: deleting sub-ent 0x2d5e5f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d5e5f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d5fca0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d5fca0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 152 -> 151
+UNNAMED: deleting sub-ent 0x2d61050 (Platform)
+UNNAMED: deleting sub-ent 0x2d60290 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d60290
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d61940 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d61940
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 151 -> 150
+UNNAMED: deleting sub-ent 0x2d62cf0 (Platform)
+UNNAMED: deleting sub-ent 0x2d61f30 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d61f30
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d635e0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d635e0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 150 -> 149
+UNNAMED: deleting sub-ent 0x2d64990 (Platform)
+UNNAMED: deleting sub-ent 0x2d63bd0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d63bd0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d65280 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d65280
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 149 -> 148
+UNNAMED: deleting sub-ent 0x2d66630 (Platform)
+UNNAMED: deleting sub-ent 0x2d65870 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d65870
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d66f20 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d66f20
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 148 -> 147
+UNNAMED: deleting sub-ent 0x2d684e0 (Platform)
+UNNAMED: deleting sub-ent 0x2d58f50 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d58f50
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d68d80 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d68d80
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 147 -> 146
+UNNAMED: deleting sub-ent 0x2d6a130 (Platform)
+UNNAMED: deleting sub-ent 0x2d69370 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d69370
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d6aa20 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d6aa20
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 146 -> 145
+UNNAMED: deleting sub-ent 0x2d6bdd0 (Platform)
+UNNAMED: deleting sub-ent 0x2d6b010 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d6b010
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d6c6c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d6c6c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 145 -> 144
+UNNAMED: deleting sub-ent 0x2d6da70 (Platform)
+UNNAMED: deleting sub-ent 0x2d6ccb0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d6ccb0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d6e360 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d6e360
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 144 -> 143
+UNNAMED: deleting sub-ent 0x2d6f710 (Platform)
+UNNAMED: deleting sub-ent 0x2d6e950 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d6e950
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d70000 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d70000
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 143 -> 142
+UNNAMED: deleting sub-ent 0x2d713b0 (Platform)
+UNNAMED: deleting sub-ent 0x2d705f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d705f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d71ca0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d71ca0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 142 -> 141
+UNNAMED: deleting sub-ent 0x2d73050 (Platform)
+UNNAMED: deleting sub-ent 0x2d72290 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d72290
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d73940 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d73940
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 141 -> 140
+UNNAMED: deleting sub-ent 0x2d74cf0 (Platform)
+UNNAMED: deleting sub-ent 0x2d73f30 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d73f30
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d755e0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d755e0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 140 -> 139
+UNNAMED: deleting sub-ent 0x2d76990 (Platform)
+UNNAMED: deleting sub-ent 0x2d75bd0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d75bd0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d77280 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d77280
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 139 -> 138
+UNNAMED: deleting sub-ent 0x2d78630 (Platform)
+UNNAMED: deleting sub-ent 0x2d77870 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d77870
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d78f20 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d78f20
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 138 -> 137
+UNNAMED: deleting sub-ent 0x2d7a2d0 (Platform)
+UNNAMED: deleting sub-ent 0x2d79510 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d79510
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d7abc0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d7abc0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 137 -> 136
+UNNAMED: deleting sub-ent 0x2d7bf70 (Platform)
+UNNAMED: deleting sub-ent 0x2d7b1b0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d7b1b0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d7c860 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d7c860
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 136 -> 135
+UNNAMED: deleting sub-ent 0x2d7dc10 (Platform)
+UNNAMED: deleting sub-ent 0x2d7ce50 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d7ce50
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d7e500 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d7e500
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 135 -> 134
+UNNAMED: deleting sub-ent 0x2d7f8b0 (Platform)
+UNNAMED: deleting sub-ent 0x2d7eaf0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d7eaf0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d801a0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d801a0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 134 -> 133
+UNNAMED: deleting sub-ent 0x2d81550 (Platform)
+UNNAMED: deleting sub-ent 0x2d80790 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d80790
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d81e40 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d81e40
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 133 -> 132
+UNNAMED: deleting sub-ent 0x2d831f0 (Platform)
+UNNAMED: deleting sub-ent 0x2d82430 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d82430
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d83ae0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d83ae0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 132 -> 131
+UNNAMED: deleting sub-ent 0x2d85290 (Platform)
+UNNAMED: deleting sub-ent 0x2d67510 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d67510
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d85b80 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d85b80
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 131 -> 130
+UNNAMED: deleting sub-ent 0x2d86f30 (Platform)
+UNNAMED: deleting sub-ent 0x2d86170 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d86170
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d87820 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d87820
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 130 -> 129
+UNNAMED: deleting sub-ent 0x2d88bd0 (Platform)
+UNNAMED: deleting sub-ent 0x2d87e10 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d87e10
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d894c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d894c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 129 -> 128
+UNNAMED: deleting sub-ent 0x2d8a870 (Platform)
+UNNAMED: deleting sub-ent 0x2d89ab0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d89ab0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d8b160 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d8b160
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 128 -> 127
+UNNAMED: deleting sub-ent 0x2d8c510 (Platform)
+UNNAMED: deleting sub-ent 0x2d8b750 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d8b750
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d8ce00 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d8ce00
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 127 -> 126
+UNNAMED: deleting sub-ent 0x2d8e1b0 (Platform)
+UNNAMED: deleting sub-ent 0x2d8d3f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d8d3f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d8eaa0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d8eaa0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 126 -> 125
+UNNAMED: deleting sub-ent 0x2d8fe50 (Platform)
+UNNAMED: deleting sub-ent 0x2d8f090 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d8f090
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d90740 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d90740
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 125 -> 124
+UNNAMED: deleting sub-ent 0x2d91af0 (Platform)
+UNNAMED: deleting sub-ent 0x2d90d30 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d90d30
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d923e0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d923e0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 124 -> 123
+UNNAMED: deleting sub-ent 0x2d93790 (Platform)
+UNNAMED: deleting sub-ent 0x2d929d0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d929d0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d94080 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d94080
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 123 -> 122
+UNNAMED: deleting sub-ent 0x2d95430 (Platform)
+UNNAMED: deleting sub-ent 0x2d94670 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d94670
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d95d20 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d95d20
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 122 -> 121
+UNNAMED: deleting sub-ent 0x2d970d0 (Platform)
+UNNAMED: deleting sub-ent 0x2d96310 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d96310
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d979c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d979c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 121 -> 120
+UNNAMED: deleting sub-ent 0x2d98d70 (Platform)
+UNNAMED: deleting sub-ent 0x2d97fb0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d97fb0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d99660 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d99660
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 120 -> 119
+UNNAMED: deleting sub-ent 0x2d9aa10 (Platform)
+UNNAMED: deleting sub-ent 0x2d99c50 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d99c50
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d9b300 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d9b300
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 119 -> 118
+UNNAMED: deleting sub-ent 0x2d9c6b0 (Platform)
+UNNAMED: deleting sub-ent 0x2d9b8f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d9b8f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d9cfa0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d9cfa0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 118 -> 117
+UNNAMED: deleting sub-ent 0x2d9e350 (Platform)
+UNNAMED: deleting sub-ent 0x2d9d590 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d9d590
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2d9ec40 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2d9ec40
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 117 -> 116
+UNNAMED: deleting sub-ent 0x2d9fff0 (Platform)
+UNNAMED: deleting sub-ent 0x2d9f230 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d9f230
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2da08e0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2da08e0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 116 -> 115
+UNNAMED: deleting sub-ent 0x2da1c90 (Platform)
+UNNAMED: deleting sub-ent 0x2da0ed0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2da0ed0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2da2580 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2da2580
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 115 -> 114
+UNNAMED: deleting sub-ent 0x2da3930 (Platform)
+UNNAMED: deleting sub-ent 0x2da2b70 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2da2b70
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2da4220 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2da4220
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 114 -> 113
+UNNAMED: deleting sub-ent 0x2da55d0 (Platform)
+UNNAMED: deleting sub-ent 0x2da4810 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2da4810
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2da5ec0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2da5ec0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 113 -> 112
+UNNAMED: deleting sub-ent 0x2da7270 (Platform)
+UNNAMED: deleting sub-ent 0x2da64b0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2da64b0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2da7b60 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2da7b60
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 112 -> 111
+UNNAMED: deleting sub-ent 0x2da8f10 (Platform)
+UNNAMED: deleting sub-ent 0x2da8150 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2da8150
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2da9800 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2da9800
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 111 -> 110
+UNNAMED: deleting sub-ent 0x2daabb0 (Platform)
+UNNAMED: deleting sub-ent 0x2da9df0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2da9df0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dab4a0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dab4a0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 110 -> 109
+UNNAMED: deleting sub-ent 0x2dac850 (Platform)
+UNNAMED: deleting sub-ent 0x2daba90 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2daba90
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dad140 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dad140
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 109 -> 108
+UNNAMED: deleting sub-ent 0x2dae4f0 (Platform)
+UNNAMED: deleting sub-ent 0x2dad730 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dad730
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2daede0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2daede0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 108 -> 107
+UNNAMED: deleting sub-ent 0x2db0190 (Platform)
+UNNAMED: deleting sub-ent 0x2daf3d0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2daf3d0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2db0a80 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2db0a80
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 107 -> 106
+UNNAMED: deleting sub-ent 0x2db1e30 (Platform)
+UNNAMED: deleting sub-ent 0x2db1070 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2db1070
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2db2720 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2db2720
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 106 -> 105
+UNNAMED: deleting sub-ent 0x2db3ad0 (Platform)
+UNNAMED: deleting sub-ent 0x2db2d10 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2db2d10
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2db43c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2db43c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 105 -> 104
+UNNAMED: deleting sub-ent 0x2db5770 (Platform)
+UNNAMED: deleting sub-ent 0x2db49b0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2db49b0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2db6060 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2db6060
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 104 -> 103
+UNNAMED: deleting sub-ent 0x2db7410 (Platform)
+UNNAMED: deleting sub-ent 0x2db6650 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2db6650
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2db7d00 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2db7d00
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 103 -> 102
+UNNAMED: deleting sub-ent 0x2db90b0 (Platform)
+UNNAMED: deleting sub-ent 0x2db82f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2db82f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2db99a0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2db99a0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 102 -> 101
+UNNAMED: deleting sub-ent 0x2dbad50 (Platform)
+UNNAMED: deleting sub-ent 0x2db9f90 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2db9f90
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dbb640 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dbb640
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 101 -> 100
+UNNAMED: deleting sub-ent 0x2dbc9f0 (Platform)
+UNNAMED: deleting sub-ent 0x2dbbc30 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dbbc30
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dbd2e0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dbd2e0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 100 -> 99
+UNNAMED: deleting sub-ent 0x2d84780 (Platform)
+UNNAMED: deleting sub-ent 0x2d84810 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2d84810
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dbf760 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dbf760
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 99 -> 98
+UNNAMED: deleting sub-ent 0x2dc0b10 (Platform)
+UNNAMED: deleting sub-ent 0x2dbfd50 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dbfd50
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dc1400 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dc1400
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 98 -> 97
+UNNAMED: deleting sub-ent 0x2dc27b0 (Platform)
+UNNAMED: deleting sub-ent 0x2dc19f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dc19f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dc30a0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dc30a0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 97 -> 96
+UNNAMED: deleting sub-ent 0x2dc4460 (Platform)
+UNNAMED: deleting sub-ent 0x2dc3690 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dc3690
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dc4d50 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dc4d50
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 96 -> 95
+UNNAMED: deleting sub-ent 0x2dc6100 (Platform)
+UNNAMED: deleting sub-ent 0x2dc5340 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dc5340
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dc69f0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dc69f0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 95 -> 94
+UNNAMED: deleting sub-ent 0x2dc7da0 (Platform)
+UNNAMED: deleting sub-ent 0x2dc6fe0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dc6fe0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dc8690 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dc8690
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 94 -> 93
+UNNAMED: deleting sub-ent 0x2dc9a40 (Platform)
+UNNAMED: deleting sub-ent 0x2dc8c80 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dc8c80
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dca330 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dca330
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 93 -> 92
+UNNAMED: deleting sub-ent 0x2dcb6e0 (Platform)
+UNNAMED: deleting sub-ent 0x2dca920 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dca920
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dcbfd0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dcbfd0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 92 -> 91
+UNNAMED: deleting sub-ent 0x2dcd380 (Platform)
+UNNAMED: deleting sub-ent 0x2dcc5c0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dcc5c0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0x2dcdc70 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0x2dcdc70
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 91 -> 90
+UNNAMED: deleting sub-ent 0xbbc00d0 (Platform)
+UNNAMED: deleting sub-ent 0x2dce260 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0x2dce260
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0xbbc09c0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0xbbc09c0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 90 -> 89
+UNNAMED: deleting sub-ent 0xbbc1d70 (Platform)
+UNNAMED: deleting sub-ent 0xbbc0fb0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbc0fb0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0xbbc2660 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0xbbc2660
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 89 -> 88
+UNNAMED: deleting sub-ent 0xbbc3a10 (Platform)
+UNNAMED: deleting sub-ent 0xbbc2c50 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbc2c50
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0xbbc4300 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0xbbc4300
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 88 -> 87
+UNNAMED: deleting sub-ent 0xbbc56b0 (Platform)
+UNNAMED: deleting sub-ent 0xbbc48f0 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbc48f0
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0xbbc5fa0 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0xbbc5fa0
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 87 -> 86
+UNNAMED: deleting sub-ent 0xbbc7350 (Platform)
+UNNAMED: deleting sub-ent 0xbbc6590 (N2sf14RectangleShapeE)
+N2sf14RectangleShapeE: destructor called 0xbbc6590
+UNNAMED: sub-ents reduced from 3 -> 2
+UNNAMED: deleting sub-ent 0xbbc7c40 (N2sf11CircleShapeE)
+N2sf11CircleShapeE: destructor called 0xbbc7c40
+UNNAMED: sub-ents reduced from 2 -> 1
+UNNAMED: sub-ents reduced from 86 -> 85
+
+Thread 1 received signal SIGSEGV, Segmentation fault.
+0x00000000004ec91e in CompositeEntity::delete_entity (this=0x2d1d7e0, 
+    it=0x2d497a0) at ./include/entity/composite.h:96
+96	        PRINT(get_name() << ": deleting sub-ent " << *it << " (" << (*it)->get_name() << ")");
+(gdb) bt
+#0  0x00000000004ec91e in CompositeEntity::delete_entity (this=0x2d1d7e0, 
+    it=0x2d497a0) at ./include/entity/composite.h:96
+#1  0x00000000004ecb37 in CompositeEntity::delete_entity (this=0x2d1d7e0, 
+    ent=0x2d497a0) at ./include/entity/composite.h:89
+#2  0x00000000004ecf2d in CompositeEntity::~CompositeEntity (this=0x2d1d7e0, 
+    __in_chrg=<optimized out>) at ./include/entity/composite.h:30
+#3  0x00000000004ede83 in Level::~Level (this=0x2d1d7e0, 
+    __in_chrg=<optimized out>) at ./include/level.h:38
+#4  0x00000000004edd35 in Level::~Level (this=0x2d1d7e0, 
+    __in_chrg=<optimized out>) at ./include/level.h:42
+#5  0x00000000004ec993 in CompositeEntity::delete_entity (this=0xd2f090, 
+    it=0x2d1d7e0) at ./include/entity/composite.h:98
+#6  0x00000000004ecb37 in CompositeEntity::delete_entity (this=0xd2f090, 
+    ent=0x2d1d7e0) at ./include/entity/composite.h:89
+#7  0x00000000004ecf2d in CompositeEntity::~CompositeEntity (this=0xd2f090, 
+    __in_chrg=<optimized out>) at ./include/entity/composite.h:30
+#8  0x00000000004eb6e6 in EntityManager::~EntityManager (this=0xd2f090, 
+    __in_chrg=<optimized out>) at ./include/entity/manager.h:7
+#9  0x0000000000403e29 in Game::~Game (this=0xd2ed90, 
+    __in_chrg=<optimized out>) at src/game.cpp:31
+#10 0x00000000004015a5 in main () at src/main.cpp:6
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 20260] will be killed.
+
+Quit anyway? (y or n) y

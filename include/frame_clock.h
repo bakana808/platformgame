@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <limits>
 
 #define FRAME_SAMPLES 100
 
@@ -24,7 +25,7 @@ private:
      */
     bool ready = false;
 
-    float* last_frame;
+    float last_frame = INFINITY;
 
     /**
      * @brief Upper limit of delta time (dt). The read value of get_delta()
@@ -41,7 +42,7 @@ public:
     }
 
     float get_delta() {
-        return fmin(upper_dt, frame_deltas[0]);
+        return fmin(upper_dt, last_frame);
     }
 
     int get_average_fps() {

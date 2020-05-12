@@ -10,8 +10,8 @@ Game::Game()
 , hud_view({0.f, 0.f}, {WIDTH, HEIGHT})
 , start(20,50,"Start Game")
 {
-    player = em.create_entity(new Player(view, hud_view));
-    level = em.create_entity(new Level(this));
+    player = em.spawn_entity<Player>(view, hud_view);
+    level = em.spawn_entity<Level>(this);
 
     player->set_level(*level);
 
@@ -81,10 +81,10 @@ void Game::processEvents() {
 
             if(event.key.code == Key::E) {
                 if(editor) {
-                    delete editor;
+                    em.delete_entity(editor);
                     editor = nullptr;
                 } else {
-                    editor = new Editor(this);
+                    editor = em.spawn_entity<Editor>(this);
 
                     vec2 pos = player->get_pos();
                     editor->set_pos({roundf(pos.x / 10) * 10, roundf(pos.y / 10) * 10});
@@ -158,8 +158,6 @@ void Game::render() {
     // PRINT("drawing EM");
     window->setView(view);
     window->draw(em); // entity manager
-
-    if(editor) window->draw(*editor);
 
     //=========================================================================
     // HUD RENDERING

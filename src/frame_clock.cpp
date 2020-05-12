@@ -12,6 +12,8 @@ void FrameClock::push_frame() {
 
     float delta_time = clock.getElapsedTime().asSeconds();
 
+    last_frame = delta_time;
+
     if( idx == size - 1 ) ready = true;
 
     frame_deltas[idx] = delta_time;  // update delta at this index

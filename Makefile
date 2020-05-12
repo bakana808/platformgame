@@ -114,6 +114,7 @@ ifeq ($(OS), Windows_NT)
 
 	# exec command
 	RUN.c = ${BINDIR}\${OUTPUT}.exe
+	DEBUG.c = gdb -ex='set confirm on' -ex=run -ex=quit --args $(BINDIR)\$(OUTPUT)
 	#$(OUTFILE)
 
 	# commands to silently make missing folders
@@ -143,6 +144,7 @@ else
 
 	# exec command
 	RUN.c = ${BINDIR}/$(OUTPUT)
+	DEBUG.c = gdb -ex run $(BINDIR)/$(OUTPUT)
 
 	MKDIR_OBJS.c = @mkdir -p $(@D)
 	MKDIR_DEPS.c = @mkdir -p $(subst $(OBJDIR),$(DEPDIR),$(@D))
@@ -211,14 +213,15 @@ info :
 
 # sets flags to compile the program for use in GDB
 set-debug:
-	$(eval FLAGS=-g)
+	$(eval FLAGS=-g -DDEBUG)
 
 all : info $(EXES)
 
 run: all
 	$(RUN.c)
 
-run-debug: set-debug run
+run-debug: set-debug all
+	$(DEBUG.c)
 
 run-test: bin/test/test-statetimer
 	bin/test-statetimer.exe
