@@ -84,7 +84,16 @@ CFLAGS += -U__STRICT_ANSI__ -Wall -std=c++1z -D_DEBUG -I"./$(INCDIR)"
 # automatically find all source files in this project and store it in $(SRCS)
 # (first wildcard gets root-level .cpp's, second gets nested .cpp's)
 
-SRCS := $(wildcard $(SRCDIR)**/*.cpp) $(wildcard $(SRCDIR)/**/*.cpp)
+ifeq ($(OS), Windows_NT)
+SRCS := $(shell wsl find src/ -type f -name "*.cpp")
+# SRCS := $(shell dir src\*.cpp /b/s)
+# CD   := $(shell cd) # get current directory
+# SRCS := $(subst $(CD)\,,$(SRCS)) # convert abs paths to rel paths
+# SRCS := $(subst \,/,$(SRCS)) # convert backslashes to slashes
+else
+SRCS := $(shell find src/ -type f -name "*.cpp")
+endif
+
 SRCS := $(filter-out $(ENTRIES),$(SRCS))
 OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 DEPS := $(wildcard $(DEPDIR)**/*.d) $(wildcard $(DEPDIR)/**/*.d)
@@ -99,6 +108,8 @@ EXES := $(EXES:$(SRCDIR)/%=$(BINDIR)/%)
 # ------------
 
 ifeq ($(OS), Windows_NT)
+
+
 	CFLAGS += -L'${SFML}/lib'
 	# -isystem adds this folder as system headers
 	# (won't be included when generating dependencies)
@@ -204,6 +215,7 @@ info :
 	@echo COMPILING INFO:
 	@echo =====================================================================
 	@echo additional flags: $(FLAGS)
+	@echo working dir: $(CD)
 	@echo src dir: $(SRCDIR)/
 	@echo inc dir: $(INCDIR)/
 	@echo dep dir: $(DEPDIR)/
