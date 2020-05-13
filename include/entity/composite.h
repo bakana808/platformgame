@@ -27,7 +27,11 @@ public:
     ~CompositeEntity() {
 
         // delete all pointers
-        for(Entity* ent: entities) delete_entity(ent);
+        for(auto it = entities.begin(); it != entities.end();) {
+            it = delete_entity(it);
+        }
+
+        PRINT(get_name() << ": finished deleting. " << entities.size() << " sub-ents remain.");
     }
 
     /**

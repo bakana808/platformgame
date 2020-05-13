@@ -12,8 +12,8 @@ public:
         this->set_name("Entity");
     }
 
-    friend class sf::Drawable;
 
+    using CompositeEntity::Entity;
     using CompositeEntity::Drawable;
     using CompositeEntity::spawn_entity;
     using CompositeEntity::delete_entity;
