@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "common.h"
-#include "entity/controllable.h"
+#include "kyo/common.h"
+#include "kyo/entity/controllable.h"
 
 #define EDITOR_GRID 10
 

@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "entity.h"
-#include "vector/vec2.h"
+#include "kyo/entity.h"
+#include "kyo/vector/vec2.h"
 
 
 /**

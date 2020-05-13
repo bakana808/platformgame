@@ -3,7 +3,7 @@
 
 #define _USE_MATH_DEFINES
 
-#include "common.h"
+#include "kyo/common.h"
 #include <SFML/Graphics.hpp>
 #include <math.h>
 #include <iostream>

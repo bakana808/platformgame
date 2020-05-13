@@ -1,5 +1,5 @@
 
-#include "game.h"
+#include "kyo/game.h"
 
 
 int main(void) {

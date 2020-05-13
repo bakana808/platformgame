@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "common.h"
+#include "kyo/common.h"
 #include "player.h"
-#include "entity.h"
-#include "collision.h"
+#include "kyo/entity.h"
+#include "kyo/collision.h"
 #include <vector>
 
 

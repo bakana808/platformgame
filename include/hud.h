@@ -1,9 +1,9 @@
 
 #include <map>
 
-#include "common.h"
-#include "entity.h"
-#include "game.h"
+#include "kyo/common.h"
+#include "kyo/entity.h"
+#include "kyo/game.h"
 
 using std::map;
 

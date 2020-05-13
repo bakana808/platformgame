@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "common.h"
-#include "entity.h"
-#include "entity/object.h"
-#include "vector/vec2.h"
+#include "kyo/common.h"
+#include "kyo/entity.h"
+#include "kyo/entity/object.h"
+#include "kyo/vector/vec2.h"
 #include <vector>
 #include <algorithm>
 

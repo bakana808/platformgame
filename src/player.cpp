@@ -2,8 +2,8 @@
 
 #include "player.h"
 #include "level.h"
-#include "vector/vec2.h"
-#include "collision.h"
+#include "kyo/vector/vec2.h"
+#include "kyo/collision.h"
 #include "level/region.h"
 #include <iostream>
 #define _USE_MATH_DEFINES

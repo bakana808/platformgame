@@ -1,6 +1,6 @@
 
 #include "enemy.h"
-#include "game.h"
+#include "kyo/game.h"
 #include "level/region.h"
 #include <math.h>
 

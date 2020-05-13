@@ -4,9 +4,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "common.h"
-#include "vector/vec2.h"
-#include "entity/composite.h"
+#include "kyo/common.h"
+#include "kyo/vector/vec2.h"
+#include "kyo/entity/composite.h"
 
 
 enum PlatformType { NORMAL = 0, HAZARD };

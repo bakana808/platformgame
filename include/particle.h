@@ -1,6 +1,6 @@
 
-#include "common.h"
-#include "entity/object.h"
+#include "kyo/common.h"
+#include "kyo/entity/object.h"
 
 
 class Particle: public GameObject<sf::RectangleShape> {

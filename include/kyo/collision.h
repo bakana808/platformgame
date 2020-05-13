@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "common.h"
-#include "vector/vec2.h"
+#include "kyo/common.h"
+#include "kyo/vector/vec2.h"
 
 #define _USE_MATH_DEFINES
 #include <vector>

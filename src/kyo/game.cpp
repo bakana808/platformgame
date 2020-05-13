@@ -1,5 +1,5 @@
 
-#include "game.h"
+#include "kyo/game.h"
 #include "player.h"
 #include "hud.h"
 #include <math.h>

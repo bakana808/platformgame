@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "common.h"
+#include "kyo/common.h"
 #include <iostream>
 
 using namespace std;

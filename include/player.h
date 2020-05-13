@@ -6,9 +6,9 @@
 #include <map>
 #include <set>
 
-#include "common.h"
+#include "kyo/common.h"
 #include "platform.h"
-#include "entity/composite.h"
+#include "kyo/entity/composite.h"
 #include "particle.h"
 
 #define P_WALK_MAX_VEL 800

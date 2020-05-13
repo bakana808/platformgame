@@ -1,5 +1,5 @@
 
-#include "entity/composite.h"
+#include "kyo/entity/composite.h"
 
 
 void CompositeEntity::delete_entity(Entity* ent) {

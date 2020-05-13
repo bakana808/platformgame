@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "common.h"
-#include "vector/vec2.h"
-#include "entity/composite.h"
+#include "kyo/common.h"
+#include "kyo/vector/vec2.h"
+#include "kyo/entity/composite.h"
 #include "enemy.h"
 
 #include <fstream>

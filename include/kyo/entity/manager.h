@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "entity/composite.h"
+#include "kyo/entity/composite.h"
 
 
 class EntityManager: private CompositeEntity {

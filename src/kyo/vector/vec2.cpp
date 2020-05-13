@@ -1,5 +1,5 @@
 
-#include "vector/vec2.h"
+#include "kyo/vector/vec2.h"
 #include <iostream>
 
 

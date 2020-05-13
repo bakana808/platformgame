@@ -5,8 +5,8 @@
 #include <cmath>
 #include <vector>
 
-#include "frame_clock.h"
-#include "common.h"
+#include "kyo/frame_clock.h"
+#include "kyo/common.h"
 #include "player.h"
 #include "platform.h"
 #include "level.h"
@@ -14,7 +14,7 @@
 #include "enemy.h"
 #include "editor.h"
 #include "obstacle.h"
-#include "entity/manager.h"
+#include "kyo/entity/manager.h"
 
 class HUD;
 

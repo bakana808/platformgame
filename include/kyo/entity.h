@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "common.h"
+#include "kyo/common.h"
 
 /**
  * @brief A drawable and updatable object.

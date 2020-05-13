@@ -1,6 +1,6 @@
 
 #include "editor.h"
-#include "game.h"
+#include "kyo/game.h"
 
 
 Editor::Editor(Game* game): game(game) {
